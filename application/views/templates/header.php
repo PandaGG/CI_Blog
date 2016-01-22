@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>CodeIgniter Test</title>
+        <title>Blog Test</title>
     </head>
     <body>
         
