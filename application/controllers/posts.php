@@ -13,7 +13,7 @@ class Posts extends CI_Controller{
 		$this->load->view('templates/footer', $data);
 	}
 	public function view($slug = NULL){
-		$data['post_item'] = $this->post_model->get_post($slug);
+		$data['post_item'] = $this->post_model->get_posts($slug);
 		if(empty($data['post_item'])){
 			show_404();
 		}
