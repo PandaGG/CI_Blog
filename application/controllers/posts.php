@@ -8,9 +8,10 @@ class Posts extends CI_Controller{
 	public function index(){
 		$data['title'] = 'All Blogs';
 		$data['posts'] = $this->post_model->get_posts();
-		$this->load->view('templates/header', $data);
+		$this->load->view('templates/header');
 		$this->load->view('posts/index', $data);
-		$this->load->view('templates/footer', $data);
+		$this->load->view('templates/sidebar');
+		$this->load->view('templates/footer');
 	}
 	public function view($slug = NULL){
 		$data['post_item'] = $this->post_model->get_posts($slug);
@@ -19,8 +20,9 @@ class Posts extends CI_Controller{
 		}
 		
 		$data['title'] = $data['post_item']['title'];
-		$this->load->view('templates/header', $data);
+		$this->load->view('templates/header');
 		$this->load->view('posts/view', $data);
-		$this->load->view('templates/footer', $data);
+		$this->load->view('templates/sidebar');
+		$this->load->view('templates/footer');
 	}
 }
