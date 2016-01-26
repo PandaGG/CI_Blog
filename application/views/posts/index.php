@@ -1,6 +1,6 @@
 <?php foreach($posts as $post): ?>	
 <div class="caption">
-	<h3><a href="<?php echo site_url('posts/'.$post['id']); ?>"><?php echo $post['post_title']; ?></a></h3>
+	<h3><a href="<?php echo site_url('posts/'.$post['post_id']); ?>"><?php echo $post['post_title']; ?></a></h3>
 	<div class="info">
 		<span>分类：<a href="#"><?php echo $post['post_category']; ?></a></span>
 		<span>|</span>
