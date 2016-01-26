@@ -14,9 +14,11 @@
     </head>
     <body>
     	<header id="header" role="banner">
-    		<nav class="navbar">
+    		<nav class="navbar navbar-default" role="navigation">
 	    		<div class="container">
-		    		<a href="/" class="navbar-brand">PanWiki</a>
+		    		<div class="navbar-header">
+		    			<a href="/" class="navbar-brand">PanWiki</a>
+		    		</div>
 		    		<ul id="ul-navbar" class="nav navbar-nav ">
 		    			<li><a href="#">首页</a></li>
 		    			<li><a href="#">分类</a></li>

@@ -1,6 +1,11 @@
-<h1><?php echo $title; ?></h1>
-<ul>
 <?php foreach($posts as $post): ?>	
-	<li><a href="<?php echo site_url('posts/'.$post['slug']); ?>"><?php echo $post['title']; ?></a></li>
+<div class="caption">
+	<h3><a href="<?php echo site_url('posts/'.$post['id']); ?>"><?php echo $post['post_title']; ?></a></h3>
+	<div class="info">
+		<span>分类：<a href="#"><?php echo $post['post_category']; ?></a></span>
+		<span>|</span>
+		<span>发布：<?php echo $post['post_date']; ?></span>
+	</div>
+	<p class="excrept"><?php echo $post['post_excerpt']; ?></p>
+</div>
 <?php endforeach;?>
-</ul>

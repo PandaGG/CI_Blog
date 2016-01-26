@@ -3,12 +3,12 @@ class Post_model extends CI_Model{
 	public function __construct(){
 		
 	}
-	public function get_posts($slug = NULL){
-		if($slug === NULL){
-			$query = $this->db->query('SELECT * FROM posts');
+	public function get_posts($id = NULL){
+		if($id === NULL){
+			$query = $this->db->query('SELECT * FROM posts ORDER BY post_date DESC');
 			return $query->result_array();
 		}else{
-			$query = $this->db->query('SELECT * FROM posts WHERE slug = ?', array($slug));
+			$query = $this->db->query('SELECT * FROM posts WHERE id = ?', array($id));
 			return $query->row_array();
 		}
 	}

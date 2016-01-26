@@ -13,13 +13,12 @@ class Posts extends CI_Controller{
 		$this->load->view('templates/sidebar');
 		$this->load->view('templates/footer');
 	}
-	public function view($slug = NULL){
-		$data['post_item'] = $this->post_model->get_posts($slug);
-		if(empty($data['post_item'])){
+	public function view($id = NULL){
+		$post_result = $this->post_model->get_posts($id);
+		if(empty($post_result)){
 			show_404();
 		}
-		
-		$data['title'] = $data['post_item']['title'];
+		$data['post_item'] = $post_result;
 		$this->load->view('templates/header');
 		$this->load->view('posts/view', $data);
 		$this->load->view('templates/sidebar');
