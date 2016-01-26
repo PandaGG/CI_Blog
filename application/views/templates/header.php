@@ -20,22 +20,23 @@
 		    			<a href="/" class="navbar-brand">PanWiki</a>
 		    		</div>
 		    		<ul id="ul-navbar" class="nav navbar-nav ">
-		    			<li><a href="#">首页</a></li>
-		    			<li><a href="#">分类</a></li>
-		    			<li><a href="#">关于</a></li>
+		    			<li><a href="/">首页</a></li>
+		    			<li><a href="/categories">分类</a></li>
+		    			<li><a href="/about">关于</a></li>
 		    		</ul>
 		    		<div class="clearfix"></div>
 	    		</div>
     		</nav>
     	</header>
     	
-    	<!-- container begin -->
-    	<div class="container">
-    		<!-- row begin -->
-    		<div class="row">
-    			
-	   			<!-- main begin -->
-				<div id="main" class="col-lg-9">
+    	<section class="wrapper">
+	    	<!-- container begin -->
+	    	<div class="container">
+	    		<!-- row begin -->
+	    		<div class="row">
+	    			
+		   			<!-- main begin -->
+					<div id="main" class="col-lg-9">
 	   			
 	   				
     		
