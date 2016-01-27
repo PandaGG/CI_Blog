@@ -6,7 +6,7 @@
 		<meta name="description" content="研究与关注互联网">
 		<meta name="keywords" content="HTML, CSS, JS, JavaScript, PHP, web development">
 		<meta name="author" content="Josh">
-		<title>Blog Test</title>
+		<title>PanWiki博客</title>
 		<link rel="stylesheet" href="/assets/css/bootstrap.css" />
 	    <link rel="stylesheet" href="/assets/css/main.css" />
 	    <script src="/assets/js/jquery.min.js"></script>

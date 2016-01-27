@@ -5,7 +5,8 @@ html{
 	height:100%;
 }
 body{
-	min-height:100%;
+	position: relative;
+	min-height: 100%;
 	padding-bottom: 120px; /*footer*/
 }
 ol, ul{
@@ -51,6 +52,17 @@ li{
 .info{
 	color: #999;
 }
+
+/*sidebar*/
+ul.sidebar_list li{
+    padding-bottom: 5px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+    word-break: keep-all;
+}
+
 .footer-default{
 	bottom: 0;
     left: 0;
