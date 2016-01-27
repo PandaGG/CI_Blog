@@ -1,15 +1,17 @@
 <?php
-class Posts extends CI_Controller{
+class Posts extends MY_Controller{
 	public function __construct(){
 		parent::__construct();
 		$this->load->model('post_model');
-		
+		$this->widget('widget');
 	}
 	public function index(){
 		$data['posts'] = $this->post_model->get_posts();
 		$this->load->view('templates/header');
 		$this->load->view('posts/index', $data);
-		$this->load->view('templates/sidebar');
+		//$this->load->view('templates/sidebar');
+		
+		Widget::sidebar();
 		$this->load->view('templates/footer');
 	}
 	public function view($id = NULL){
