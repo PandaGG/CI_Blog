@@ -18,6 +18,7 @@ li{
 
 /*! reset bootstrap style */
 .navbar-default {
+	border-radius: 0;
     background-color: #16a085;
     border-color: #16a085;
 }
