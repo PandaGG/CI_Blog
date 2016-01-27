@@ -35,8 +35,6 @@
 	    		<!-- row begin -->
 	    		<div class="row">
 	    			
-		   			<!-- main begin -->
-					<div id="main" class="col-lg-9">
 	   			
 	   				
     		
