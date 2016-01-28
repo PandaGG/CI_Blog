@@ -6,7 +6,7 @@
 		<meta name="description" content="研究与关注互联网">
 		<meta name="keywords" content="HTML, CSS, JS, JavaScript, PHP, web development">
 		<meta name="author" content="Josh">
-		<title>PanWiki博客</title>
+		<title><?php echo $page_title; ?></title>
 		<link rel="stylesheet" href="/assets/css/bootstrap.css" />
 	    <link rel="stylesheet" href="/assets/css/main.css" />
 	    <script src="/assets/js/jquery.min.js"></script>
@@ -27,6 +27,12 @@
 		    		<div class="clearfix"></div>
 	    		</div>
     		</nav>
+    		<div class="sub-header">
+	    		<div class="container">
+	    			<h2>PandaGG的博客</h1>
+	    			<p>PandaGG做笔记的地方 - 关注互联网，热爱web开发</p>
+	    		</div>
+    		</div>
     	</header>
     	
     	<section class="wrapper">

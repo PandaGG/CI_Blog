@@ -22,10 +22,17 @@ Class MY_Controller extends CI_Controller {
 	 * @param string $main_html HTML内容字串
 	 * 
 	 */
-	protected function show_default_template($main_html = '')
+	protected function show_default_template($title = '', $main_html = '')
 	{
+		$site_name = 'PandaGG的博客';
+		if($title == ''){
+			$page_title = $site_name;
+		}else{
+			$page_title = $title.' | '.$site_name;
+		}
 		$this->widget('widget');
-		$this->load->view('templates/header');
+		
+		$this->load->view('templates/header',array('page_title'=>$page_title));
 		/*把页面输出的HTML内容放入模版中*/
 		$this->load->view('templates/main',array('main_page'=>$main_html));
 		Widget::sidebar();

@@ -11,4 +11,13 @@ Class Category_model extends CI_Model{
 					ORDER BY category_id ASC");
 		return $queries->result_array();
 	}
+	public function get_category_by_slug($slug = NULL){
+		if($slug === NULL){
+			return array();
+		}else{
+			$queries = $this->db->query("SELECT category_id, category_name, category_slug FROM categories WHERE category_slug = ? ", array($slug));
+			return $queries->result_array();
+		}
+		
+	}
 }

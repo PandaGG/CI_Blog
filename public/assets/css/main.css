@@ -43,6 +43,15 @@ li{
 }
 
 /*! site style */
+.sub-header{
+	padding-bottom: 5px;
+	border-bottom: 1px solid #dcdcdc;	
+}
+
+.sub-header h2{
+	color: #34495e;
+}
+
 .list-caption {
 	border-bottom: 1px solid #dcdcdc;
     margin-bottom: 4px;
@@ -55,7 +64,7 @@ li{
 }
 
 /*sidebar*/
-ul.sidebar_list li{
+ul.sidebar-list li{
     padding-bottom: 5px;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -73,6 +82,6 @@ ul.sidebar_list li{
     margin-top:30px;
     padding-top: 25px;
     padding-bottom: 25px;
-    background-color: #d3dade;
-    color: #777;
+    background-color: #647980;
+    color: white;
 }
