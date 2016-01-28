@@ -17,6 +17,7 @@ class Categories extends MY_Controller{
 	public function view($slug = NULL){
 		$data['posts'] = $this->post_model->get_category_posts($slug);
 		$category_info = $this->category_model->get_category_by_slug($slug);
+		error_log(print_r($category_info,true));
 		if(empty($category_info)){
 			$title = '';
 		}else{

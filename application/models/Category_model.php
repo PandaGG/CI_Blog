@@ -16,7 +16,7 @@ Class Category_model extends CI_Model{
 			return array();
 		}else{
 			$queries = $this->db->query("SELECT category_id, category_name, category_slug FROM categories WHERE category_slug = ? ", array($slug));
-			return $queries->result_array();
+			return $queries->row_array();
 		}
 		
 	}
