@@ -46,7 +46,7 @@ class Widget extends MY_Controller
 	private static function _lastest_posts()
 	{
 		self::$instance->load->model('post_model','sb_post_model');
-		$sb_data['sb_posts'] = self::$instance->sb_post_model->get_posts();
+		$sb_data['sb_posts'] = self::$instance->sb_post_model->get_posts(0,10);
 		self::$instance->load->view('sidebar/latest_posts',$sb_data);
 	}
 }

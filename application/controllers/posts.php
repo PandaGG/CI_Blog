@@ -5,7 +5,9 @@ class Posts extends MY_Controller{
 		$this->load->model('post_model');
 	}
 	public function index(){
-		$posts = $this->post_model->get_posts();
+		$total_num = $this->post_model->get_posts_count();
+		
+		$posts = $this->post_model->get_posts(0,5);
 		foreach($posts as $post){
 			$datetime = new DateTime($post['post_date']);
 			$post['post_date'] = $datetime->format('Y-m-d H:i');
@@ -17,7 +19,7 @@ class Posts extends MY_Controller{
 		$this->show_default_template('', $main_html);
 	}
 	public function view($id = NULL){
-		$post_result = $this->post_model->get_posts($id);
+		$post_result = $this->post_model->get_post_by_id($id);
 		if(empty($post_result)){
 			show_404();
 		}
