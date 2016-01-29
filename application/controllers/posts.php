@@ -18,11 +18,12 @@ class Posts extends MY_Controller{
 		/*把页面输出的HTML内容放入模版中*/
 		$this->show_default_template('', $main_html);
 	}
-	public function view($id = NULL){
-		$post_result = $this->post_model->get_post_by_id($id);
+	public function view($slug = NULL){
+		$post_result = $this->post_model->get_post_by_slug($slug);
 		if(empty($post_result)){
 			show_404();
 		}
+		$id = $post_result['post_id'];
 		$this->post_model->add_hit($id);
 		$title = $post_result['post_title'];
 		$data['post_item'] = $post_result;

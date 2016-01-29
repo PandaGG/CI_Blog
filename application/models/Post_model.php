@@ -17,13 +17,13 @@ class Post_model extends CI_Model{
 	
 	public function get_posts($offset = NULL, $num = NULL){
 		if($offset === NULL || $num === NULL){
-			$query = $this->db->query("SELECT post_id, post_title, post_excerpt, post_date, post_hit, category_name, category_slug
+			$query = $this->db->query("SELECT post_id, post_slug, post_title, post_excerpt, post_date, post_hit, category_name, category_slug
 				FROM posts INNER JOIN categories ON post_category = category_id
 				WHERE post_status = 'publish'
 				ORDER BY post_date DESC");
 			return $query->result_array();
 		}else{
-			$query = $this->db->query("SELECT post_id, post_title, post_excerpt, post_date, post_hit, category_name, category_slug
+			$query = $this->db->query("SELECT post_id, post_slug, post_title, post_excerpt, post_date, post_hit, category_name, category_slug
 				FROM posts INNER JOIN categories ON post_category = category_id
 				WHERE post_status = 'publish'
 				ORDER BY post_date DESC
@@ -32,7 +32,7 @@ class Post_model extends CI_Model{
 			return $query->result_array();
 		}
 	}
-	
+	/*
 	public function get_post_by_id($post_id = NULL){
 		if($post_id === NULL){
 			return array();
@@ -41,12 +41,22 @@ class Post_model extends CI_Model{
 			return $query->row_array();
 		}
 	}
+	*/
+	
+	public function get_post_by_slug($post_slug = NULL){
+		if($post_slug === NULL){
+			return array();
+		}else{
+			$query = $this->db->query("SELECT * FROM posts WHERE post_status = 'publish' AND post_slug = ?" , array($post_slug));
+			return $query->row_array();
+		}
+	}
 	
 	public function get_category_posts($category_slug = NULL){
 		if($category_slug === NULL){
 			return array();
 		}
-		$query = $this->db->query("SELECT post_id, post_title, post_excerpt, post_date, post_hit, category_name, category_slug 
+		$query = $this->db->query("SELECT post_id, post_slug, post_title, post_excerpt, post_date, post_hit, category_name, category_slug 
 				FROM posts INNER JOIN categories ON post_category = category_id 
 				WHERE post_status = 'publish' 
 				AND category_slug = ? 
