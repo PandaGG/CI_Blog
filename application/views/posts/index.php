@@ -14,3 +14,4 @@
 	<p class="excrept"><?php echo $post['post_excerpt']; ?></p>
 </div>
 <?php endforeach;?>
+<?php echo $pagination_link ?>

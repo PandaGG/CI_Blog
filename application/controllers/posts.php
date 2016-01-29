@@ -4,10 +4,24 @@ class Posts extends MY_Controller{
 		parent::__construct();
 		$this->load->model('post_model');
 	}
-	public function index(){
+	public function index($cur_page = 1){
 		$total_num = $this->post_model->get_posts_count();
-		
-		$posts = $this->post_model->get_posts(0,5);
+		$this->load->library('pagination');
+		/*分页 开始*/
+		$per_page = 5;
+		$config = array(
+			'base_url' => site_url('posts').'/',
+			'total_rows' => $total_num,
+			'per_page' => $per_page,
+			'$num_links' => 3,
+			'cur_page' => $cur_page
+		);
+		$this->pagination->initialize($config);
+		$pagination_link = $this->pagination->create_links();
+		$data['pagination_link'] = $pagination_link;
+		/*分页 结束*/
+		$offset = (int)($per_page*($cur_page-1));
+		$posts = $this->post_model->get_posts($offset,$per_page);
 		foreach($posts as $post){
 			$datetime = new DateTime($post['post_date']);
 			$post['post_date'] = $datetime->format('Y-m-d H:i');

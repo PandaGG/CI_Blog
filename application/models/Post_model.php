@@ -32,7 +32,7 @@ class Post_model extends CI_Model{
 			return $query->result_array();
 		}
 	}
-	/*
+	
 	public function get_post_by_id($post_id = NULL){
 		if($post_id === NULL){
 			return array();
@@ -41,7 +41,6 @@ class Post_model extends CI_Model{
 			return $query->row_array();
 		}
 	}
-	*/
 	
 	public function get_post_by_slug($post_slug = NULL){
 		if($post_slug === NULL){

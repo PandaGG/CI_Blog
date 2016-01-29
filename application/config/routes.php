@@ -56,6 +56,7 @@ $route['translate_uri_dashes'] = FALSE;
 */
 
 $route['default_controller'] = 'posts';
+$route['posts/(:num)'] = 'posts/index/$1';
 $route['posts/(:any)'] = 'posts/view/$1';
 $route['categories/(:any)'] = 'categories/view/$1';
 
