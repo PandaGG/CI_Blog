@@ -1,8 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-</head>
-<body>
+<?php $this->load->view('header');?>
+<!-- main Begin -->
+<div class="main">
 	Home Page
-</body>
-</html>
+</div>
+<!-- main End -->
+<?php $this->load->view('footer');?>
