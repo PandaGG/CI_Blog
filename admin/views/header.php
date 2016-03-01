@@ -4,6 +4,8 @@
 <link rel="stylesheet" href="<?php echo site_url();?>../assets/css/bootstrap.css">
 <link rel="stylesheet" href="<?php echo site_url();?>../assets/css/font-awesome.css">
 <link rel="stylesheet" href="<?php echo site_url();?>../assets/css/dashboard.css">
+<script type="text/javascript" src="<?php echo site_url();?>../assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="<?php echo site_url();?>../assets/js/dashboard/dashboard.js"></script>
 </head>
 <body>
 	<header class="topbar">
@@ -15,11 +17,11 @@
 	<!-- dashboard-body Begin -->
 	<div class="dashboard-body">
 		<nav class="sidebar">
-
+			<div class="menu-header"><i class="mini-header fa fa-ellipsis-v"></i><i class="full-header fa fa-ellipsis-h"></i></div>
 			<ul class="menu">
-				<li title="类别管理"><a href="javascript:void(0);"><i class="fa fa-list"></i></a></li>
-				<li title="文章管理"><a href="javascript:void(0);"><i class="fa fa-file-text "></i></a></li>
-				<li title="用户设置"><a href="javascript:void(0);"><i class="fa fa fa-user"></i></a></li>
-				<li title="网站设置"><a href="javascript:void(0);"><i class="fa fa-cog"></i></a></li>
+				<li title="类别管理"><a href="javascript:void(0);"><i class="fa fa-list"></i><span>类别管理</span></a></li>
+				<li title="文章管理"><a href="javascript:void(0);"><i class="fa fa-file-text "></i><span>文章管理</span></a></li>
+				<li title="用户设置"><a href="javascript:void(0);"><i class="fa fa fa-user"></i><span>用户设置</span></a></li>
+				<li title="网站设置"><a href="javascript:void(0);"><i class="fa fa-cog"></i><span>网站设置</span></a></li>
 			</ul>
 		</nav>

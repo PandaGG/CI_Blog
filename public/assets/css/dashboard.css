@@ -1,6 +1,9 @@
 /*! Dashboard Style */
 
 /*! normalize */
+a:hover, a:focus{
+    text-decoration: none; 
+}
 ol, ul{
 	padding-left: 0;
 }
@@ -31,7 +34,6 @@ li{
 
 .topbar a{
     color: #ffffff;
-    text-decoration: none;
 }
 
 .topbar .logo{
@@ -79,6 +81,11 @@ li{
     z-index: 100;
 }
 
+
+.sidebar-full .main{
+    left: 150px;
+}
+
 .main{
 	position: absolute;
     top: 0;
@@ -102,6 +109,38 @@ li{
     color: #ffffff;
 }
 
+.sidebar-full .sidebar{
+    width: 150px;
+}
+
+.sidebar .menu-header{
+    background: #394555 none repeat scroll 0 0;
+    color: #aeb9c2;
+    font-size: 14px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.sidebar .menu-header i{
+    display: block;
+    height: 30px;
+    line-height: 32px;
+}
+
+.sidebar-full .sidebar .menu-header i.mini-header{
+    display: none;
+}
+
+.sidebar .menu-header i.full-header{
+    display: none;
+}
+
+.sidebar-full .sidebar .menu-header i.full-header{
+    display: block;
+}
+
 .sidebar .menu li{
     transition:all 0.12s ease 0s, all 0.12s ease 0s;
 }
@@ -114,10 +153,25 @@ li{
     text-align: center;
 }
 
-
 .sidebar .menu li a i{
+    float: left;
     font-size: 28px;
+    width:50px;
+    height: 50px;
     line-height: 50px;
+}
+
+.sidebar .menu li a span{
+    float: left;
+    display: none;
+    width: 100px;
+    height: 50px;
+    line-height: 50px;
+    text-align: left;
+}
+
+.sidebar-full .sidebar .menu li a span{
+    display: block;
 }
 
 .sidebar .menu li:hover, .sidebar .menu li.on{
