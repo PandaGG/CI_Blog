@@ -13,8 +13,7 @@ class Login extends CI_Controller{
 		$username = $this->input->post('username');
 		$password = md5($this->input->post('password'));
 		$query = $this->Admin_model->login_user($username, $password);
-		
-		if(query){
+		if($query){
 			redirect('home');
 		}else{
 			redirect('login');

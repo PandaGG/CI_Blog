@@ -1,0 +1,129 @@
+/*! Dashboard Style */
+
+/*! normalize */
+ol, ul{
+	padding-left: 0;
+}
+li{
+	list-style: none;
+}
+.float-left{
+	float: left;
+}
+.float-right{
+    float: right;
+}
+
+/*! reset bootstrap style */
+
+
+/*! site style */
+
+/* header */
+.topbar{
+	background: #09c none repeat scroll 0 0;
+    clear: both;
+    font-size: 12px;
+    height: 50px;
+    position: relative;
+    z-index: 100;
+}
+
+.topbar a{
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.topbar .logo{
+	background: #0087b4 none repeat scroll 0 0;
+	color: #fff;
+    display: block;
+    font-size: 34px;
+    line-height: 50px;
+    text-align: center;
+    width: 50px;
+}
+
+.topbar .topbar-btn{
+	border-right: 1px solid #0087b4;
+    display: block;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.topbar .login-out{
+    font-size: 16px;
+    border-right: 0px;
+}
+
+.topbar .topbar-btn:hover{
+    background: #008fbf none repeat scroll 0 0;
+}
+
+.topbar .topbar-text{
+    display: block;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    padding: 0 20px;
+}
+/* body */
+
+.dashboard-body{
+    position: absolute;
+    top: 50px;
+    bottom: 0;
+    width: 100%;
+    z-index: 100;
+}
+
+.main{
+	position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50px;
+    right:0;
+    padding: 10px;
+    width: auto;
+    z-index: 101;
+}
+
+/* sidebar */
+.sidebar{
+	position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 50px;
+    overflow-x: hidden;
+    background-color: #293038;
+    z-index: 101;
+    color: #ffffff;
+}
+
+.sidebar .menu li{
+    transition:all 0.12s ease 0s, all 0.12s ease 0s;
+}
+
+.sidebar .menu li a {
+    color: #aeb9c2;
+    display: block;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+}
+
+
+.sidebar .menu li a i{
+    font-size: 28px;
+    line-height: 50px;
+}
+
+.sidebar .menu li:hover, .sidebar .menu li.on{
+    background: #37424f none repeat scroll 0 0;
+}
+
+.sidebar .menu li:hover a, .sidebar .menu li.on a {
+    color: #ffffff;
+}

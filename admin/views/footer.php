@@ -1,7 +1,4 @@
-</div>
-	<!-- wrapper End -->
-	<footer>
-		Copyright
-	</footer>
+	</div>
+	<!-- dashboard-body End -->
 </body>
 </html>
