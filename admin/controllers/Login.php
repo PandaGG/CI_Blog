@@ -6,7 +6,10 @@ class Login extends CI_Controller{
 	}
 	
 	public function index(){
-		$this->load->view('login');	
+		if(!empty($_SESSION['username'])){
+			redirect('home');
+		}
+		$this->load->view('login');
 	}
 	
 	public function check(){
@@ -14,11 +17,16 @@ class Login extends CI_Controller{
 		$password = md5($this->input->post('password'));
 		$query = $this->Admin_model->login_user($username, $password);
 		if($query){
+			$_SESSION['uid'] = $query['uid'];
+			$_SESSION['username'] = $query['user_name'];
 			redirect('home');
 		}else{
 			redirect('login');
 		}
 	}
-	
+	public function login_out(){
+		session_destroy();
+		redirect('login');
+	}
 	
 }

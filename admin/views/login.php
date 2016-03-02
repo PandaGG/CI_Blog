@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<title>后台登录</title>
 </head>
 <body>
 	<form method="post" action="login/check">

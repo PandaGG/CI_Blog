@@ -4,7 +4,7 @@ class Admin_model extends CI_Model{
 		parent:: __construct();
 	}
 	public function login_user($username, $password){
-		$query = $this->db->get_where('admin',array('user_name'=>$username, 'password'=>$password));
+		$query = $this->db->query('SELECT uid, user_name FROM admin WHERE user_name = ? AND password = ?', array($username, $password));
 		return $query->row_array();
 	}
 }
