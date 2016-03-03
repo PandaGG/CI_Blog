@@ -23,9 +23,9 @@
 		<nav class="sidebar">
 			<div class="menu-header"><i class="mini-header fa fa-ellipsis-v"></i><i class="full-header fa fa-ellipsis-h"></i></div>
 			<ul class="menu">
-				<li title="类别管理"><a href="javascript:void(0);"><i class="fa fa-list"></i><span>类别管理</span></a></li>
+				<li <?php if($this->uri->segment(1)=='category'){echo "class='on'";}?> title="类别管理"><a href="<?php echo site_url('category');?>"><i class="fa fa-list"></i><span>类别管理</span></a></li>
 				<li <?php if($this->uri->segment(1)=='post'){echo "class='on'";}?> title="文章管理"><a href="<?php echo site_url('post');?>"><i class="fa fa-file-text "></i><span>文章管理</span></a></li>
-				<li title="用户设置"><a href="javascript:void(0);"><i class="fa fa fa-user"></i><span>用户设置</span></a></li>
-				<li title="网站设置"><a href="javascript:void(0);"><i class="fa fa-cog"></i><span>网站设置</span></a></li>
+				<li <?php if($this->uri->segment(1)=='user'){echo "class='on'";}?> title="用户设置"><a href="<?php echo site_url('user');?>"><i class="fa fa fa-user"></i><span>用户设置</span></a></li>
+				<li <?php if($this->uri->segment(1)=='setting'){echo "class='on'";}?> title="网站设置"><a href="<?php echo site_url('setting');?>"><i class="fa fa-cog"></i><span>网站设置</span></a></li>
 			</ul>
 		</nav>

@@ -2,7 +2,7 @@
 <!-- main Begin -->
 <div class="main">
 	<div class="dashboard-title">
-		<span>文章管理</span>
+		<span>类别管理</span>
 		<a href="javascript:void(0);"><i class="fa fa-plus"></i></a>
 	</div>
 	<div class="dashboard-section">
@@ -11,9 +11,6 @@
 				<tr>
 					<th><input type="checkbox"></th>
 					<th>ID</th>
-					<th>文章标题</th>
-					<th>修改时间</th>
-					<th>发布时间</th>
 					<th>类别</th>
 					<th>操作</th>
 				</tr>
@@ -24,32 +21,11 @@
 					<td>1</td>
 					<td>1</td>
 					<td>1</td>
-					<td>1</td>
-					<td>1</td>
-					<td>1</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>2</td>
-					<td>2</td>
-					<td>2</td>
-					<td>2</td>
-					<td>2</td>
-					<td>2</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>3</td>
-					<td>3</td>
-					<td>3</td>
-					<td>3</td>
-					<td>3</td>
-					<td>3</td>
 				</tr>
 			</tbody>
 			<tfoot>
 				<tr>
-					<td colspan="7"><button class="btn btn-default">批量删除</button></td>
+					<td colspan="4"><button class="btn btn-default">批量删除</button></td>
 				</tr>
 			</tfoot>
 		</table>

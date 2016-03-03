@@ -24,7 +24,7 @@ li{
 
 /* header */
 .topbar{
-	background: #09c none repeat scroll 0 0;
+	background: #16a085 none repeat scroll 0 0;
     clear: both;
     font-size: 12px;
     height: 50px;
@@ -37,7 +37,7 @@ li{
 }
 
 .topbar .logo{
-	background: #0087b4 none repeat scroll 0 0;
+	background: #1a8671 none repeat scroll 0 0;
 	color: #fff;
     display: block;
     font-size: 34px;
@@ -47,7 +47,7 @@ li{
 }
 
 .topbar .topbar-btn{
-	border-right: 1px solid #0087b4;
+	border-right: 1px solid #1a8671;
     display: block;
     height: 50px;
     line-height: 50px;
@@ -61,7 +61,7 @@ li{
 }
 
 .topbar .topbar-btn:hover{
-    background: #008fbf none repeat scroll 0 0;
+    background: #1abc9c none repeat scroll 0 0;
 }
 
 .topbar .topbar-text{
@@ -185,12 +185,21 @@ li{
 /* main public */
 .dashboard-title{
     background: #f5f5f5 none repeat scroll 0 0;
-    border-left: 1px solid #0099cc;
+    border-left: 2px solid #16a085;
     font-size: 14px;
     font-weight: normal;
     height: 50px;
     line-height: 30px;
     padding: 10px;
+}
+
+.dashboard-title a{
+    color: #16a085;
+}
+
+
+.dashboard-title a:hover{
+    color: #1abc9c;
 }
 
 .dashboard-section{
