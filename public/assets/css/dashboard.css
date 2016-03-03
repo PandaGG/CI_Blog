@@ -1,7 +1,14 @@
 /*! Dashboard Style */
 
 /*! normalize */
+body{
+	font-size: 14px;
+}
+a{
+	color: #16a085;
+}
 a:hover, a:focus{
+	color: #1abc9c;
     text-decoration: none; 
 }
 ol, ul{
@@ -209,7 +216,6 @@ li{
 table.dashboard-table{
     background: #fff none repeat scroll 0 0;
     border: 1px solid #e1e6eb;
-    font-size: 12px;
 }
 
 table.dashboard-table > thead > tr > th{
