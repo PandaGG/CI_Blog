@@ -4,12 +4,12 @@
 	<div class="dashboard-title">
 		<span>添加类别</span>
 	</div>
-	<div class="dashboard-section category-create">
+	<div class="dashboard-section dashboard-small-label">
         <?php echo form_open('category/insert');?>
             <div class="dashboard-row">
                 <div class="row-label">类别名称:</div>
                 <div class="row-item">
-                    <div class="input-group">
+                    <div class="input-group w200">
                         <input type="text" class="form-control" name="cname" placeholder="类别名称">
                     </div>
                 </div>
@@ -18,7 +18,7 @@
             <div class="dashboard-row">
                 <div class="row-label">Slug:</div>
                 <div class="row-item">
-                    <div class="input-group">
+                    <div class="input-group w200">
                         <input type="text" class="form-control" name="cslug" placeholder="Slug">
                     </div>
                 </div>

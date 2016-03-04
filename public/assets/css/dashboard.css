@@ -24,6 +24,14 @@ li{
     float: right;
 }
 
+.w200{
+    width: 200px;
+}
+
+.w300{
+    width: 300px;
+}
+
 /*! reset bootstrap style */
 .form-control{
     border-width: 1px;
@@ -247,14 +255,11 @@ table.dashboard-table > thead > tr > th,  table.dashboard-table > tbody > tr > t
     float: left;
 }
 
-.page-tips-panel h3{
-    margin-top: 10px;
-}
 
 /* Home */
 
 /*category*/
-.category-create .dashboard-row .row-label{
+.dashboard-small-label .dashboard-row .row-label{
     width: 90px;
     padding-right: 10px;
     min-height: 34px;
@@ -262,7 +267,7 @@ table.dashboard-table > thead > tr > th,  table.dashboard-table > tbody > tr > t
     text-align: right;
 }
 
-.category-create .dashboard-row .row-item{
+.dashboard-small-label .dashboard-row .row-item{
     margin-left: 90px;
     min-height: 34px;
 }

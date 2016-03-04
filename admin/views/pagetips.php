@@ -4,7 +4,7 @@
 <div class="main">
 	<div class="page-tips-panel panel panel-<?php echo $type; ?>">
 		<div class="panel-heading">
-			<h3 class="panel-title">信息提示</h3>
+			<h4 class="panel-title">信息提示</h4>
 		</div>
 		<div class="panel-body text-center">
 			<h3><?php echo $tips; ?></h3>
