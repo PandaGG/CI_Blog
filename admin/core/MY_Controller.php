@@ -1,6 +1,6 @@
 <?php
 class MY_Controller extends CI_Controller {
-	  public function __construct()
+    public function __construct()
     {
         parent::__construct();
 	 	if(!$this->checkSession()){
@@ -22,4 +22,23 @@ class MY_Controller extends CI_Controller {
 			return false;
 		}
 	}
+
+    protected function pageTips($tips='',$url='/',$refreshTime='1',$type='default'){
+        switch ($type){
+            case 'fail':
+                $type = 'danger';
+                break;
+            case 'success':
+            default:
+                $type = 'default';
+        }
+
+        $data = array(
+            'tips' => $tips,
+            'url' => $url,
+            'refreshTime' => $refreshTime,
+            'type' => $type //default, danger
+        );
+        $this->load->view('pagetips',$data);
+    }
 }

@@ -25,7 +25,15 @@ li{
 }
 
 /*! reset bootstrap style */
+.form-control{
+    border-width: 1px;
+    box-shadow: none;
+}
 
+.form-control:focus{
+    border-color: #1abc9c;
+    box-shadow: none;
+}
 
 /*! site style */
 
@@ -227,4 +235,34 @@ table.dashboard-table > thead > tr > th,  table.dashboard-table > tbody > tr > t
     border-bottom: 1px solid #e1e6eb;
 }
 
+.dashboard-row{
+    margin-bottom: 20px;
+}
+
+.dashboard-row:before, .dashboard-row:after{
+    clear: both;
+}
+
+.dashboard-row .row-label{
+    float: left;
+}
+
+.page-tips-panel h3{
+    margin-top: 10px;
+}
+
 /* Home */
+
+/*category*/
+.category-create .dashboard-row .row-label{
+    width: 90px;
+    padding-right: 10px;
+    min-height: 34px;
+    line-height: 34px;
+    text-align: right;
+}
+
+.category-create .dashboard-row .row-item{
+    margin-left: 90px;
+    min-height: 34px;
+}
