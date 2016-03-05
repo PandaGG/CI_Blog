@@ -19,4 +19,27 @@ class User extends MY_Controller{
 			$this->pageTips('更新用户信息失败','user', 2, 'fail');
 		}
 	}
+	public function change_password(){
+        $this->load->view('users/change_password');
+	}
+    public function set_password(){
+        $username = $this->session->username;
+        $user_info = $this->Admin_model->get_user_info($username);
+        $old_password = md5($this->input->post('old_password'));
+        $new_password = md5($this->input->post('new_password'));
+        $new_password_again = md5($this->input->post('new_password_again'));
+        if($old_password === $user_info['password']){
+            if($new_password === $new_password_again){
+                $result = $this->Admin_model->update_user_password($username, $new_password);
+                if($result){
+                    $this->pageTips('更新密码成功','user', 2);
+                }else{
+                    $this->pageTips('更新密码失败','user', 2, 'fail');
+                }
+                return;
+            }
+        }
+        $this->pageTips('更新密码失败','user', 2, 'fail');
+    }
+
 }

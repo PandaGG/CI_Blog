@@ -2,25 +2,33 @@
 <!-- main Begin -->
 <div class="main">
 	<div class="dashboard-title">
-		<span>用户设置</span>
-		<a href="<?php echo site_url('user/change_password');?>"><i class="fa fa-key"></i> 修改密码</a>
+		<span>修改密码</span>
 	</div>
 	<div class="dashboard-section dashboard-small-label">
-		<?php echo form_open('user/update');?>
+		<?php echo form_open('user/set_password');?>
 		<div class="dashboard-row">
-			<div class="row-label">用户名:</div>
+			<div class="row-label">旧密码:</div>
 			<div class="row-item">
 				<div class="input-group w200">
-					<input type="text" class="form-control" name="username" placeholder="用户名" value="<?php echo $user_name; ?>" disabled="disabled">
+					<input type="password" class="form-control" name="old_password" placeholder="旧密码" value="">
 				</div>
 			</div>
 		</div>
 
 		<div class="dashboard-row">
-			<div class="row-label">邮箱:</div>
+			<div class="row-label">新密码:</div>
 			<div class="row-item">
 				<div class="input-group w200">
-					<input type="email" class="form-control" name="email" placeholder="邮箱" value="<?php echo $email; ?>">
+					<input type="password" class="form-control" name="new_password" placeholder="新密码" value="">
+				</div>
+			</div>
+		</div>
+
+		<div class="dashboard-row">
+			<div class="row-label">重输新密码:</div>
+			<div class="row-item">
+				<div class="input-group w200">
+					<input type="password" class="form-control" name="new_password_again" placeholder="重输新密码" value="">
 				</div>
 			</div>
 		</div>
