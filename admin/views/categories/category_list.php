@@ -9,7 +9,6 @@
 		<table class="table table-hover dashboard-table">
 			<thead>
 				<tr>
-					<th width="30px"><input type="checkbox"></th>
 					<th width="100px">ID</th>
 					<th>类别</th>
 					<th width="180px">Slug</th>
@@ -20,26 +19,40 @@
 			<tbody>
 				<?php foreach($categories as $category):?>
 				<tr>
-					<td><input type="checkbox"></td>
 					<td><?php echo $category['category_id'] ?></td>
 					<td><?php echo $category['category_name'] ?></td>
 					<td><?php echo $category['category_slug'] ?></td>
 					<td><?php echo $category['post_num'] ?></td>
 					<td class="text-right">
-						<a href="javascript:void(0);"><i class="fa fa-pencil"></i></a>
+						<a href="<?php echo site_url('category/edit/'.$category['category_id']); ?>" title="编辑"><i class="fa fa-pencil"></i></a>
 						<span>|</span>
-						<a href="javascript:void(0);"><i class="fa fa-trash"></i></a>
+						<?php if($category['post_num']): ?>
+							<span class="disabled" title="无法删除有文章的栏目"><i class="fa fa-trash"></i></span>
+						<?php else: ?>
+							<a href="javascript:void(0);" title="删除" data-url="<?php echo site_url('category/delete/'.$category['category_id']); ?>" data-cname="<?php echo $category['category_name'] ?>" onclick="confirmDelete(this);"><i class="fa fa-trash"></i></a>
+						<?php endif; ?>
 					</td>
 				</tr>
 				<?php endforeach;?>
 			</tbody>
 			<tfoot>
 				<tr>
-					<td colspan="6"><button class="btn btn-default">批量删除</button></td>
+					<td colspan="5"></td>
 				</tr>
 			</tfoot>
 		</table>
 	</div>
+    <script type="text/javascript">
+        function confirmDelete(obj){
+            var $obj = $(obj);
+            var cname = $obj.attr('data-cname');
+            var url = $obj.attr('data-url');
+            var result = confirm('是否删除类别"'+cname+'"?');
+            if(result){
+                window.location.href = url;
+            }
+        }
+    </script>
 </div>
 <!-- main End -->
 <?php $this->load->view('footer');?>

@@ -10,7 +10,7 @@
 			<div class="row-label">旧密码:</div>
 			<div class="row-item">
 				<div class="input-group w200">
-					<input type="password" class="form-control" name="old_password" placeholder="旧密码" value="">
+					<input type="password" class="form-control" name="old_password" placeholder="旧密码" value="" required="required">
 				</div>
 			</div>
 		</div>
@@ -19,7 +19,7 @@
 			<div class="row-label">新密码:</div>
 			<div class="row-item">
 				<div class="input-group w200">
-					<input type="password" class="form-control" name="new_password" placeholder="新密码" value="">
+					<input type="password" class="form-control" name="new_password" placeholder="新密码" value="" required="required">
 				</div>
 			</div>
 		</div>
@@ -28,7 +28,7 @@
 			<div class="row-label">重输新密码:</div>
 			<div class="row-item">
 				<div class="input-group w200">
-					<input type="password" class="form-control" name="new_password_again" placeholder="重输新密码" value="">
+					<input type="password" class="form-control" name="new_password_again" placeholder="重输新密码" value="" required="required">
 				</div>
 			</div>
 		</div>

@@ -34,12 +34,12 @@ class User extends MY_Controller{
                 if($result){
                     $this->pageTips('更新密码成功','user', 2);
                 }else{
-                    $this->pageTips('更新密码失败','user', 2, 'fail');
+                    $this->pageTips('更新密码失败','user/change_password', 2, 'fail');
                 }
                 return;
             }
         }
-        $this->pageTips('更新密码失败','user', 2, 'fail');
+        $this->pageTips('更新密码失败','user/change_password', 2, 'fail');
     }
 
 }

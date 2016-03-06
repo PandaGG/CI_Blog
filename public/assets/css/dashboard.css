@@ -11,6 +11,10 @@ a:hover, a:focus{
 	color: #1abc9c;
     text-decoration: none; 
 }
+span.disabled{
+    color: #aaaaaa;
+    cursor: not-allowed;
+}
 ol, ul{
 	padding-left: 0;
 }

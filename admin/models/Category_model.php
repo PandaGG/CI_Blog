@@ -9,7 +9,7 @@ class Category_model extends CI_Model{
             $query = $this->db->query($sql);
             return $query->result_array();
 		}else{
-			$query = $this->db>get_where('categories',array('category_id' => $cid));
+			$query = $this->db->get_where('categories',array('category_id' => $cid));
 			return $query->row_array();
 		}
 	}
@@ -18,9 +18,10 @@ class Category_model extends CI_Model{
             return 0;
         }
 
-        $check_sql = 'SELECT count(*) from category WHERE category_name =　? OR category_slug = ?';
+        $check_sql = 'SELECT * from categories WHERE category_name = ? OR category_slug = ? LIMIT 1';
         $check_result = $this->db->query($check_sql, array($cname, $cslug));
-        if($check_result){
+
+        if($check_result->num_rows()){
             return 0;
         }
 
@@ -28,4 +29,24 @@ class Category_model extends CI_Model{
         $this->db->query($sql, array($cname, $cslug));
         return $this->db->affected_rows();
 	}
+
+    public function update_category($cid, $cname, $cslug){
+        if(empty($cid) || empty($cname) || empty($cslug)){
+            return 0;
+        }
+
+        $sql = 'UPDATE categories SET category_name = ?, category_slug = ? WHERE category_id = ?';
+        $this->db->query($sql, array($cname, $cslug, $cid));
+        return $this->db->affected_rows();
+    }
+
+    public function delete_category($cid = FALSE){
+        if($cid === FALSE){
+            return 0;
+        }
+
+        $sql = 'DELETE FROM categories WHERE category_id = ?';
+        $this->db->query($sql, array($cid));
+        return $this->db->affected_rows();
+    }
 }
