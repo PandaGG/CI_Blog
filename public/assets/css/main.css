@@ -9,12 +9,6 @@ body{
 	min-height: 100%;
 	padding-bottom: 120px; /*footer*/
 }
-ol, ul{
-	padding-left: 0;
-}
-li{
-	list-style: none;
-}
 
 /*! reset bootstrap style */
 .navbar-default {

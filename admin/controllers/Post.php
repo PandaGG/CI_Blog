@@ -18,6 +18,7 @@ class Post extends MY_Controller{
 
     public function insert(){
         $cid = $this->input->post('cid');
+        $context = $this->input->post('context');
     }
 
 	public function group_operation(){

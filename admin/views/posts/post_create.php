@@ -5,7 +5,7 @@
 		<span>添加文章</span>
 	</div>
 	<div class="dashboard-section dashboard-small-label">
-        <?php echo form_open('post/insert');?>
+        <?php echo form_open('post/insert', 'id="postForm"');?>
 
             <div class="dashboard-row">
                 <div class="row-label">类别:</div>
@@ -49,22 +49,36 @@
             <div class="dashboard-row">
                 <div class="row-label">内容:</div>
                 <div class="row-item">
-                    <div id="editor"></div>
+                    <div class="w800">
+                        <div id="editor"></div>
+                        <textarea name="context" style="display: none;"></textarea>
+                    </div>
                 </div>
             </div>
 
             <div class="dashboard-row">
                 <div class="row-label"></div>
                 <div class="row-item">
-                    <button class="btn btn-default" type="submit">添加</button>
+                    <button class="btn btn-default" onclick="submitPost();">添加</button>
                 </div>
             </div>
         <?php echo form_close(); ?>
 	</div>
     <script type="text/javascript">
         $(function(){
-
+            $('#editor').summernote({
+                height: 300,
+                minHeight: null,
+                maxHeight: null,
+                lang:'zh-CN'
+            });
         });
+
+        function submitPost(){
+            var sHTML = $('#editor').summernote('code');
+            $('textarea[name="context"]').val(sHTML);
+            $('#postForm').submit();
+        }
 
     </script>
 </div>

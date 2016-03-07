@@ -15,12 +15,7 @@ span.disabled{
     color: #aaaaaa;
     cursor: not-allowed;
 }
-ol, ul{
-	padding-left: 0;
-}
-li{
-	list-style: none;
-}
+
 .float-left{
 	float: left;
 }
@@ -38,6 +33,14 @@ li{
 
 .w400{
     width: 400px;
+}
+
+.w600{
+    width: 600px;
+}
+
+.w800{
+    width: 800px;
 }
 
 /*! reset bootstrap style */
@@ -60,7 +63,6 @@ li{
     font-size: 12px;
     height: 50px;
     position: relative;
-    z-index: 100;
 }
 
 .topbar a{
@@ -109,7 +111,6 @@ li{
     top: 50px;
     bottom: 0;
     width: 100%;
-    z-index: 100;
 }
 
 
@@ -125,7 +126,6 @@ li{
     right:0;
     padding: 10px;
     width: auto;
-    z-index: 101;
     overflow-y:auto;
 }
 
@@ -137,7 +137,6 @@ li{
     width: 50px;
     overflow-x: hidden;
     background-color: #293038;
-    z-index: 101;
     color: #ffffff;
 }
 
@@ -173,7 +172,12 @@ li{
     display: block;
 }
 
+.sidebar ul.menu{
+    padding-left: 0;
+}
+
 .sidebar .menu li{
+    list-style: none;
     transition:all 0.12s ease 0s, all 0.12s ease 0s;
 }
 
