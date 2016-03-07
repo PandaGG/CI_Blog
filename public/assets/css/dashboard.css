@@ -36,6 +36,10 @@ li{
     width: 300px;
 }
 
+.w400{
+    width: 400px;
+}
+
 /*! reset bootstrap style */
 .form-control{
     border-width: 1px;
@@ -122,6 +126,7 @@ li{
     padding: 10px;
     width: auto;
     z-index: 101;
+    overflow-y:auto;
 }
 
 /* sidebar */
