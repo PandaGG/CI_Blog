@@ -4,6 +4,8 @@ class Upload extends MY_Controller{
 		parent::__construct();
 	}
 	public function index(){
+		error_log(print_r($_FILES,true));
+		error_log(print_r($_POST,true));
 
 	}
 }

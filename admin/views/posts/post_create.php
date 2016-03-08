@@ -86,18 +86,18 @@
             var filename = file['name'];
             var ext = filename.substr(filename.lastIndexOf("."));
             var timestamp = new Date().getTime();
-            var name = timestamp+"_"+ext;
+            var name = 'post_'+timestamp+ext;
             var data = new FormData();
             data.append("file", file);
-            data.append("key",name);
-            console.log(data);
+            data.append("newname",name);
+
             $.ajax({
                 data: data,
                 type: "POST",
                 url: "<?php echo site_url('upload'); ?>",
                 cache: false,
                 processData: false,
-                contentType: "false",
+                contentType: false,
                 success: function(data) {
                     console.log('success');
                 },
@@ -105,6 +105,7 @@
                     console.log('fail');
                 }
             });
+
         }
 
         function submitPost(){
