@@ -2,17 +2,26 @@
 <!-- main Begin -->
 <div class="main">
 	<div class="dashboard-title">
-		<span>添加文章</span>
+		<span>编辑文章</span>
 	</div>
 	<div class="dashboard-section dashboard-small-label">
-        <?php echo form_open('post/insert', 'id="postForm"');?>
+        <?php echo form_open('post/update', 'id="postForm"');?>
+
+            <div class="dashboard-row">
+                <div class="row-label">文章编号:</div>
+                <div class="row-item">
+                    <div class="input-group w200">
+                        <input type="text" class="form-control" name="pid" placeholder="文章编号" value="<?php echo $post['post_id']; ?>" required="required" readonly="readonly">
+                    </div>
+                </div>
+            </div>
 
             <div class="dashboard-row">
                 <div class="row-label">类别:</div>
                 <div class="row-item">
                     <select class="selectpicker" name="cid">
                         <?php foreach($categories as $category): ?>
-                        <option value="<?php echo $category['category_id']; ?>"><?php echo $category['category_name']; ?></option>
+                        <option value="<?php echo $category['category_id']; ?>" <?php echo $category['category_id'] == $post['post_category'] ? 'selected' : ''; ?>><?php echo $category['category_name']; ?></option>
                         <?php endforeach; ?>
                     </select>
 
@@ -23,7 +32,7 @@
                 <div class="row-label">文章标题:</div>
                 <div class="row-item">
                     <div class="input-group w400">
-                        <input type="text" class="form-control" name="title" placeholder="文章标题" value="" required="required">
+                        <input type="text" class="form-control" name="title" placeholder="文章标题" value="<?php echo $post['post_title']; ?>" required="required">
                     </div>
                 </div>
             </div>
@@ -32,7 +41,7 @@
                 <div class="row-label">Slug:</div>
                 <div class="row-item">
                     <div class="input-group w400">
-                        <input type="text" class="form-control" name="slug" placeholder="Slug" value="" required="required">
+                        <input type="text" class="form-control" name="slug" placeholder="Slug" value="<?php echo $post['post_slug']; ?>" required="required">
                     </div>
                 </div>
             </div>
@@ -41,7 +50,7 @@
                 <div class="row-label">摘要:</div>
                 <div class="row-item">
                     <div class="input-group w800">
-                        <textarea class="form-control" name="description" placeholder="摘要" required="required"></textarea>
+                        <textarea class="form-control" name="description" placeholder="摘要" required="required"><?php echo $post['post_excerpt']; ?></textarea>
                     </div>
                 </div>
             </div>
@@ -51,7 +60,7 @@
                 <div class="row-item">
                     <div class="w800">
                         <div id="editor"></div>
-                        <textarea name="context" style="display: none;"></textarea>
+                        <textarea name="context" style="display: none;"><?php echo $post['post_content']; ?></textarea>
                     </div>
                 </div>
             </div>
@@ -70,42 +79,11 @@
                 height: 300,
                 minHeight: null,
                 maxHeight: null,
-                lang:'zh-CN',
-                callbacks: {
-                    onImageUpload: function(files) {
-                        // upload image to server and create imgNode...
-                        uploadImage(files[0]);
-                    }
-                }
-
+                lang:'zh-CN'
             });
+            var sHTML = $('textarea[name="context"]').val();
+            $('#editor').summernote('code', sHTML);
         });
-
-        function uploadImage(file){
-            console.log(file);
-            var filename = file['name'];
-            var ext = filename.substr(filename.lastIndexOf("."));
-            var timestamp = new Date().getTime();
-            var name = timestamp+"_"+ext;
-            var data = new FormData();
-            data.append("file", file);
-            data.append("key",name);
-            console.log(data);
-            $.ajax({
-                data: data,
-                type: "POST",
-                url: "<?php echo site_url('upload'); ?>",
-                cache: false,
-                processData: false,
-                contentType: "false",
-                success: function(data) {
-                    console.log('success');
-                },
-                error:function(){
-                    console.log('fail');
-                }
-            });
-        }
 
         function submitPost(){
             var sHTML = $('#editor').summernote('code');

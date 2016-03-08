@@ -16,4 +16,49 @@ class Post_model extends CI_Model{
         $query = $this->db->get_where('posts',array('post_id' => $pid));
         return $query->row_array();
     }
+    public function insert_post($cid, $title, $slug, $description, $html_context, $status = 'draft'){
+        if(empty($cid) || empty($title) || empty($slug)){
+            return 0;
+        }
+
+        $current_time = date('Y-m-d H:i:s');
+        $data = array(
+            'post_title' => $title,
+            'post_slug' => $slug,
+            'post_content' => $html_context,
+            'post_excerpt' => $description,
+            'post_status' => $status,
+            'post_category' => $cid,
+            'post_date' => $current_time,
+            'post_modified' => $current_time
+        );
+
+        $sql = $this->db->insert_string('posts', $data);
+        error_log($sql);
+        $this->db->query($sql);
+        return $this->db->affected_rows();
+    }
+
+    public function update_post($pid, $cid, $title, $slug, $description, $html_context, $status = 'draft'){
+        if(empty($pid) || empty($cid) || empty($title) || empty($slug)){
+            return 0;
+        }
+
+        $current_time = date('Y-m-d H:i:s');
+        $data = array(
+            'post_title' => $title,
+            'post_slug' => $slug,
+            'post_content' => $html_context,
+            'post_excerpt' => $description,
+            'post_status' => $status,
+            'post_category' => $cid,
+            'post_modified' => $current_time
+        );
+        $where = 'post_id = '.$pid;
+        $sql = $this->db->update_string('posts', $data, $where);
+        error_log($sql);
+        $this->db->query($sql);
+        return $this->db->affected_rows();
+        return 0;
+    }
 }
