@@ -130,6 +130,16 @@ switch (ENVIRONMENT)
  */
 	$view_folder = '';
 
+/*
+ *---------------------------------------------------------------
+ * Public FOLDER NAME
+ *---------------------------------------------------------------
+ *
+ * 公共可访问目录
+ *
+ * NO TRAILING SLASH!
+ */
+	$public_path = '../';
 
 /*
  * --------------------------------------------------------------------
@@ -281,6 +291,25 @@ switch (ENVIRONMENT)
 	}
 
 	define('VIEWPATH', $view_folder);
+
+
+/*
+ * ---------------------------------------------------------------
+ *  增加public目录
+ * ---------------------------------------------------------------
+ */
+	if (($_temp = realpath($public_path)) !== FALSE)
+	{
+		$public_path = $_temp.'/';
+	}
+	else
+	{
+		// Ensure there's a trailing slash
+		$public_path = rtrim($public_path, '/').'/';
+	}
+
+	// Path to the public folder
+	define('PUBLICPATH', str_replace('\\', '/', $public_path));
 
 /*
  * --------------------------------------------------------------------

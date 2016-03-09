@@ -34,14 +34,14 @@ class Post extends MY_Controller{
         $context = $this->input->post('context');
         $html_context = html_escape(strip_slashes($context));
         $status = 'draft';
-        /*
-        $result = $this->Post_model->insert_post($cid, $title, $slug, $description, $html_context, $status);
+
+        $result = $this->Post_model->insert_post($cid, $title, $slug, $description, $context, $status);
         if($result){
             $this->pageTips('添加文章成功','post', 2);
         }else{
             $this->pageTips('添加文章失败','post', 2, 'fail');
         }
-        */
+
     }
 
     public function update(){
@@ -53,7 +53,7 @@ class Post extends MY_Controller{
         $context = $this->input->post('context');
         $html_context = html_escape(strip_slashes($context));
         $status = 'draft';
-        $result = $this->Post_model->update_post($pid, $cid, $title, $slug, $description, $html_context, $status);
+        $result = $this->Post_model->update_post($pid, $cid, $title, $slug, $description, $context, $status);
         if($result){
             $this->pageTips('更新文章成功','post', 2);
         }else{

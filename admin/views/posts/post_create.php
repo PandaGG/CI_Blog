@@ -82,27 +82,24 @@
         });
 
         function uploadImage(file){
-            console.log(file);
-            var filename = file['name'];
-            var ext = filename.substr(filename.lastIndexOf("."));
-            var timestamp = new Date().getTime();
-            var name = 'post_'+timestamp+ext;
             var data = new FormData();
             data.append("file", file);
-            data.append("newname",name);
-
             $.ajax({
                 data: data,
                 type: "POST",
+                dataType: 'json',
                 url: "<?php echo site_url('upload'); ?>",
                 cache: false,
                 processData: false,
                 contentType: false,
-                success: function(data) {
-                    console.log('success');
+                success: function(res) {
+                    if(res.message == 'success'){
+                        var path = res.path;
+                        $('#editor').summernote('insertImage', path);
+                    }
                 },
                 error:function(){
-                    console.log('fail');
+
                 }
             });
 
