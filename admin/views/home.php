@@ -3,8 +3,8 @@
 <div class="main">
 	<div class="dashboard-title">
 		<span>后台首页</span>
-		<a href="javascript:void(0);"><i class="fa fa-plus"></i> 添加文章 </a>
-		<a href="javascript:void(0);"><i class="fa fa-plus"></i> 添加栏目 </a>
+		<a href="<?php echo site_url('post/create'); ?>" title="添加文章"><i class="fa fa-plus"></i> 添加文章 </a>
+		<a href="<?php echo site_url('category/create');?>" title="添加类别"><i class="fa fa-plus"></i> 添加类别 </a>
 	</div>
     <div class="dashboard-section">
         <div class="page-tips-panel panel panel-default">

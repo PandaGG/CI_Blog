@@ -34,7 +34,6 @@ class Post_model extends CI_Model{
         );
 
         $sql = $this->db->insert_string('posts', $data);
-        error_log($sql);
         $this->db->query($sql);
         return $this->db->affected_rows();
     }
@@ -56,9 +55,28 @@ class Post_model extends CI_Model{
         );
         $where = 'post_id = '.$pid;
         $sql = $this->db->update_string('posts', $data, $where);
-        error_log($sql);
         $this->db->query($sql);
         return $this->db->affected_rows();
         return 0;
     }
+
+
+    public function updateCategory($ids = array(), $cid = NULL){
+        if(count($ids) == 0 || $cid === NULL){
+            return 0;
+        }
+        $this->db->where_in('post_id',$ids);
+        $this->db->update('posts',array('post_category'=>$cid));
+        return $this->db->affected_rows();
+    }
+
+    public function updateStatus($ids = array(), $status = NULL){
+        if(count($ids) == 0  ||  $status === NULL ){
+            return 0;
+        }
+        $this->db->where_in('post_id',$ids);
+        $this->db->update('posts',array('post_status'=>$status));
+        return $this->db->affected_rows();
+    }
+
 }

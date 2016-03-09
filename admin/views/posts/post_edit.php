@@ -17,6 +17,17 @@
             </div>
 
             <div class="dashboard-row">
+                <div class="row-label">状态:</div>
+                <div class="row-item">
+                    <select class="selectpicker" name="status">
+                        <option value="draft" <?php echo $post['post_status'] == 'draft' ? 'selected' : ''; ?>>草稿</option>
+                        <option value="publish" <?php echo $post['post_status'] == 'publish' ? 'selected' : ''; ?>>已发布</option>
+                    </select>
+
+                </div>
+            </div>
+
+            <div class="dashboard-row">
                 <div class="row-label">类别:</div>
                 <div class="row-item">
                     <select class="selectpicker" name="cid">

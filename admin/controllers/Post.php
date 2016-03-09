@@ -8,6 +8,7 @@ class Post extends MY_Controller{
 	
 	public function index(){
         $data['posts'] = $this->Post_model->get_posts();
+        $data['categories'] = $this->Category_model->get_category();
 		$this->load->view('posts/post_list',$data);
 	}
 
@@ -32,8 +33,7 @@ class Post extends MY_Controller{
         $slug = $this->input->post('slug');
         $description = $this->input->post('description');
         $context = $this->input->post('context');
-        $html_context = html_escape(strip_slashes($context));
-        $status = 'draft';
+        $status = $this->input->post('status');
 
         $result = $this->Post_model->insert_post($cid, $title, $slug, $description, $context, $status);
         if($result){
@@ -51,8 +51,7 @@ class Post extends MY_Controller{
         $slug = $this->input->post('slug');
         $description = $this->input->post('description');
         $context = $this->input->post('context');
-        $html_context = html_escape(strip_slashes($context));
-        $status = 'draft';
+        $status = $this->input->post('status');
         $result = $this->Post_model->update_post($pid, $cid, $title, $slug, $description, $context, $status);
         if($result){
             $this->pageTips('更新文章成功','post', 2);
@@ -64,13 +63,24 @@ class Post extends MY_Controller{
 
 	public function group_operation(){
         $ids = $this->input->post('ids');
+        $cid = $this->input->post('group_cid');
         if($this->input->post('group-move')){
-
+            $result = $this->Post_model->updateCategory($ids, $cid);
+            if($result){
+                $this->pageTips('批量移动成功','post', 2);
+            }else{
+                $this->pageTips('批量移动失败','post', 2, 'fail');
+            }
             return;
         }
 
 		if($this->input->post('group-trash')){
-
+            $result = $this->Post_model->updateCategory($ids, 'trash');
+            if($result){
+                $this->pageTips('批量移动至垃圾箱成功','post', 2);
+            }else{
+                $this->pageTips('批量移动至垃圾箱失败','post', 2, 'fail');
+            }
             return;
         }
 

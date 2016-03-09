@@ -3,7 +3,7 @@
 <div class="main">
 	<div class="dashboard-title">
 		<span>类别管理</span>
-		<a href="<?php echo site_url('category/create');?>"><i class="fa fa-plus"></i></a>
+		<a href="<?php echo site_url('category/create');?>" title="添加类别"><i class="fa fa-plus"></i></a>
 	</div>
 	<div class="dashboard-section">
 		<table class="table table-hover dashboard-table">

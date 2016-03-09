@@ -3,7 +3,7 @@
 <div class="main">
 	<div class="dashboard-title">
 		<span>文章管理</span>
-		<a href="<?php echo site_url('post/create'); ?>"><i class="fa fa-plus"></i></a>
+		<a href="<?php echo site_url('post/create'); ?>" title="添加文章"><i class="fa fa-plus"></i></a>
 	</div>
 	<div class="dashboard-section">
         <?php echo form_open('post/group_operation'); ?>
@@ -28,7 +28,18 @@
 					<td><?php echo $post['post_id']; ?></td>
 					<td><?php echo $post['post_title']; ?></td>
 					<td><?php echo $post['post_slug']; ?></td>
-					<td><?php echo $post['post_status']; ?></td>
+					<td>
+						<?php
+							switch($post['post_status']){
+								case 'draft':
+									echo '草稿';
+									break;
+								case 'publish':
+									echo '已发布';
+									break;
+							}
+						?>
+					</td>
 					<td><?php echo $post['post_modified']; ?></td>
 					<td><?php echo $post['post_date']; ?></td>
 					<td><?php echo $post['post_hit']; ?></td>
@@ -43,8 +54,13 @@
 			<tfoot>
 				<tr>
 					<td colspan="9">
-                        <button class="btn btn-default disabled" type="submit" name="group-trash" value="group-trash">批量删除</button>
-                        <button class="btn btn-default disabled" type="submit" name="group-move" value="group-move">批量移动</button>
+                        <button class="btn btn-default" type="submit" name="group-trash" value="group-trash" disabled="disabled" style="margin-right:20px;">批量垃圾箱</button>
+                        <select class="selectpicker" name="group_cid">
+                            <?php foreach($categories as $category): ?>
+                                <option value="<?php echo $category['category_id']; ?>"><?php echo $category['category_name']; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                        <button class="btn btn-default" type="submit" name="group-move" value="group-move" disabled="disabled">批量移动</button>
                     </td>
 				</tr>
 			</tfoot>
@@ -77,11 +93,11 @@
         }
         function checkGroupSelected(){
             if($('input:checkbox[name="ids[]"]:checked').length > 0){
-                $('button[name="group-trash"]').removeClass('disabled');
-                $('button[name="group-move"]').removeClass('disabled');
+                $('button[name="group-trash"]').prop('disabled', false);
+                $('button[name="group-move"]').prop('disabled', false);
             }else{
-                $('button[name="group-trash"]').addClass('disabled');
-                $('button[name="group-move"]').addClass('disabled');
+                $('button[name="group-trash"]').prop('disabled', true);
+                $('button[name="group-move"]').prop('disabled', true);
             }
         }
 	</script>
