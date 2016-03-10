@@ -106,10 +106,10 @@
                     if(res.message == 'success'){
                         var path = res.path;
                         $('#editor').summernote('insertImage', path);
+                    }else{
+                        var error_msg = res.error_msg;
+                        alert(error_msg);
                     }
-                },
-                error:function(){
-
                 }
             });
 

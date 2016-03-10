@@ -3,8 +3,7 @@ class MY_upload {
     /*
      * 必须传入的参数
      * */
-    protected $tmp_name = '';
-    protected $file_ext = '';
+    protected $original_file = array();
     /*
      * 非必须传入的参数
      * */
@@ -12,14 +11,19 @@ class MY_upload {
     protected $base_upload_path = '';
     protected $upload_size = 0;
     protected $timestamp = 0;
+    protected $max_size = 1048576; //1024*1024
     protected $filename_prefix = 'post_';
     protected $filename = '';
     public $upload_path = '';
+    protected $tmp_name = '';
+    protected $file_ext = '';
+    protected $error_msg = '';
 
     public function __construct($config = array())
     {
         $this->CI =& get_instance();
         $this->base_upload_path = $this->CI->config->item('upload_path');
+        $this->max_size = $this->CI->config->item('max_size');
         $this->timestamp = time();
         empty($config) OR $this->initialize($config);
     }
@@ -62,13 +66,14 @@ class MY_upload {
     protected function moveUploadFile(){
         $upload_path = $this->getUploadFilePath();
         if (file_exists($upload_path)){
-            error_log($upload_path. " already exists.");
+            $this->error_msg = $upload_path. " 文件已经存在";
             return FALSE;
         }else{
             $result = move_uploaded_file($this->tmp_name, $upload_path);
             if($result){
                 return TRUE;
             }else{
+                $this->error_msg = '上传文件失败';
                 return FALSE;
             }
         }
@@ -78,11 +83,37 @@ class MY_upload {
         return $this->upload_path.$this->filename;
     }
 
-    protected function isParamFine(){
-        if($this->tmp_name != '' AND $this->file_ext != ''){
-            return TRUE;
+    protected function isAbleAndPrepare(){
+        if($this->original_file ==  NULL){
+            $this->error_msg = '并未上传文件';
+            return FALSE;
         }
-        return FALSE;
+        $file = $this->original_file;
+
+        if ( ! ($file["type"] == "image/gif" || $file["type"] == "image/png" || $file["type"] == "image/jpeg" || $file["type"] == "image/pjpeg") )
+        {
+            $this->error_msg = '只支持jpg, gif, png格式';
+            return FALSE;
+        }
+        if ($file["size"] > $this->max_size)
+        {
+            $this->error_msg = '文件过大';
+            return FALSE;
+        }
+
+        if ($file["error"] > 0)
+        {
+            $this->error_msg = '文件上传错误';
+            return FALSE;
+        }
+
+        $this->file_ext = substr(strrchr($this->original_file['name'], '.'), 1);
+        $this->tmp_name = $this->original_file['tmp_name'];
+        return TRUE;
+    }
+
+    public function getErrorMsg(){
+        return $this->error_msg;
     }
 
     public function getRelativeUploadFilePath(){
@@ -90,18 +121,18 @@ class MY_upload {
     }
 
     public function doUpload(){
-        if($this->isParamFine() === FALSE){
+        if($this->isAbleAndPrepare() === FALSE){
             return FALSE;
         }
         $this->setUploadPath();
         $this->setFileName();
         $result = $this->moveUploadFile();
         if($result){
+            $this->error_msg = '';
             return $this->getRelativeUploadFilePath();
         }
         return FALSE;
     }
-
 
 
 

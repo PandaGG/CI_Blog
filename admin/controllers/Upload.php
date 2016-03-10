@@ -5,18 +5,16 @@ class Upload extends MY_Controller{
         $this->load->library('upload');
 	}
 	public function index(){
-        $ext = substr(strrchr($_FILES["file"]["name"], '.'), 1);
-        $tmp_name = $_FILES["file"]["tmp_name"];
         $config = array(
-            'tmp_name' => $tmp_name,
-            'file_ext' => $ext
+            'original_file' => $_FILES["file"]
         );
+
         $this->upload->initialize($config);
         $path = $this->upload->doUpload();
         if($path){
             $result = array('message'=>'success', 'path'=>$path);
         }else{
-            $result = array('message'=>'fail', 'path'=>'');
+            $result = array('message'=>'fail', 'error_msg'=>$this->upload->getErrorMsg());
         }
         echo json_encode($result);
 	}

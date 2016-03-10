@@ -7,6 +7,11 @@ class Post extends MY_Controller{
 	}
 	
 	public function index(){
+        $status = $this->input->get('status') ? $this->input->get('status') : 'all';
+        $cid = $this->input->get('cid') ? $this->input->get('cid') : 0;
+        $data['info']['status'] = $status;
+        $data['info']['cid'] = $cid;
+        $data['status'] = $status;
         $data['posts'] = $this->Post_model->get_posts();
         $data['categories'] = $this->Category_model->get_category();
 		$this->load->view('posts/post_list',$data);
@@ -63,8 +68,9 @@ class Post extends MY_Controller{
 
 	public function group_operation(){
         $ids = $this->input->post('ids');
-        $cid = $this->input->post('group_cid');
+        //批量移动类别
         if($this->input->post('group-move')){
+            $cid = $this->input->post('group_cid');
             $result = $this->Post_model->updateCategory($ids, $cid);
             if($result){
                 $this->pageTips('批量移动成功','post', 2);
@@ -74,8 +80,9 @@ class Post extends MY_Controller{
             return;
         }
 
+        //批量移动至垃圾箱
 		if($this->input->post('group-trash')){
-            $result = $this->Post_model->updateCategory($ids, 'trash');
+            $result = $this->Post_model->updateStatus($ids, 'trash');
             if($result){
                 $this->pageTips('批量移动至垃圾箱成功','post', 2);
             }else{
@@ -84,7 +91,33 @@ class Post extends MY_Controller{
             return;
         }
 
+        //批量永久删除
+        if($this->input->post('group-delete')){
+
+            return;
+        }
+
+        //批量移出垃圾箱
+        if($this->input->post('group-draft')){
+
+            return;
+        }
 	}
+
+    public function category(){
+        $status = $this->input->get('status');
+        $cid = $this->input->get('cid');
+        if($cid == 0){
+            redirect('post?status='.$status.'&cid='.$cid);
+            return;
+        }
+        $data['info']['status'] = $status;
+        $data['info']['cid'] = $cid;
+        $data['status'] = $status;
+        $data['posts'] = $this->Post_model->get_posts();
+        $data['categories'] = $this->Category_model->get_category();
+        $this->load->view('posts/post_list',$data);
+    }
 
 
 }
