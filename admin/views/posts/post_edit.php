@@ -22,6 +22,7 @@
                     <select class="selectpicker" name="status">
                         <option value="draft" <?php echo $post['post_status'] == 'draft' ? 'selected' : ''; ?>>草稿</option>
                         <option value="publish" <?php echo $post['post_status'] == 'publish' ? 'selected' : ''; ?>>已发布</option>
+                        <option value="publish" <?php echo $post['post_status'] == 'trash' ? 'selected' : ''; ?>>垃圾箱</option>
                     </select>
 
                 </div>
