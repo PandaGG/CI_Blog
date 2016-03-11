@@ -13,20 +13,19 @@
 	</div>
 
 	<div class="dashboard-section">
-        <form method="get" accept-charset="utf-8" action="<?php echo site_url('post/category'); ?>" id="navForm">
+        <form method="get" accept-charset="utf-8" action="<?php echo site_url('post'); ?>" id="navForm">
 		<ul class="nav nav-tabs">
-			<li role="presentation" <?php echo $info['status'] == 'all' ?  'class="active"' : ''?>><a href="javascript:gotoStatus('all');">全部 (10)</a></li>
-			<li role="presentation" <?php echo $info['status'] == 'publish' ?  'class="active"' : ''?>><a href="javascript:gotoStatus('publish');">已发布 (6)</a></li>
-			<li role="presentation"<?php echo $info['status'] == 'draft' ?  'class="active"' : ''?>><a href="javascript:gotoStatus('draft');">草稿 (3)</a></li>
-			<li role="presentation"<?php echo $info['status'] == 'trash' ?  'class="active"' : ''?>><a href="javascript:gotoStatus('trash');">垃圾箱 (1)</a></li>
+			<li role="presentation" <?php echo $info['status'] == 'all' ?  'class="active"' : ''?>><a href="javascript:gotoStatus('all');">全部 (<?php echo $status_count['all']; ?>)</a></li>
+			<li role="presentation" <?php echo $info['status'] == 'publish' ?  'class="active"' : ''?>><a href="javascript:gotoStatus('publish');">已发布 (<?php echo $status_count['publish']; ?>)</a></li>
+			<li role="presentation"<?php echo $info['status'] == 'draft' ?  'class="active"' : ''?>><a href="javascript:gotoStatus('draft');">草稿 (<?php echo $status_count['draft']; ?>)</a></li>
+			<li role="presentation"<?php echo $info['status'] == 'trash' ?  'class="active"' : ''?>><a href="javascript:gotoStatus('trash');">垃圾箱 (<?php echo $status_count['trash']; ?>)</a></li>
             <li style="float:right;">
-                <select class="selectpicker" name="cid">
+                <select class="selectpicker" name="cid" onchange="submitNavForm();">
                     <option value="0">全部类别</option>
                     <?php foreach($categories as $category): ?>
                         <option value="<?php echo $category['category_id']; ?>" <?php echo $category['category_id'] == $info['cid'] ? 'selected' : ''; ?>><?php echo $category['category_name']; ?></option>
                     <?php endforeach; ?>
                 </select>
-                <button class="btn btn-default" type="submit">筛选</button>
             </li>
 		</ul>
         <input type="hidden" name="status" value="<?php echo $info['status']; ?>" />
@@ -75,9 +74,24 @@
 					<td><?php echo $post['post_date']; ?></td>
 					<td><?php echo $post['post_hit']; ?></td>
 					<td class="text-right">
+                        <?php if($post['post_status'] == 'publish' || $post['post_status'] == 'trash'): ?>
+                            <a href="<?php echo site_url('post/draft/'.$post['post_id']); ?>" title="转为草稿"><i class="fa fa-eye-slash"></i></a>
+                            <span>|</span>
+                        <?php endif; ?>
+
+                        <?php if($post['post_status'] == 'draft'): ?>
+                            <a href="<?php echo site_url('post/publish/'.$post['post_id']); ?>" title="发布"><i class="fa fa-eye"></i></a>
+                            <span>|</span>
+                        <?php endif; ?>
 						<a href="<?php echo site_url('post/edit/'.$post['post_id']); ?>" title="编辑"><i class="fa fa-pencil"></i></a>
 						<span>|</span>
-						<a href="<?php echo site_url('post/delete/'.$post['post_id']); ?>" title="垃圾箱"><i class="fa fa-trash"></i></a>
+
+                        <?php if($post['post_status'] == 'trash'): ?>
+                            <a href="<?php echo site_url('post/delete/'.$post['post_id']); ?>" title="永久删除"><i class="fa fa-times"></i></a>
+                        <?php else: ?>
+                            <a href="<?php echo site_url('post/trash/'.$post['post_id']); ?>" title="垃圾箱"><i class="fa fa-trash"></i></a>
+                        <?php endif; ?>
+
 					</td>
 				</tr>
 				<?php endforeach; ?>
@@ -109,6 +123,10 @@
 		});
         function gotoStatus(status){
             $('#navForm input[name="status"]').val(status);
+            submitNavForm();
+        }
+
+        function submitNavForm(){
             $('#navForm').submit();
         }
 

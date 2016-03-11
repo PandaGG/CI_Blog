@@ -3,11 +3,40 @@ class Post_model extends CI_Model{
 	public function __construct(){
 		parent:: __construct();
 	}
-	public function get_posts(){
-        $sql = 'SELECT post_id, post_title, post_slug, post_content, post_excerpt, post_status, post_date, post_modified, post_hit FROM posts ORDER BY post_modified DESC';
+	public function get_posts($status = 'all', $cid = 0){
+        $sql = "SELECT post_id, post_title, post_slug, post_content, post_excerpt, post_status, post_date, post_modified, post_hit FROM post_detail";
+        if($status == 'all'){
+            $sql .= " WHERE (post_status = 'publish' OR post_status = 'draft')";
+        }else{
+            $sql .= " WHERE post_status = ".$this->db->escape($status);
+        }
+
+        if($cid != 0){
+            $sql .= " AND category_id = ".$this->db->escape($cid);
+        }
+        $sql .= " ORDER BY post_modified DESC";
+
         $query = $this->db->query($sql);
         return $query->result_array();
 	}
+
+    public function get_condition_posts_num($status = 'all', $cid = 0){
+        $sql = "SELECT post_id FROM post_detail";
+
+        if($status == 'all'){
+            $sql .= " WHERE (post_status = 'publish' OR post_status = 'draft')";
+        }else{
+            $sql .= " WHERE post_status = ".$this->db->escape($status);
+        }
+
+        if($cid != 0){
+            $sql .= " AND category_id = ".$this->db->escape($cid);
+        }
+
+        $query = $this->db->query($sql);
+        return $query->num_rows();
+    }
+
 
     public function get_post_info($pid = NULL){
         if($pid === NULL){
@@ -16,6 +45,8 @@ class Post_model extends CI_Model{
         $query = $this->db->get_where('posts',array('post_id' => $pid));
         return $query->row_array();
     }
+
+
     public function insert_post($cid, $title, $slug, $description, $html_context, $status = 'draft'){
         if(empty($cid) || empty($title) || empty($slug)){
             return 0;
@@ -60,7 +91,6 @@ class Post_model extends CI_Model{
         return 0;
     }
 
-
     public function updateCategory($ids = array(), $cid = NULL){
         if(count($ids) == 0 || $cid === NULL){
             return 0;
@@ -76,6 +106,15 @@ class Post_model extends CI_Model{
         }
         $this->db->where_in('post_id',$ids);
         $this->db->update('posts',array('post_status'=>$status));
+        return $this->db->affected_rows();
+    }
+
+    public function deletePost($ids = array()){
+        if(count($ids) == 0){
+            return 0;
+        }
+        $this->db->where_in('post_id',$ids);
+        $this->db->delete('posts');
         return $this->db->affected_rows();
     }
 

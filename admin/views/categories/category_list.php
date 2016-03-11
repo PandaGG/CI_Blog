@@ -27,9 +27,9 @@
 						<a href="<?php echo site_url('category/edit/'.$category['category_id']); ?>" title="编辑"><i class="fa fa-pencil"></i></a>
 						<span>|</span>
 						<?php if($category['post_num']): ?>
-							<span class="disabled" title="无法删除有文章的栏目"><i class="fa fa-trash"></i></span>
+							<span class="disabled" title="无法删除有文章的栏目"><i class="fa fa-times"></i></span>
 						<?php else: ?>
-							<a href="javascript:void(0);" title="删除" data-url="<?php echo site_url('category/delete/'.$category['category_id']); ?>" data-cname="<?php echo $category['category_name'] ?>" onclick="confirmDelete(this);"><i class="fa fa-trash"></i></a>
+							<a href="javascript:void(0);" title="删除" data-url="<?php echo site_url('category/delete/'.$category['category_id']); ?>" data-cname="<?php echo $category['category_name'] ?>" onclick="confirmDelete(this);"><i class="fa fa-times"></i></a>
 						<?php endif; ?>
 					</td>
 				</tr>

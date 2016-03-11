@@ -41,4 +41,16 @@ class MY_Controller extends CI_Controller {
         );
         $this->load->view('pagetips',$data);
     }
+
+    /*保存当前页面的uri包括query string到session*/
+    protected function saveUri(){
+        $query_string = $_SERVER["QUERY_STRING"];
+        $current_uri = uri_string();
+        if($query_string){
+            $current_uri .= '?'.$query_string;
+        }
+        $_SESSION['lastUri'] = $current_uri;
+    }
+
+
 }

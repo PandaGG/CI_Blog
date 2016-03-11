@@ -7,12 +7,19 @@ class Post extends MY_Controller{
 	}
 	
 	public function index(){
+        $this->saveUri();
         $status = $this->input->get('status') ? $this->input->get('status') : 'all';
         $cid = $this->input->get('cid') ? $this->input->get('cid') : 0;
         $data['info']['status'] = $status;
         $data['info']['cid'] = $cid;
+        $data['status_count'] = array(
+            'all' => $this->Post_model->get_condition_posts_num('all', $cid),
+            'publish' => $this->Post_model->get_condition_posts_num('publish', $cid),
+            'draft' => $this->Post_model->get_condition_posts_num('draft', $cid),
+            'trash' => $this->Post_model->get_condition_posts_num('trash', $cid)
+        );
         $data['status'] = $status;
-        $data['posts'] = $this->Post_model->get_posts();
+        $data['posts'] = $this->Post_model->get_posts($status, $cid);
         $data['categories'] = $this->Category_model->get_category();
 		$this->load->view('posts/post_list',$data);
 	}
@@ -65,6 +72,61 @@ class Post extends MY_Controller{
         }
     }
 
+    public function publish($pid = NULL){
+        if($pid === NULL){
+            show_404();
+        }else{
+            $result = $this->Post_model->updateStatus(array($pid), 'publish');
+            if($result){
+                $this->pageTips('发布成功',$this->session->lastUri, 2);
+            }else{
+                $this->pageTips('发布成功失败',$this->session->lastUri, 2, 'fail');
+            }
+            return;
+        }
+    }
+
+    public function draft($pid = NULL){
+        if($pid === NULL){
+            show_404();
+        }else{
+            $result = $this->Post_model->updateStatus(array($pid), 'draft');
+            if($result){
+                $this->pageTips('转为草稿成功',$this->session->lastUri, 2);
+            }else{
+                $this->pageTips('转为草稿失败',$this->session->lastUri, 2, 'fail');
+            }
+            return;
+        }
+    }
+
+    public function trash($pid = NULL){
+        if($pid === NULL){
+            show_404();
+        }else{
+            $result = $this->Post_model->updateStatus(array($pid), 'trash');
+            if($result){
+                $this->pageTips('移动至垃圾箱成功',$this->session->lastUri, 2);
+            }else{
+                $this->pageTips('移动至垃圾箱失败',$this->session->lastUri, 2, 'fail');
+            }
+            return;
+        }
+    }
+
+    public function delete($pid = NULL){
+        if($pid === NULL){
+            show_404();
+        }else{
+            $result = $this->Post_model->deletePost(array($pid));
+            if($result){
+                $this->pageTips('永久删除成功',$this->session->lastUri, 2);
+            }else{
+                $this->pageTips('永久删除失败',$this->session->lastUri, 2, 'fail');
+            }
+            return;
+        }
+    }
 
 	public function group_operation(){
         $ids = $this->input->post('ids');
@@ -73,9 +135,9 @@ class Post extends MY_Controller{
             $cid = $this->input->post('group_cid');
             $result = $this->Post_model->updateCategory($ids, $cid);
             if($result){
-                $this->pageTips('批量移动成功','post', 2);
+                $this->pageTips('批量移动成功',$this->session->lastUri, 2);
             }else{
-                $this->pageTips('批量移动失败','post', 2, 'fail');
+                $this->pageTips('批量移动失败',$this->session->lastUri, 2, 'fail');
             }
             return;
         }
@@ -84,40 +146,35 @@ class Post extends MY_Controller{
 		if($this->input->post('group-trash')){
             $result = $this->Post_model->updateStatus($ids, 'trash');
             if($result){
-                $this->pageTips('批量移动至垃圾箱成功','post', 2);
+                $this->pageTips('批量移动至垃圾箱成功',$this->session->lastUri, 2);
             }else{
-                $this->pageTips('批量移动至垃圾箱失败','post', 2, 'fail');
+                $this->pageTips('批量移动至垃圾箱失败',$this->session->lastUri, 2, 'fail');
             }
             return;
         }
 
         //批量永久删除
         if($this->input->post('group-delete')){
-
+            $result = $this->Post_model->deletePost($ids);
+            if($result){
+                $this->pageTips('批量永久删除成功',$this->session->lastUri, 2);
+            }else{
+                $this->pageTips('批量永久删除失败',$this->session->lastUri, 2, 'fail');
+            }
+            return;
             return;
         }
 
         //批量移出垃圾箱
         if($this->input->post('group-draft')){
-
+            $result = $this->Post_model->updateStatus($ids, 'draft');
+            if($result){
+                $this->pageTips('批量移出垃圾箱成功',$this->session->lastUri, 2);
+            }else{
+                $this->pageTips('批量移出垃圾箱失败',$this->session->lastUri, 2, 'fail');
+            }
             return;
         }
 	}
-
-    public function category(){
-        $status = $this->input->get('status');
-        $cid = $this->input->get('cid');
-        if($cid == 0){
-            redirect('post?status='.$status.'&cid='.$cid);
-            return;
-        }
-        $data['info']['status'] = $status;
-        $data['info']['cid'] = $cid;
-        $data['status'] = $status;
-        $data['posts'] = $this->Post_model->get_posts();
-        $data['categories'] = $this->Category_model->get_category();
-        $this->load->view('posts/post_list',$data);
-    }
-
 
 }
