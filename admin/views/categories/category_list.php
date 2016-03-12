@@ -35,12 +35,10 @@
 				</tr>
 				<?php endforeach;?>
 			</tbody>
-			<tfoot>
-				<tr>
-					<td colspan="5"></td>
-				</tr>
-			</tfoot>
 		</table>
+		<div class="text-right">
+			<?php echo $pagination_link ?>
+		</div>
 	</div>
     <script type="text/javascript">
         function confirmDelete(obj){

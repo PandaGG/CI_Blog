@@ -3,7 +3,7 @@ class Post_model extends CI_Model{
 	public function __construct(){
 		parent:: __construct();
 	}
-	public function get_posts($status = 'all', $cid = 0){
+	public function get_posts($status = 'all', $cid = 0, $offset = NULL, $num = NULL){
         $sql = "SELECT post_id, post_title, post_slug, post_content, post_excerpt, post_status, post_date, post_modified, post_hit FROM post_detail";
         if($status == 'all'){
             $sql .= " WHERE (post_status = 'publish' OR post_status = 'draft')";
@@ -15,6 +15,10 @@ class Post_model extends CI_Model{
             $sql .= " AND category_id = ".$this->db->escape($cid);
         }
         $sql .= " ORDER BY post_modified DESC";
+
+        if($offset !== NULL AND $num !== NULL){
+            $sql .= " LIMIT ".$this->db->escape($offset).", ".$this->db->escape($num);
+        }
 
         $query = $this->db->query($sql);
         return $query->result_array();

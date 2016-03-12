@@ -115,6 +115,10 @@
 				</tr>
 			</tfoot>
 		</table>
+        <div class="text-right">
+            <?php echo $pagination_link ?>
+        </div>
+
         <?php echo form_close(); ?>
 	</div>
 	<script type="text/javascript">

@@ -5,7 +5,26 @@ class Category extends MY_Controller{
 		$this->load->model('Category_model');
 	}
 	public function index(){
-		$data['categories'] = $this->Category_model->get_category();
+		$paged = $this->input->get('paged') ? $this->input->get('paged') : 1;
+		/*分页 开始*/
+		$this->load->library('pagination');
+		$pagination_base_url = site_url('category').'?paged=';
+
+		$per_page = 10;
+		$config = array(
+			'base_url' => $pagination_base_url,
+			'total_rows' => $this->Category_model->get_category_count(),
+			'per_page' => $per_page,
+			'$num_links' => 3,
+			'cur_page' => $paged
+		);
+		$this->pagination->initialize($config);
+		$pagination_link = $this->pagination->create_links();
+		$data['pagination_link'] = $pagination_link;
+		/*分页 结束*/
+		$offset = (int)($per_page*($paged-1));
+
+		$data['categories'] = $this->Category_model->get_categories($offset, $per_page);
 		$this->load->view('categories/category_list', $data);
 	}
 	public function create(){
