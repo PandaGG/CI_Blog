@@ -54,7 +54,19 @@ span.disabled{
     box-shadow: none;
 }
 
-/*! site style */
+.pagination > li > a, .pagination > li > span{
+    color: #16a085;
+}
+
+.pagination > li > a:hover, .pagination > li > span:hover{
+    color: #1abc9c;
+}
+
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus{
+    background-color: #16a085;
+}
+
+    /*! site style */
 
 /* header */
 .topbar{

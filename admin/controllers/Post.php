@@ -15,10 +15,10 @@ class Post extends MY_Controller{
         $data['info']['status'] = $status;
         $data['info']['cid'] = $cid;
         $data['status_count'] = array(
-            'all' => $this->Post_model->get_condition_posts_num('all', $cid),
-            'publish' => $this->Post_model->get_condition_posts_num('publish', $cid),
-            'draft' => $this->Post_model->get_condition_posts_num('draft', $cid),
-            'trash' => $this->Post_model->get_condition_posts_num('trash', $cid)
+            'all' => $this->Post_model->count_condition_posts('all', $cid),
+            'publish' => $this->Post_model->count_condition_posts('publish', $cid),
+            'draft' => $this->Post_model->count_condition_posts('draft', $cid),
+            'trash' => $this->Post_model->count_condition_posts('trash', $cid)
         );
 
         /*分页 开始*/
@@ -59,6 +59,53 @@ class Post extends MY_Controller{
         $data['categories'] = $this->Category_model->get_categories();
 		$this->load->view('posts/post_list',$data);
 	}
+
+    public function search(){
+        $this->saveUri();
+        $keywords = $this->input->get('keywords');
+        if($keywords == NULL){
+            redirect('post');
+        }
+        $data['keywords'] = $keywords;
+        $paged = $this->input->get('paged') ? $this->input->get('paged') : 1;
+        /*分页 开始*/
+        $this->load->library('pagination');
+        $query_string = $_SERVER["QUERY_STRING"];
+        if($query_string){
+            $query_parm = explode('&', $query_string);
+            for($i=0; $i<count($query_parm); $i++){
+                if(strpos($query_parm[$i], 'paged') !== FALSE){
+                    unset($query_parm[$i]);
+                    break;
+                }
+            }
+            $query_string = implode('&', $query_parm);
+        }
+
+        $pagination_base_url = site_url('post/search');
+        if($query_string){
+            $pagination_base_url .= '?'.$query_string.'&paged=';
+        }else{
+            $pagination_base_url .= '?paged=';
+        }
+        $per_page = 10;
+        $config = array(
+            'base_url' => $pagination_base_url,
+            'total_rows' => $this->Post_model->count_search_posts($keywords),
+            'per_page' => $per_page,
+            '$num_links' => 3,
+            'cur_page' => $paged
+        );
+        $this->pagination->initialize($config);
+        $pagination_link = $this->pagination->create_links();
+        $data['pagination_link'] = $pagination_link;
+        /*分页 结束*/
+        $offset = (int)($per_page*($paged-1));
+
+        $data['posts'] = $this->Post_model->get_search_posts($keywords, $offset, $per_page);
+        $data['categories'] = $this->Category_model->get_categories();
+        $this->load->view('posts/post_list',$data);
+    }
 
     public function create(){
         $data['categories'] = $this->Category_model->get_categories();

@@ -24,7 +24,7 @@ class Post_model extends CI_Model{
         return $query->result_array();
 	}
 
-    public function get_condition_posts_num($status = 'all', $cid = 0){
+    public function count_condition_posts($status = 'all', $cid = 0){
         $sql = "SELECT post_id FROM post_detail";
 
         if($status == 'all'){
@@ -35,6 +35,35 @@ class Post_model extends CI_Model{
 
         if($cid != 0){
             $sql .= " AND category_id = ".$this->db->escape($cid);
+        }
+
+        $query = $this->db->query($sql);
+        return $query->num_rows();
+    }
+
+    public function get_search_posts($keywords = NULL, $offset = NULL, $num = NULL){
+        $sql = "SELECT post_id, post_title, post_slug, post_content, post_excerpt, post_status, post_date, post_modified, post_hit FROM post_detail";
+        $sql .= " WHERE (post_status = 'publish' OR post_status = 'draft')";
+
+        if($keywords != NULL){
+            $sql .= " AND post_title like ".$this->db->escape('%'.$keywords.'%');
+        }
+        $sql .= " ORDER BY post_modified DESC";
+
+        if($offset !== NULL AND $num !== NULL){
+            $sql .= " LIMIT ".$this->db->escape($offset).", ".$this->db->escape($num);
+        }
+
+        $query = $this->db->query($sql);
+        return $query->result_array();
+    }
+
+    public function count_search_posts($keywords = NULL){
+        $sql = "SELECT post_id FROM post_detail";
+        $sql .= " WHERE (post_status = 'publish' OR post_status = 'draft')";
+
+        if($keywords != NULL){
+            $sql .= " AND post_title like ".$this->db->escape('%'.$keywords.'%');
         }
 
         $query = $this->db->query($sql);

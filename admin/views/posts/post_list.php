@@ -2,35 +2,47 @@
 <!-- main Begin -->
 <div class="main">
 	<div class="dashboard-title">
-		<span>文章管理</span>
-		<a href="<?php echo site_url('post/create'); ?>" title="添加文章"><i class="fa fa-plus"></i></a>
-        <div class="input-group w400 float-right">
-            <input type="text" class="form-control" placeholder="搜索内容">
+        <form method="get" accept-charset="utf-8" action="<?php echo site_url('post/search'); ?>"">
+        <span>文章管理</span>
+        <a href="<?php echo site_url('post/create'); ?>" title="添加文章"><i class="fa fa-plus"></i></a>
+        <div class="input-group w200 float-right">
+            <?php if(isset($keywords)): ?>
+                <input type="text" class="form-control" name="keywords" value="<?php echo $keywords; ?>" placeholder="搜索标题">
+            <?php else: ?>
+                <input type="text" class="form-control" name="keywords" placeholder="搜索标题">
+            <?php endif; ?>
             <span class="input-group-btn">
-                <button class="btn btn-default" type="button">搜索</button>
-            </span>
+                    <button class="btn btn-default" type="submit">搜索</button>
+                </span>
         </div>
+        <?php echo form_close(); ?>
 	</div>
 
-	<div class="dashboard-section">
-        <form method="get" accept-charset="utf-8" action="<?php echo site_url('post'); ?>" id="navForm">
-		<ul class="nav nav-tabs">
-			<li role="presentation" <?php echo $info['status'] == 'all' ?  'class="active"' : ''?>><a href="javascript:gotoStatus('all');">全部 (<?php echo $status_count['all']; ?>)</a></li>
-			<li role="presentation" <?php echo $info['status'] == 'publish' ?  'class="active"' : ''?>><a href="javascript:gotoStatus('publish');">已发布 (<?php echo $status_count['publish']; ?>)</a></li>
-			<li role="presentation"<?php echo $info['status'] == 'draft' ?  'class="active"' : ''?>><a href="javascript:gotoStatus('draft');">草稿 (<?php echo $status_count['draft']; ?>)</a></li>
-			<li role="presentation"<?php echo $info['status'] == 'trash' ?  'class="active"' : ''?>><a href="javascript:gotoStatus('trash');">垃圾箱 (<?php echo $status_count['trash']; ?>)</a></li>
-            <li style="float:right;">
-                <select class="selectpicker" name="cid" onchange="submitNavForm();">
-                    <option value="0">全部类别</option>
-                    <?php foreach($categories as $category): ?>
-                        <option value="<?php echo $category['category_id']; ?>" <?php echo $category['category_id'] == $info['cid'] ? 'selected' : ''; ?>><?php echo $category['category_name']; ?></option>
-                    <?php endforeach; ?>
-                </select>
-            </li>
-		</ul>
-        <input type="hidden" name="status" value="<?php echo $info['status']; ?>" />
-        </form>
-	</div>
+    <?php if(isset($keywords)): ?>
+        <div class="dashboard-section">
+            <span>搜索关键词 <b><?php echo $keywords; ?></b> 结果</span>
+        </div>
+    <?php else: ?>
+        <div class="dashboard-section">
+            <form method="get" accept-charset="utf-8" action="<?php echo site_url('post'); ?>" id="navForm">
+            <ul class="nav nav-tabs">
+                <li role="presentation" <?php echo $info['status'] == 'all' ?  'class="active"' : ''?>><a href="javascript:gotoStatus('all');">全部 (<?php echo $status_count['all']; ?>)</a></li>
+                <li role="presentation" <?php echo $info['status'] == 'publish' ?  'class="active"' : ''?>><a href="javascript:gotoStatus('publish');">已发布 (<?php echo $status_count['publish']; ?>)</a></li>
+                <li role="presentation"<?php echo $info['status'] == 'draft' ?  'class="active"' : ''?>><a href="javascript:gotoStatus('draft');">草稿 (<?php echo $status_count['draft']; ?>)</a></li>
+                <li role="presentation"<?php echo $info['status'] == 'trash' ?  'class="active"' : ''?>><a href="javascript:gotoStatus('trash');">垃圾箱 (<?php echo $status_count['trash']; ?>)</a></li>
+                <li style="float:right;">
+                    <select class="selectpicker" name="cid" onchange="submitNavForm();">
+                        <option value="0">全部类别</option>
+                        <?php foreach($categories as $category): ?>
+                            <option value="<?php echo $category['category_id']; ?>" <?php echo $category['category_id'] == $info['cid'] ? 'selected' : ''; ?>><?php echo $category['category_name']; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </li>
+            </ul>
+            <input type="hidden" name="status" value="<?php echo $info['status']; ?>" />
+            </form>
+        </div>
+    <?php endif; ?>
 
 	<div class="dashboard-section">
         <?php echo form_open('post/group_operation'); ?>
@@ -99,17 +111,27 @@
 			<tfoot>
 				<tr>
 					<td colspan="9">
-                        <?php if($info['status'] == 'trash'): ?>
-                            <button class="btn btn-default group-operation-btn" type="submit" name="group-delete" value="group-delete" disabled="disabled">批量永久删除</button>
-                            <button class="btn btn-default group-operation-btn" type="submit" name="group-draft" value="group-draft" disabled="disabled">批量移出垃圾箱</button>
-                        <?php else: ?>
-                            <button class="btn btn-default group-operation-btn" type="submit" name="group-trash" value="group-trash" disabled="disabled" style="margin-right:20px;">批量垃圾箱</button>
+                        <?php if(isset($keywords)): ?>
+                            <button class="btn btn-default group-operation-btn" type="submit" name="group-trash" value="group-trash" disabled="disabled">批量垃圾箱</button>
                             <select class="selectpicker" name="group_cid">
                                 <?php foreach($categories as $category): ?>
                                     <option value="<?php echo $category['category_id']; ?>"><?php echo $category['category_name']; ?></option>
                                 <?php endforeach; ?>
                             </select>
                             <button class="btn btn-default group-operation-btn" type="submit" name="group-move" value="group-move" disabled="disabled">批量移动</button>
+                        <?php else: ?>
+                            <?php if($info['status'] == 'trash'): ?>
+                                <button class="btn btn-default group-operation-btn" type="submit" name="group-delete" value="group-delete" disabled="disabled">批量永久删除</button>
+                                <button class="btn btn-default group-operation-btn" type="submit" name="group-draft" value="group-draft" disabled="disabled">批量移出垃圾箱</button>
+                            <?php else: ?>
+                                <button class="btn btn-default group-operation-btn" type="submit" name="group-trash" value="group-trash" disabled="disabled" style="margin-right:20px;">批量垃圾箱</button>
+                                <select class="selectpicker" name="group_cid">
+                                    <?php foreach($categories as $category): ?>
+                                        <option value="<?php echo $category['category_id']; ?>"><?php echo $category['category_name']; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <button class="btn btn-default group-operation-btn" type="submit" name="group-move" value="group-move" disabled="disabled">批量移动</button>
+                            <?php endif; ?>
                         <?php endif; ?>
                     </td>
 				</tr>
