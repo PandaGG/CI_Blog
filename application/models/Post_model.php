@@ -64,4 +64,9 @@ class Post_model extends CI_Model{
 		
 		return $query->result_array();
 	}
+
+	public function get_archives(){
+		$query = $this->db->query("SELECT LEFT(post_date, 7) AS publish_date, COUNT(*) as cnt FROM posts GROUP BY publish_date ORDER BY publish_date DESC");
+		return $query->result_array();
+	}
 }

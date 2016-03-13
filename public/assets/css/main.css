@@ -68,11 +68,9 @@ a:hover, a:focus{
 .sub-header{
 	padding-bottom: 5px;
     background-color: #1abc9c;
+    color: #ffffff;
 }
 
-.sub-header h2{
-	color: #ffffff;
-}
 
 .list-caption {
     background-color: #ffffff;
@@ -95,21 +93,24 @@ a:hover, a:focus{
 /*sidebar*/
 .sidebar_package{
     margin-top: 20px;
-    padding: 5px 15px 20px 15px;
+    padding: 5px 15px 5px 15px;
     background-color: #ffffff;
 }
 
 ul.sidebar-list{
     padding: 0px;
+    color: #999;
 }
 
 ul.sidebar-list li{
-    padding-bottom: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
     width: 100%;
     word-break: keep-all;
+    border-bottom: solid #eee 1px;
 }
 
 .footer-default{
@@ -120,7 +121,8 @@ ul.sidebar-list li{
     width:100%;
     margin-top:30px;
     padding-top: 25px;
-    padding-bottom: 25px;background-color: #4a4a4a;
+    padding-bottom: 25px;
+    background-color: #4a4a4a;
     opacity: 0.9;
     color: white;
 }
