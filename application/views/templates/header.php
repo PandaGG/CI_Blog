@@ -7,13 +7,20 @@
 		<meta name="keywords" content="HTML, CSS, JS, JavaScript, PHP, web development">
 		<meta name="author" content="Josh">
 		<title><?php echo $page_title; ?></title>
-		<link rel="stylesheet" href="/assets/css/bootstrap.css" />
-	    <link rel="stylesheet" href="/assets/css/main.css" />
-	    <script src="/assets/js/jquery.min.js"></script>
-	    <script src="/assets/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="<?php echo site_url();?>assets/css/bootstrap.css" />
+        <link rel="stylesheet" href="<?php echo site_url();?>assets/css/font-awesome.css">
+	    <link rel="stylesheet" href="<?php echo site_url();?>assets/css/main.css" />
+	    <script src="<?php echo site_url();?>assets/js/jquery.min.js"></script>
+	    <script src="<?php echo site_url();?>assets/js/bootstrap.min.js"></script>
     </head>
     <body>
     	<header id="header" role="banner">
+			<div class="sub-header">
+				<div class="container">
+					<h2>PandaGG的博客</h2>
+					<p>PandaGG做笔记的地方 - 关注互联网，热爱web开发</p>
+				</div>
+			</div>
     		<nav class="navbar navbar-default" role="navigation">
 	    		<div class="container">
 		    		<div class="navbar-header">
@@ -27,12 +34,6 @@
 		    		<div class="clearfix"></div>
 	    		</div>
     		</nav>
-    		<div class="sub-header">
-	    		<div class="container">
-	    			<h2>PandaGG的博客</h1>
-	    			<p>PandaGG做笔记的地方 - 关注互联网，热爱web开发</p>
-	    		</div>
-    		</div>
     	</header>
     	
     	<section class="wrapper">

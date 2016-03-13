@@ -66,6 +66,9 @@ span.disabled{
     background-color: #16a085;
 }
 
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
+    border-color: #16a085;
+}
     /*! site style */
 
 /* header */

@@ -3,6 +3,7 @@ class Posts extends MY_Controller{
 	public function __construct(){
 		parent::__construct();
 		$this->load->model('post_model');
+        $this->load->helper('date');
 	}
 	public function index($cur_page = 1){
 		$total_num = $this->post_model->get_posts_count();
@@ -24,7 +25,7 @@ class Posts extends MY_Controller{
 		$posts = $this->post_model->get_posts($offset,$per_page);
 		foreach($posts as $post){
 			$datetime = new DateTime($post['post_date']);
-			$post['post_date'] = $datetime->format('Y-m-d H:i');
+			$post['post_date'] = formatElapseTime($datetime->format('Y-m-d H:i'));
 			$data['posts'][] = $post;
 		}
 		/*暂存页面输出结果*/

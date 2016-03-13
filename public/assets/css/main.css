@@ -5,16 +5,27 @@ html{
 	height:100%;
 }
 body{
+    background-color: #eee;
 	position: relative;
 	min-height: 100%;
 	padding-bottom: 120px; /*footer*/
 }
 
+a{
+    color: #16a085;
+}
+a:hover, a:focus{
+    color: #1abc9c;
+    text-decoration: none;
+}
+
 /*! reset bootstrap style */
+
 .navbar-default {
 	border-radius: 0;
-    background-color: #16a085;
-    border-color: #16a085;
+    background-color: #4a4a4a;
+    border-color: #4a4a4a;
+    opacity: 0.9;
 }
 .navbar-default .navbar-brand {
     color: white;
@@ -22,7 +33,7 @@ body{
 
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
-  color: #ffea00;
+  color: #1abc9c;
 }
 
 .navbar-default .navbar-text {
@@ -33,31 +44,65 @@ body{
 }
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
-  color: #ffea00;
+  color: #1abc9c;
 }
+
+.pagination > li > a, .pagination > li > span{
+    color: #16a085;
+}
+
+.pagination > li > a:hover, .pagination > li > span:hover{
+    color: #1abc9c;
+}
+
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus{
+    background-color: #16a085;
+}
+
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
+    border-color: #16a085;
+}
+
 
 /*! site style */
 .sub-header{
 	padding-bottom: 5px;
-	border-bottom: 1px solid #dcdcdc;	
+    background-color: #1abc9c;
 }
 
 .sub-header h2{
-	color: #34495e;
+	color: #ffffff;
 }
 
 .list-caption {
+    background-color: #ffffff;
+    padding: 5px 15px 25px 15px;
 	border-bottom: 1px solid #dcdcdc;
+    margin-top: 20px;
     margin-bottom: 4px;
-    margin-top: 24px;
-    padding-bottom: 29px;
+    margin-left: -15px;
+    margin-right: -15px;
 }
 
 .info{
 	color: #999;
 }
 
+.info>span{
+    margin-right:10px;
+}
+
 /*sidebar*/
+.sidebar_package{
+    margin-top: 20px;
+    padding: 5px 15px 20px 15px;
+    background-color: #ffffff;
+}
+
+ul.sidebar-list{
+    padding: 0px;
+}
+
 ul.sidebar-list li{
     padding-bottom: 5px;
     text-overflow: ellipsis;
@@ -75,7 +120,21 @@ ul.sidebar-list li{
     width:100%;
     margin-top:30px;
     padding-top: 25px;
-    padding-bottom: 25px;
-    background-color: #647980;
+    padding-bottom: 25px;background-color: #4a4a4a;
+    opacity: 0.9;
     color: white;
+}
+
+
+@media (max-width: 1199px) {
+    .sidebar_package{
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+}
+
+/* main */
+.pagination_contain{
+    margin-left: -15px;
+    margin-right: -15px;
 }
