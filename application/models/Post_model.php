@@ -36,7 +36,10 @@ class Post_model extends CI_Model{
 		if($post_id === NULL){
 			return array();
 		}else{
-			$query = $this->db->query("SELECT * FROM posts WHERE post_status = 'publish' AND post_id = ?" , array($post_id));
+			$sql = "SELECT post_id, post_slug, post_title, post_excerpt, post_content, post_date, post_hit, category_name, category_slug
+				FROM post_detail
+				WHERE post_status = 'publish' AND post_id = ".$this->db->escape($post_id);
+			$query = $this->db->query($sql);
 			return $query->row_array();
 		}
 	}
@@ -45,7 +48,10 @@ class Post_model extends CI_Model{
 		if($post_slug === NULL){
 			return array();
 		}else{
-			$query = $this->db->query("SELECT * FROM posts WHERE post_status = 'publish' AND post_slug = ?" , array($post_slug));
+			$sql = "SELECT post_id, post_slug, post_title, post_excerpt, post_content, post_date, post_hit, category_name, category_slug
+				FROM post_detail
+				WHERE post_status = 'publish' AND post_slug = ".$this->db->escape($post_slug);
+			$query = $this->db->query($sql);
 			return $query->row_array();
 		}
 	}

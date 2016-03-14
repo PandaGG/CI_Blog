@@ -46,8 +46,7 @@ class Categories extends MY_Controller{
             show_404();
         }
 		foreach($posts as $post){
-			$datetime = new DateTime($post['post_date']);
-			$post['post_date'] = formatElapseTime($datetime->format('Y-m-d H:i'));
+			$post['post_date'] = formatElapseTime($post['post_date']);
 			$data['posts'][] = $post;
 		}
 		/*暂存页面输出结果*/

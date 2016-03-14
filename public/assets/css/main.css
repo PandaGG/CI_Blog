@@ -75,7 +75,7 @@ h1, .h1, h2, .h2, h3, .h3 {
 }
 
 
-.list-caption {
+.main_wrapper, .list-caption {
     background-color: #ffffff;
     padding: 20px 15px 20px 15px;
 	border-bottom: 1px solid #dcdcdc;
@@ -95,13 +95,22 @@ ul.categories_list li{
     padding: 5px 10px;
 }
 
-.info{
+.info, .article-info{
 	color: #999;
 }
 
-.info>span{
-    margin-right:10px;
+.info>span, .article-info>span{
+    margin-right: 10px;
 }
+
+.article-excerpt{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 18px;
+    background-color: #eee;
+    border: 1px solid #dcdcdc;
+}
+
 
 /*sidebar*/
 .sidebar_package{

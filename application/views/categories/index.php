@@ -1,4 +1,4 @@
-<div class="list-caption text-center">
+<div class="main_wrapper text-center">
 	<ul class="categories_list">
 		<?php foreach($categories as $category): ?>
 			<li>
