@@ -2,19 +2,19 @@
 class Posts extends MY_Controller{
 	public function __construct(){
 		parent::__construct();
+		$this->load->helper('date');
 		$this->load->model('post_model');
-        $this->load->helper('date');
 	}
 	public function index($cur_page = 1){
 		$total_num = $this->post_model->get_posts_count();
 		$this->load->library('pagination');
 		/*分页 开始*/
-		$per_page = 5;
+		$per_page = 10;
 		$config = array(
 			'base_url' => site_url('posts').'/',
 			'total_rows' => $total_num,
 			'per_page' => $per_page,
-			'$num_links' => 3,
+			'num_links' => 3,
 			'cur_page' => $cur_page
 		);
 		$this->pagination->initialize($config);
@@ -22,7 +22,10 @@ class Posts extends MY_Controller{
 		$data['pagination_link'] = $pagination_link;
 		/*分页 结束*/
 		$offset = (int)($per_page*($cur_page-1));
-		$posts = $this->post_model->get_posts($offset,$per_page);
+		$posts = $this->post_model->get_posts($offset, $per_page);
+		if(empty($posts)){
+			show_404();
+		}
 		foreach($posts as $post){
 			$datetime = new DateTime($post['post_date']);
 			$post['post_date'] = formatElapseTime($datetime->format('Y-m-d H:i'));

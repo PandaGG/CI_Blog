@@ -46,7 +46,7 @@ class Post extends MY_Controller{
             'base_url' => $pagination_base_url,
             'total_rows' => $data['status_count'][$status],
             'per_page' => $per_page,
-            '$num_links' => 3,
+            'num_links' => 3,
             'cur_page' => $paged
         );
         $this->pagination->initialize($config);
@@ -93,7 +93,7 @@ class Post extends MY_Controller{
             'base_url' => $pagination_base_url,
             'total_rows' => $this->Post_model->count_search_posts($keywords),
             'per_page' => $per_page,
-            '$num_links' => 3,
+            'num_links' => 3,
             'cur_page' => $paged
         );
         $this->pagination->initialize($config);

@@ -15,7 +15,7 @@ class Category extends MY_Controller{
 			'base_url' => $pagination_base_url,
 			'total_rows' => $this->Category_model->get_category_count(),
 			'per_page' => $per_page,
-			'$num_links' => 3,
+			'num_links' => 3,
 			'cur_page' => $paged
 		);
 		$this->pagination->initialize($config);
@@ -23,7 +23,6 @@ class Category extends MY_Controller{
 		$data['pagination_link'] = $pagination_link;
 		/*分页 结束*/
 		$offset = (int)($per_page*($paged-1));
-
 		$data['categories'] = $this->Category_model->get_categories($offset, $per_page);
 		$this->load->view('categories/category_list', $data);
 	}

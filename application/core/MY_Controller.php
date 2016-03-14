@@ -12,13 +12,13 @@ Class MY_Controller extends CI_Controller {
 	 */
 	protected function show_default_template($title = '', $main_html = '')
 	{
+		$this->load->library('sidebar');
 		$site_name = 'PandaGG的博客';
 		if($title == ''){
 			$page_title = $site_name;
 		}else{
 			$page_title = $title.' | '.$site_name;
 		}
-		$this->load->library('sidebar');
 		$this->load->view('templates/header',array('page_title'=>$page_title));
 		/*把页面输出的HTML内容放入模版中*/
 		$this->load->view('templates/main',array('main_page'=>$main_html));

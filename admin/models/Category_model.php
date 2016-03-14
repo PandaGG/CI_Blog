@@ -4,7 +4,7 @@ class Category_model extends CI_Model{
 		parent:: __construct();
 	}
 	public function get_categories($offset = NULL, $num = NULL){
-        $sql = 'SELECT category_id, category_name, category_slug, count(post_id) AS post_num FROM categories c LEFT JOIN posts p on c.category_id = p.post_category GROUP BY category_id ORDER BY category_id ASC';
+        $sql = "SELECT category_id, category_name, category_slug, count(post_id) AS post_num FROM categories c LEFT JOIN posts p on c.category_id = p.post_category GROUP BY category_id ORDER BY category_id ASC";
         if($offset !== NULL AND $num !== NULL){
             $sql .= " LIMIT ".$this->db->escape($offset).", ".$this->db->escape($num);
         }
