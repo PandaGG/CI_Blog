@@ -55,6 +55,20 @@ class Post_model extends CI_Model{
 			return $query->row_array();
 		}
 	}
+
+	public function get_prev_post($post_date){
+		$sql = "SELECT post_id, post_slug, post_title FROM posts WHERE post_status = 'publish' AND post_date > ".$this->db->escape($post_date);
+		$sql .= "  ORDER BY post_date ASC LIMIT 1";
+		$query = $this->db->query($sql);
+		return $query->row_array();
+	}
+
+	public function get_next_post($post_date){
+		$sql = "SELECT post_id, post_slug, post_title FROM posts WHERE post_status = 'publish' AND post_date < ".$this->db->escape($post_date);
+		$sql .= "  ORDER BY post_date DESC LIMIT 1";
+		$query = $this->db->query($sql);
+		return $query->row_array();
+	}
 	
 	public function get_category_posts($category_slug = NULL, $offset = NULL, $num = NULL){
 		if($category_slug === NULL){

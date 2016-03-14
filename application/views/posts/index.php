@@ -1,6 +1,6 @@
 <?php foreach($posts as $post): ?>	
 <div class="list-caption">
-	<h3>
+	<h3 class="list-caption-title">
 		<a href="<?php echo site_url('posts/'.$post['post_slug']); ?>"><?php echo $post['post_title']; ?></a>
 	</h3>
 	<div class="info">

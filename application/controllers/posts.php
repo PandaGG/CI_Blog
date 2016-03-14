@@ -43,7 +43,10 @@ class Posts extends MY_Controller{
 		$id = $post_result['post_id'];
 		$this->post_model->add_hit($id);
 		$title = $post_result['post_title'];
-		$post_result['post_date'] = formatElapseTime($post_result['post_date']);
+		$post_date = $post_result['post_date'];
+		$data['post_prev'] = $this->post_model->get_prev_post($post_date);
+		$data['post_next'] = $this->post_model->get_next_post($post_date);
+		$post_result['post_date'] = formatElapseTime($post_date);
 		$data['post'] = $post_result;
 		/*暂存页面输出结果*/
 		$main_html = $this->load->view('posts/view', $data, true);
