@@ -35,9 +35,13 @@ class Archives extends MY_Controller{
 			$post['post_date'] = formatElapseTime($post['post_date']);
 			$data['posts'][] = $post;
 		}
+		$browse_month_time = strtotime($browse_month);
+		$display_date = date('Y',$browse_month_time).'年'.date('m',$browse_month_time).'月';
+		$page_title = '文章归档: '.$display_date;
+		$data['page_title'] = $page_title;
 		/*暂存页面输出结果*/
 		$main_html = $this->load->view('posts/index', $data, true);
 		/*把页面输出的HTML内容放入模版中*/
-		$this->show_default_template($browse_month, $main_html);
+		$this->show_default_template($display_date, $main_html);
 	}
 }

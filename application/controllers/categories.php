@@ -8,7 +8,7 @@ class Categories extends MY_Controller{
 	}
 	public function index(){
 		$data['categories'] = $this->category_model->get_categories();
-		$title = '分类';
+		$title = '文章类别';
 		/*暂存页面输出结果*/
 		$main_html = $this->load->view('categories/index', $data, true);
 		/*把页面输出的HTML内容放入模版中*/
@@ -49,6 +49,7 @@ class Categories extends MY_Controller{
 			$post['post_date'] = formatElapseTime($post['post_date']);
 			$data['posts'][] = $post;
 		}
+		$data['page_title'] = '文章类别: '.$title;
 		/*暂存页面输出结果*/
 		$main_html = $this->load->view('posts/index', $data, true);
 		/*把页面输出的HTML内容放入模版中*/

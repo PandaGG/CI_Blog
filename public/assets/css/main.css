@@ -9,6 +9,7 @@ body{
 	position: relative;
 	min-height: 100%;
 	padding-bottom: 120px; /*footer*/
+    color: #666;
 }
 
 a{
@@ -112,6 +113,10 @@ h1, .h1, h2, .h2, h3, .h3 {
 
 .list-caption-title {
     margin-bottom: 20px;
+}
+
+.page-title h3{
+    margin-bottom: 0px;
 }
 
 ul.categories_list{

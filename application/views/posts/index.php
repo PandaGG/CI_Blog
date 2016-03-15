@@ -1,4 +1,7 @@
-<?php foreach($posts as $post): ?>	
+<?php if(isset($page_title)): ?>
+<div class="list-caption page-title"><h3><?php echo $page_title; ?></h3></div>
+<?php endif; ?>
+<?php foreach($posts as $post): ?>
 <div class="list-caption">
 	<h3 class="list-caption-title">
 		<a href="<?php echo site_url('posts/'.$post['post_slug']); ?>"><?php echo $post['post_title']; ?></a>
