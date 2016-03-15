@@ -6,8 +6,10 @@ class Archives extends MY_Controller{
 		$this->load->model('post_model');
 	}
 	public function index(){
-		show_404();
+		$main_html = $this->load->view('archives/index', array(), true);
+		$this->show_full_main_template('', $main_html);
 	}
+
 	public function view($browse_month = NULL, $cur_page = 1){
 		$total_num = $this->post_model->get_specify_month_posts_num($browse_month);
 		$this->load->library('pagination');

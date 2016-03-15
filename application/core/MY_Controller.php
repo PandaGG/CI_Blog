@@ -14,11 +14,7 @@ Class MY_Controller extends CI_Controller {
 	protected function show_default_template($title = '', $main_html = '')
 	{
 		$this->load->library('sidebar');
-
-		if( ! isset($_SESSION['site_info'])){
-			$this->set_session_site_info();
-		}
-
+		$this->check_session_site_info();
 		$site_name = $_SESSION['site_info']['site_name'];
 		if($title == ''){
 			$page_title = $site_name;
@@ -29,6 +25,21 @@ Class MY_Controller extends CI_Controller {
 		/*把页面输出的HTML内容放入模版中*/
 		$this->load->view('templates/main',array('main_page'=>$main_html));
 		$this->sidebar->initialize();
+		$this->load->view('templates/footer');
+	}
+
+	protected function show_full_main_template($title = '', $main_html = '')
+	{
+		$this->check_session_site_info();
+		$site_name = $_SESSION['site_info']['site_name'];
+		if($title == ''){
+			$page_title = $site_name;
+		}else{
+			$page_title = $title.' | '.$site_name;
+		}
+		$this->load->view('templates/header',array('page_title'=>$page_title));
+		/*把页面输出的HTML内容放入模版中*/
+		$this->load->view('templates/main_full',array('main_page'=>$main_html));
 		$this->load->view('templates/footer');
 	}
 
@@ -45,6 +56,11 @@ Class MY_Controller extends CI_Controller {
 				'copyright' => ''
 			);
 		}
+	}
 
+	protected function check_session_site_info(){
+		if( ! isset($_SESSION['site_info'])){
+			$this->set_session_site_info();
+		}
 	}
 }

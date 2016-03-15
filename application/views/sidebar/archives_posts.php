@@ -1,5 +1,5 @@
 <div class="sidebar_package">
-	<h3>文章归类</h3>
+	<h3>文章归档</h3>
 	<ul class="sidebar-list">
 	<?php foreach ($sb_archives as $archives):?>
 		<li>
