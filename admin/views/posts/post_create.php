@@ -51,7 +51,12 @@
                 <div class="row-label">摘要:</div>
                 <div class="row-item">
                     <div class="input-group w800">
-                        <textarea class="form-control" name="description" placeholder="摘要" required="required"></textarea>
+                        <textarea class="form-control" name="excerpt" placeholder="摘要" required="required"></textarea>
+                    </div>
+                    <div class="checkbox">
+                        <label onclick="toggleRequireExcerpt();">
+                            <input type="checkbox" name="auto_excerpt"> 自动生成摘要
+                        </label>
                     </div>
                 </div>
             </div>
@@ -119,6 +124,14 @@
             var sHTML = $('#editor').summernote('code');
             $('textarea[name="context"]').val(sHTML);
             $('#postForm').submit();
+        }
+
+        function toggleRequireExcerpt(){
+            if($('input:checkbox[name="auto_excerpt"]').prop('checked')){
+                $('textarea[name="excerpt"]').prop('required',false);
+            }else{
+                $('textarea[name="excerpt"]').prop('required',true);
+            }
         }
 
     </script>

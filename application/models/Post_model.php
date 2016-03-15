@@ -9,7 +9,7 @@ class Post_model extends CI_Model{
 	}
 	
 	public function get_posts_count(){
-		$query = $this->db->query("SELECT post_id, post_title, post_slug, post_content, post_excerpt, post_status, post_date, post_modified, post_hit
+		$query = $this->db->query("SELECT post_id
 				FROM post_detail
 				WHERE post_status = 'publish'");
 		return $query->num_rows();
@@ -69,7 +69,8 @@ class Post_model extends CI_Model{
 		$query = $this->db->query($sql);
 		return $query->row_array();
 	}
-	
+
+	/* Category Begin*/
 	public function get_category_posts($category_slug = NULL, $offset = NULL, $num = NULL){
 		if($category_slug === NULL){
 			return array();
@@ -92,7 +93,7 @@ class Post_model extends CI_Model{
 			return 0;
 		}
 
-		$sql = "SELECT post_id, post_slug, post_title, post_excerpt, post_date, post_hit, category_name, category_slug
+		$sql = "SELECT post_id
 				FROM post_detail
 				WHERE post_status = 'publish'";
 		$sql .=	" AND category_slug = ".$this->db->escape($category_slug);
@@ -100,9 +101,40 @@ class Post_model extends CI_Model{
 
 		return $query->num_rows();
 	}
+	/* Category End*/
 
+	/* Archives Begin*/
 	public function get_archives(){
-		$query = $this->db->query("SELECT LEFT(post_date, 7) AS publish_date, COUNT(*) as cnt FROM posts GROUP BY publish_date ORDER BY publish_date DESC");
+		$query = $this->db->query("SELECT LEFT(post_date, 7) AS publish_date, COUNT(*) as cnt FROM posts WHERE post_status = 'publish' GROUP BY publish_date ORDER BY publish_date DESC");
 		return $query->result_array();
 	}
+
+	public function get_specify_month_posts($browse_month = NULL, $offset = NULL, $num = NULL){
+		if($browse_month === NULL){
+			return array();
+		}
+		$sql = "SELECT post_id, post_slug, post_title, post_excerpt, post_date, post_hit, category_name, category_slug
+				FROM post_detail
+				WHERE post_status = 'publish'";
+		$sql .=	" AND post_date like ".$this->db->escape($browse_month."%");
+		$sql .=	" ORDER BY post_date DESC";
+		if($offset !== NULL AND $num !== NULL){
+			$sql .= " LIMIT ".$this->db->escape($offset).", ".$this->db->escape($num);
+		}
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
+
+	public function get_specify_month_posts_num($browse_month = NULL){
+		if($browse_month === NULL){
+			return 0;
+		}
+		$sql = "SELECT post_id
+				FROM post_detail
+				WHERE post_status = 'publish'";
+		$sql .=	" AND post_date like ".$this->db->escape($browse_month."%");
+		$query = $this->db->query($sql);
+		return $query->num_rows();
+	}
+	/* Archives End*/
 }

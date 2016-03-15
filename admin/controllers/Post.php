@@ -5,6 +5,16 @@ class Post extends MY_Controller{
 		$this->load->model('Post_model');
         $this->load->model('Category_model');
 	}
+
+    protected function get_auto_excerpt($content, $len = 100){
+        $content = trim(strip_tags($content));
+        $content = str_replace(PHP_EOL, '', $content);
+        $content = str_replace("\t", '', $content);
+        if(mb_strlen($content) > $len){
+            $content = mb_substr($content,0, $len).'&#8230;';
+        }
+        return $content;
+    }
 	
 	public function index(){
         $this->saveUri();
@@ -126,11 +136,16 @@ class Post extends MY_Controller{
         $cid = $this->input->post('cid');
         $title = $this->input->post('title');
         $slug = $this->input->post('slug');
-        $description = $this->input->post('description');
         $context = $this->input->post('context');
+        $auto_excerpt = $this->input->post('auto_excerpt');
+        if($auto_excerpt){
+            $excerpt = $this->get_auto_excerpt($context);
+        }else{
+            $excerpt = $this->input->post('excerpt');
+        }
         $status = $this->input->post('status');
 
-        $result = $this->Post_model->insert_post($cid, $title, $slug, $description, $context, $status);
+        $result = $this->Post_model->insert_post($cid, $title, $slug, $excerpt, $context, $status);
         if($result){
             $this->pageTips('添加文章成功','post', 2);
         }else{
@@ -144,10 +159,15 @@ class Post extends MY_Controller{
         $cid = $this->input->post('cid');
         $title = $this->input->post('title');
         $slug = $this->input->post('slug');
-        $description = $this->input->post('description');
         $context = $this->input->post('context');
+        $auto_excerpt = $this->input->post('auto_excerpt');
+        if($auto_excerpt){
+            $excerpt = $this->get_auto_excerpt($context);
+        }else{
+            $excerpt = $this->input->post('excerpt');
+        }
         $status = $this->input->post('status');
-        $result = $this->Post_model->update_post($pid, $cid, $title, $slug, $description, $context, $status);
+        $result = $this->Post_model->update_post($pid, $cid, $title, $slug, $excerpt, $context, $status);
         if($result){
             $this->pageTips('更新文章成功','post', 2);
         }else{

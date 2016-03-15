@@ -28,7 +28,7 @@ class Sidebar {
         foreach($sb_archives as $archives){
             $time = strtotime($archives['publish_date']);
             $date_str = date('Y',$time).'年'.date('m',$time).'月';
-            $archives['publish_date'] = $date_str;
+            $archives['display_date'] = $date_str;
             $sb_data['sb_archives'][] = $archives;
         }
         $this->CI->load->view('sidebar/archives_posts',$sb_data);

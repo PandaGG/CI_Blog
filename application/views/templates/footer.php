@@ -7,7 +7,7 @@
         <footer id="footer" class="footer-default" role="contentinfo">
         	<div class="container text-center">
         		<div>基于CodeIgniter + Bootstrap 构建</div>
-        		<em>版权所有 &copy; 2016 panwiki.com</em>
+        		<em><?php echo $_SESSION['site_info']['copyright']; ?></em>
         	</div>
         </footer>
     </body>

@@ -26,7 +26,7 @@ h1, .h1, h2, .h2, h3, .h3 {
 .navbar-default {
 	border-radius: 0;
     background-color: #4a4a4a;
-    border-color: #4a4a4a;
+    border: none;
     opacity: 0.9;
 }
 .navbar-default .navbar-brand {
@@ -47,6 +47,23 @@ h1, .h1, h2, .h2, h3, .h3 {
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
   color: #1abc9c;
+}
+
+.navbar-default .navbar-toggle{
+    margin: 7px 15px 0 0;
+    padding: 7px 10px;
+    background-color: #333;
+    color: #ffffff;
+    font-size: 20px;
+    border-color: #999;
+}
+
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+    background-color: #1abc9c;
+}
+
+.navbar-default .navbar-collapse{
+    border-top: none;
 }
 
 .pagination > li > a, .pagination > li > span{
@@ -89,6 +106,10 @@ h1, .h1, h2, .h2, h3, .h3 {
     margin-top: 0px;
 }
 
+.main_wrapper:last-child{
+    margin-bottom: 20px;
+}
+
 .list-caption-title {
     margin-bottom: 20px;
 }
@@ -96,6 +117,7 @@ h1, .h1, h2, .h2, h3, .h3 {
 ul.categories_list{
     padding: 0px;
     color: #999;
+    margin-bottom: 0px;
 }
 
 ul.categories_list li{
@@ -132,6 +154,11 @@ ul.categories_list li{
     padding-bottom: 20px;
     margin-bottom: 20px;
     border-bottom: 1px solid #dcdcdc;
+}
+
+.article-content img{
+    max-width: 100%;
+    max-height: 100%;
 }
 
 

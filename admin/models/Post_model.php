@@ -80,7 +80,7 @@ class Post_model extends CI_Model{
     }
 
 
-    public function insert_post($cid, $title, $slug, $description, $html_context, $status = 'draft'){
+    public function insert_post($cid, $title, $slug, $excerpt, $html_context, $status = 'draft'){
         if(empty($cid) || empty($title) || empty($slug)){
             return 0;
         }
@@ -90,7 +90,7 @@ class Post_model extends CI_Model{
             'post_title' => $title,
             'post_slug' => $slug,
             'post_content' => $html_context,
-            'post_excerpt' => $description,
+            'post_excerpt' => $excerpt,
             'post_status' => $status,
             'post_category' => $cid,
             'post_date' => $current_time,
@@ -102,7 +102,7 @@ class Post_model extends CI_Model{
         return $this->db->affected_rows();
     }
 
-    public function update_post($pid, $cid, $title, $slug, $description, $html_context, $status = 'draft'){
+    public function update_post($pid, $cid, $title, $slug, $excerpt, $html_context, $status = 'draft'){
         if(empty($pid) || empty($cid) || empty($title) || empty($slug)){
             return 0;
         }
@@ -112,7 +112,7 @@ class Post_model extends CI_Model{
             'post_title' => $title,
             'post_slug' => $slug,
             'post_content' => $html_context,
-            'post_excerpt' => $description,
+            'post_excerpt' => $excerpt,
             'post_status' => $status,
             'post_category' => $cid,
             'post_modified' => $current_time
