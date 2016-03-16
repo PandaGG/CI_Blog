@@ -1,6 +1,6 @@
-/*! Main Style */
+/* Main Style */
 
-/*! normalize */
+/* normalize */
 html{
 	height:100%;
 }
@@ -20,7 +20,7 @@ a:hover, a:focus{
     text-decoration: none;
 }
 
-/*! reset bootstrap style */
+/* reset bootstrap style */
 h1, .h1, h2, .h2, h3, .h3 {
     margin-top: 0px;
 }
@@ -84,7 +84,7 @@ h1, .h1, h2, .h2, h3, .h3 {
 }
 
 
-/*! site style */
+/* ! site style */
 .sub-header{
     padding-top: 25px;
 	padding-bottom: 10px;
@@ -166,8 +166,118 @@ ul.categories_list li{
     max-height: 100%;
 }
 
+/* ! Vertical Timeline */
+.vertical-timeline{
+    position: relative;
+}
+.vertical-timeline ul{
+    list-style: none;
+    padding: 0px;
+}
 
-/*sidebar*/
+.vertical-timeline ul:before{
+    content: "";
+    background: #d6d6d6;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 121px;
+    width: 4px;
+}
+
+.vertical-timeline ul li{
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.vt-label{
+    float: left;
+    width: 110px;
+    min-height: 40px;
+    line-height: 40px;
+    padding-right: 10px;
+    text-align: right;
+}
+
+.vt-label .vt-time{
+    color: #999;
+    font-size: 18px;
+    line-height: 30px;
+}
+
+.vt-circle{
+    position: absolute;
+    top: 13px;
+    left: 116px;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px #fff;
+    background-color: #95c91e;
+}
+
+.vt-circle:hover{
+    box-shadow: 0 0 0 2px rgba(255,234,0,0.8);
+}
+
+.vt-content{
+    margin-left: 155px;
+    background-color: #ffffff;
+    padding: 15px;
+    box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+.vt-content h4{
+    margin-top: 0px;
+}
+
+.vt-content p{
+    margin-bottom: 0px;
+}
+
+
+
+.vt-content:before{
+    content: "";
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right: 10px solid #ffffff;
+    position: absolute;
+    top: 10px;
+    left: 145px;
+}
+
+.vt-year > .vt-label{
+    font-size: 28px;
+}
+
+.vt-month > .vt-label{
+    font-size: 24px;
+}
+.vt-date > .vt-label{
+    font-size: 20px;
+}
+
+.vt-year > .vt-circle{
+    top: 9px;
+    left: 112px;
+    width: 21px;
+    height: 21px;
+    background-color: #ffb902;
+}
+
+.vt-month > .vt-circle{
+    top: 11px;
+    left: 115px;
+    width: 17px;
+    height: 17px;
+    background-color: #16a085;
+}
+
+
+/* ! sidebar */
 .sidebar_package{
     margin-top: 20px;
     padding: 20px 15px 5px 15px;

@@ -6,7 +6,32 @@ class Archives extends MY_Controller{
 		$this->load->model('post_model');
 	}
 	public function index(){
-		$main_html = $this->load->view('archives/index', array(), true);
+		$posts = $this->post_model->get_posts();
+		if(empty($posts)){
+			show_404();
+		}
+
+        $year = 0;
+        $month = 0;
+        $archives = [];
+        foreach($posts as $post){
+            $post_time = strtotime($post['post_date']);
+            $post_year = date('Y', $post_time);
+            $post_month = date('m', $post_time);
+            $post_day = date('d', $post_time);
+            $post['display_date'] = $post_month.'月'.$post_day.'日';
+            $post['display_time'] = date('H:i', $post_time);
+            if($post_year != $year){
+                $year = $post_year;
+                $month = $post_month;
+            }
+            if($post_month != $month){
+                $month = $post_month;
+            }
+            $archives[$year][$month][] = $post;
+        }
+        $data['archives'] = $archives;
+		$main_html = $this->load->view('archives/index', $data, true);
 		$this->show_full_main_template('', $main_html);
 	}
 

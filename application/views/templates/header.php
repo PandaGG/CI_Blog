@@ -33,6 +33,7 @@
 						<ul id="ul-navbar" class="nav navbar-nav ">
 							<li><a href="/">首页</a></li>
 							<li><a href="/categories">类别</a></li>
+							<li><a href="/archives">归档</a></li>
 							<li><a href="/about">关于</a></li>
 						</ul>
 						<div class="clearfix"></div>
