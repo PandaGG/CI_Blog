@@ -8,7 +8,7 @@
 </head>
 <body>
 	<div class="login-body">
-		<form method="post" action="login/check">
+		<form method="post" action="<?php echo site_url('login/check'); ?>">
 			<div class="login-form">
 				<h1 class="login-title">博客管理系统</h1>
 				<div class="login-box">

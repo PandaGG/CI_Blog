@@ -13,7 +13,7 @@ class Archives extends MY_Controller{
 
         $year = 0;
         $month = 0;
-        $archives = [];
+        $archives = array();
         foreach($posts as $post){
             $post_time = strtotime($post['post_date']);
             $post_year = date('Y', $post_time);
