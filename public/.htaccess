@@ -1,4 +1,4 @@
 RewriteEngine on
-RewriteCond $1 !^(assets|uploads)
+RewriteCond $1 !^(assets|uploads|favicon\.ico)
 RewriteCond $1 !^(index\.php)
 RewriteRule ^(.*)$ index.php/$1 [L]

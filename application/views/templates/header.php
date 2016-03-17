@@ -6,6 +6,8 @@
 		<meta name="description" content="<?php echo $_SESSION['site_info']['site_description']; ?>">
 		<meta name="keywords" content="<?php echo $_SESSION['site_info']['site_keywords']; ?>">
 		<meta name="author" content="Josh">
+		<link rel="shortcut icon" href="<?php echo site_url();?>favicon.ico"/>
+		<link rel="bookmark" href="<?php echo site_url();?>favicon.ico"/>
 		<title><?php echo $page_title; ?></title>
 		<!--<link rel="stylesheet" href="<?php echo site_url();?>assets/css/bootstrap.css" />-->
         <!--<link rel="stylesheet" href="<?php echo site_url();?>assets/css/font-awesome.css">-->

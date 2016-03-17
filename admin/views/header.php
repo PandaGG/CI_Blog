@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel="shortcut icon" href="<?php echo site_url();?>../favicon.ico"/>
+<link rel="bookmark" href="<?php echo site_url();?>../favicon.ico"/>
 <title>管理控制台</title>
 <!--<link rel="stylesheet" href="<?php echo site_url();?>../assets/css/bootstrap.css">-->
 <!--<link rel="stylesheet" href="<?php echo site_url();?>../assets/css/font-awesome.css">-->
