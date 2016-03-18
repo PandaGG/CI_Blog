@@ -200,6 +200,7 @@ ul.categories_list li{
 }
 
 .vt-label .vt-time{
+    display: block;
     color: #999;
     font-size: 18px;
     line-height: 30px;
@@ -324,6 +325,15 @@ ul.sidebar-list li:last-child{
 }
 
 
+/* main */
+.pagination_contain{
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
+
+/* media query 对于不同屏幕设定*/
+
 @media (max-width: 1199px) {
     .sidebar_package{
         margin-left: -15px;
@@ -331,8 +341,78 @@ ul.sidebar-list li:last-child{
     }
 }
 
-/* main */
-.pagination_contain{
-    margin-left: -15px;
-    margin-right: -15px;
+@media (max-width: 767px) {
+    .vertical-timeline ul:before{
+        display: none;
+    }
+
+    .vertical-timeline ul li{
+        min-height: 40px;
+    }
+
+    .vt-label{
+        float: none;
+        width: auto;
+        margin-left: 30px;
+        line-height: 30px;
+        text-align: left;
+    }
+
+
+    .vt-label .vt-time{
+        display: inline-block;
+        margin-left: 10px;
+        font-size: 16px;
+    }
+
+    .vt-circle{
+        position: absolute;
+        top: 9px;
+        left: 3px;
+    }
+
+    .vt-content{
+        margin-left: 0px;
+    }
+
+
+    .vt-content:before{
+        content: "";
+        width: 0;
+        height: 0;
+        border-bottom: 10px solid #ffffff;
+        border-right: 10px solid transparent;
+        border-left: 10px solid transparent;
+        position: absolute;
+        top: 21px;
+        left: 30px;
+    }
+
+    .vertical-timeline ul li.vt-year, .vertical-timeline ul li.vt-month{
+        margin-bottom: 15px;
+    }
+
+    .vt-year > .vt-label{
+        font-size: 24px;
+    }
+
+    .vt-month > .vt-label{
+        font-size: 22px;
+    }
+    .vt-date > .vt-label{
+        font-size: 18px;
+        padding-bottom: 10px;
+    }
+
+    .vt-year > .vt-circle{
+        top: 3px;
+        left: 0px;
+    }
+
+    .vt-month > .vt-circle{
+        top: 6px;
+        left: 1px;
+    }
 }
+
+

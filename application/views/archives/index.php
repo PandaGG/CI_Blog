@@ -17,7 +17,7 @@
 
                 <?php foreach($date_posts as $date_post): ?>
                     <li class="vt-date">
-                        <div class="vt-label"><?php echo $date_post['display_date']; ?><br/><span class="vt-time"><?php echo $date_post['display_time']; ?></span></div>
+                        <div class="vt-label"><?php echo $date_post['display_date']; ?><span class="vt-time"><?php echo $date_post['display_time']; ?></span></div>
                         <div class="vt-circle"></div>
                         <div class="vt-content">
                             <h4><a href="<?php echo site_url('posts/'.$date_post['post_slug']); ?>"><?php echo $date_post['post_title']; ?></a></h4>
