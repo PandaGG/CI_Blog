@@ -343,7 +343,9 @@ ul.sidebar-list li:last-child{
 
 @media (max-width: 767px) {
     .vertical-timeline ul:before{
-        display: none;
+        top: 0;
+        bottom: 0;
+        left: 8px;
     }
 
     .vertical-timeline ul li{
@@ -372,7 +374,7 @@ ul.sidebar-list li:last-child{
     }
 
     .vt-content{
-        margin-left: 0px;
+        margin-left: 30px;
     }
 
 
@@ -385,7 +387,7 @@ ul.sidebar-list li:last-child{
         border-left: 10px solid transparent;
         position: absolute;
         top: 21px;
-        left: 30px;
+        left: 45px;
     }
 
     .vertical-timeline ul li.vt-year, .vertical-timeline ul li.vt-month{
