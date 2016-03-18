@@ -1,10 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel="shortcut icon" href="<?php echo site_url();?>../favicon.ico"/>
+<link rel="bookmark" href="<?php echo site_url();?>../favicon.ico"/>
 <title>博客管理系统</title>
-<link rel="stylesheet" href="<?php echo site_url();?>../assets/css/bootstrap.css">
-<link rel="stylesheet" href="<?php echo site_url();?>../assets/css/font-awesome.css">
+<!--<link rel="stylesheet" href="<?php echo site_url();?>../assets/css/bootstrap.css">-->
+<!--<link rel="stylesheet" href="<?php echo site_url();?>../assets/css/font-awesome.css">-->
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="<?php echo site_url();?>../assets/css/login.css">
+<!--<<script type="text/javascript" src="<?php echo site_url();?>../assets/js/jquery.min.js"></script>-->
+<!--<<script type="text/javascript" src="<?php echo site_url();?>../assets/js/bootstrap.min.js"></script>-->
+<script type="text/javascript" src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </head>
 <body>
 	<div class="login-body">
