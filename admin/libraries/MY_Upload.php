@@ -5,6 +5,10 @@ class MY_upload {
      * */
     protected $original_file = array();
     /*
+     * 可选参数
+     * */
+    public $upload_path = '';
+    /*
      * 非必须传入的参数
      * */
     protected $CI;
@@ -14,7 +18,6 @@ class MY_upload {
     protected $max_size = 1048576; //1024*1024
     protected $filename_prefix = 'post_';
     protected $filename = '';
-    public $upload_path = '';
     protected $tmp_name = '';
     protected $file_ext = '';
     protected $error_msg = '';
@@ -41,21 +44,25 @@ class MY_upload {
     }
 
     protected function setUploadPath(){
-        $upload_path = $this->base_upload_path;
-        if (!is_dir($upload_path)){
-            mkdir($upload_path, 0777);
+        if($this->upload_path != ''){
+            $upload_path = rtrim($this->upload_path, '/').'/';
+        }else{
+            $upload_path = $this->base_upload_path;
+            if (!is_dir($upload_path)){
+                mkdir($upload_path, 0777);
+            }
+            $year = date('Y', $this->timestamp);
+            $month = date('m', $this->timestamp);
+            $upload_path .= $year.'/';
+            if (!is_dir($upload_path)){
+                mkdir($upload_path, 0777);
+            }
+            $upload_path .= $month.'/';
+            if (!is_dir($upload_path)){
+                mkdir($upload_path, 0777);
+            }
+            $this->upload_path = $upload_path;
         }
-        $year = date('Y', $this->timestamp);
-        $month = date('m', $this->timestamp);
-        $upload_path .= $year.'/';
-        if (!is_dir($upload_path)){
-            mkdir($upload_path, 0777);
-        }
-        $upload_path .= $month.'/';
-        if (!is_dir($upload_path)){
-            mkdir($upload_path, 0777);
-        }
-        $this->upload_path = $upload_path;
     }
 
     protected function setFileName(){
@@ -112,12 +119,20 @@ class MY_upload {
         return TRUE;
     }
 
+    public function getFileName(){
+        return $this->filename;
+    }
+
     public function getErrorMsg(){
         return $this->error_msg;
     }
 
     public function getRelativeUploadFilePath(){
         return str_replace(PUBLICPATH,"/",$this->getUploadFilePath());
+    }
+
+    public function getFileExtension(){
+        return $this->file_ext;
     }
 
     public function doUpload(){

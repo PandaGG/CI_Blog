@@ -69,7 +69,7 @@ span.disabled{
 .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
     border-color: #16a085;
 }
-    /*! site style */
+/*! site style */
 
 /* header */
 .topbar{
@@ -298,4 +298,34 @@ table.dashboard-table > thead > tr > th,  table.dashboard-table > tbody > tr > t
 .dashboard-small-label .dashboard-row .row-item{
     margin-left: 90px;
     min-height: 34px;
+}
+
+/*post*/
+.editor-container{
+    position: relative;
+}
+
+.editor-container .editor-cover{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+
+.editor-container .editor-cover .editor-cover-bg{
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    opacity: 0.5;
+}
+
+.editor-container .editor-cover .editor-msg{
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
 }

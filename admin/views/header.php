@@ -13,8 +13,8 @@
 <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap-select/1.10.0/css/bootstrap-select.min.css">
 <link rel="stylesheet" href="//cdn.bootcss.com/summernote/0.8.1/summernote.css">
 <link rel="stylesheet" href="<?php echo site_url();?>../assets/css/dashboard.css">
-<!--<<script type="text/javascript" src="<?php echo site_url();?>../assets/js/jquery.min.js"></script>-->
-<!--<<script type="text/javascript" src="<?php echo site_url();?>../assets/js/bootstrap.min.js"></script>-->
+<!--<script type="text/javascript" src="<?php echo site_url();?>../assets/js/jquery.min.js"></script>-->
+<!--<script type="text/javascript" src="<?php echo site_url();?>../assets/js/bootstrap.min.js"></script>-->
 <!--<script type="text/javascript" src="<?php echo site_url();?>../assets/js/jquery-plugin/bootstrap-select/bootstrap-select.min.js"></script>-->
 <!--<script type="text/javascript" src="<?php echo site_url();?>../assets/js/jquery-plugin/summernote/summernote.min.js"></script>-->
 <!--<script type="text/javascript" src="<?php echo site_url();?>../assets/js/jquery-plugin/summernote/lang/summernote-zh-CN.js"></script>-->
@@ -24,6 +24,9 @@
 <script type="text/javascript" src="//cdn.bootcss.com/summernote/0.8.1/summernote.min.js"></script>
 <script type="text/javascript" src="//cdn.bootcss.com/summernote/0.8.1/lang/summernote-zh-CN.min.js"></script>
 <script type="text/javascript" src="<?php echo site_url();?>../assets/js/dashboard/dashboard.js"></script>
+<script>
+	var site_url = "<?php echo site_url();?>";
+</script>
 </head>
 <body>
 	<header class="topbar">

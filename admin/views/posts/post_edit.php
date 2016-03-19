@@ -75,9 +75,14 @@
             <div class="dashboard-row">
                 <div class="row-label">内容:</div>
                 <div class="row-item">
-                    <div class="w800">
+                    <div class="editor-container w800">
                         <div id="editor"></div>
                         <textarea name="context" style="display: none;"><?php echo $post['post_content']; ?></textarea>
+                        <input type="text" name="timestamp" value="<?php echo time(); ?>" style="display:none;">
+                        <div class="editor-cover">
+                            <div class="editor-cover-bg"></div>
+                            <div class="editor-msg"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -90,61 +95,14 @@
             </div>
         <?php echo form_close(); ?>
 	</div>
+    <script type="text/javascript" src="<?php echo site_url();?>../assets/js/dashboard/post-edit.js"></script>
     <script type="text/javascript">
+        var upload_url = "<?php echo site_url('upload/post_image'); ?>";
         $(function(){
-            $('#editor').summernote({
-                height: 300,
-                minHeight: null,
-                maxHeight: null,
-                lang:'zh-CN',
-                callbacks: {
-                    onImageUpload: function(files) {
-                        // upload image to server and create imgNode...
-                        uploadImage(files[0]);
-                    }
-                }
-            });
-            var sHTML = $('textarea[name="context"]').val();
-            $('#editor').summernote('code', sHTML);
+            initPostId();
+            initTimestamp();
+            initSummernote();
         });
-
-        function uploadImage(file){
-            var data = new FormData();
-            data.append("file", file);
-            $.ajax({
-                data: data,
-                type: "POST",
-                dataType: 'json',
-                url: "<?php echo site_url('upload'); ?>",
-                cache: false,
-                processData: false,
-                contentType: false,
-                success: function(res) {
-                    if(res.message == 'success'){
-                        var path = res.path;
-                        $('#editor').summernote('insertImage', path);
-                    }else{
-                        var error_msg = res.error_msg;
-                        alert(error_msg);
-                    }
-                }
-            });
-
-        }
-
-        function submitPost(){
-            var sHTML = $('#editor').summernote('code');
-            $('textarea[name="context"]').val(sHTML);
-            $('#postForm').submit();
-        }
-
-        function toggleRequireExcerpt(){
-            if($('input:checkbox[name="auto_excerpt"]').prop('checked')){
-                $('textarea[name="excerpt"]').prop('required',false);
-            }else{
-                $('textarea[name="excerpt"]').prop('required',true);
-            }
-        }
 
     </script>
 </div>

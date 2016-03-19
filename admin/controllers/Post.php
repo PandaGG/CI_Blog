@@ -15,6 +15,11 @@ class Post extends MY_Controller{
         }
         return $content;
     }
+
+    protected function match_image($timestamp, $pid){
+        $post_info = $this->Post_model->get_post_info($pid);
+        
+    }
 	
 	public function index(){
         $this->saveUri();
@@ -144,14 +149,18 @@ class Post extends MY_Controller{
             $excerpt = $this->input->post('excerpt');
         }
         $status = $this->input->post('status');
+        $timestamp = $this->input->post('timestamp');
 
+        //如果插入成功返回的$result是插入的pid，插入失败返回的是0
         $result = $this->Post_model->insert_post($cid, $title, $slug, $excerpt, $context, $status);
+        $pid = $result;
+        //执行添加post操作后，匹配上传的和当前使用的图片
+        $this->match_image($timestamp, $pid);
         if($result){
             $this->pageTips('添加文章成功','post', 2);
         }else{
             $this->pageTips('添加文章失败','post', 2, 'fail');
         }
-
     }
 
     public function update(){
@@ -167,7 +176,10 @@ class Post extends MY_Controller{
             $excerpt = $this->input->post('excerpt');
         }
         $status = $this->input->post('status');
+        $timestamp = $this->input->post('timestamp');
         $result = $this->Post_model->update_post($pid, $cid, $title, $slug, $excerpt, $context, $status);
+        //执行修改post操作后，匹配上传的和当前使用的图片
+        $this->match_image($timestamp, $pid);
         if($result){
             $this->pageTips('更新文章成功','post', 2);
         }else{

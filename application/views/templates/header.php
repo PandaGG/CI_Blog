@@ -37,10 +37,10 @@
 		    		</div>
 					<div class="navbar-collapse collapse">
 						<ul id="ul-navbar" class="nav navbar-nav ">
-							<li><a href="/">首页</a></li>
-							<li><a href="/categories">类别</a></li>
-							<li><a href="/archives">归档</a></li>
-							<li><a href="/about">关于</a></li>
+							<li><a href="<?php echo site_url();?>">首页</a></li>
+							<li><a href="<?php echo site_url('categories');?>">类别</a></li>
+							<li><a href="<?php echo site_url('archives');?>">归档</a></li>
+							<li><a href="<?php echo site_url('about');?>">关于</a></li>
 						</ul>
 						<div class="clearfix"></div>
 					</div>

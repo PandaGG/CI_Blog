@@ -99,7 +99,10 @@ class Post_model extends CI_Model{
 
         $sql = $this->db->insert_string('posts', $data);
         $this->db->query($sql);
-        return $this->db->affected_rows();
+        if($this->db->affected_rows()){
+            return $this->db->insert_id();
+        }
+        return 0;
     }
 
     public function update_post($pid, $cid, $title, $slug, $excerpt, $html_context, $status = 'draft'){
