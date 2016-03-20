@@ -15,23 +15,6 @@ class Post extends MY_Controller{
         }
         return $content;
     }
-
-    protected function match_image($timestamp, $pid){
-        $post_info = $this->Post_model->get_post_info($pid);
-        $post_content = $post_info['post_content'];
-        preg_match_all('/<\s*img\s+[^>]*?src\s*=\s*(\'|\")(\/.*?)\\1[^>]*?\/?\s*>/i',$post_content,$match);
-        error_log(print_r($match[2],true));
-
-        if(count($match[2])<1){
-            return;
-        }
-        $document_names = array();
-        for($i=0; $i<count($match[2]); $i++){
-            $document_names[] = substr(strrchr($match[2][$i], '/'), 1);
-        }
-        error_log(print_r($document_names,true));
-
-    }
 	
 	public function index(){
         $this->saveUri();
@@ -145,10 +128,6 @@ class Post extends MY_Controller{
         }else {
             $data['categories'] = $this->Category_model->get_categories();
             $data['post'] = $this->Post_model->get_post_info($pid);
-
-            $timestamp = 1458407009;
-            $this->match_image($timestamp, $pid);
-
             $this->load->view('posts/post_edit', $data);
         }
     }
@@ -171,7 +150,9 @@ class Post extends MY_Controller{
         $result = $this->Post_model->insert_post($cid, $title, $slug, $excerpt, $context, $status);
         $pid = $result;
         //执行添加post操作后，匹配上传的和当前使用的图片
-        //$this->match_image($timestamp, $pid);
+        $this->load->library('Document_uti');
+        $this->document_uti->match_image($timestamp, $pid);
+
         if($result){
             $this->pageTips('添加文章成功','post', 2);
         }else{
@@ -195,7 +176,8 @@ class Post extends MY_Controller{
         $timestamp = $this->input->post('timestamp');
         $result = $this->Post_model->update_post($pid, $cid, $title, $slug, $excerpt, $context, $status);
         //执行修改post操作后，匹配上传的和当前使用的图片
-        //$this->match_image($timestamp, $pid);
+        $this->load->library('Document_uti');
+        $this->document_uti->match_image($timestamp, $pid);
         if($result){
             $this->pageTips('更新文章成功','post', 2);
         }else{
