@@ -65,6 +65,25 @@ class MY_upload {
         }
     }
 
+    protected  function setFileExtension(){
+        $file = $this->original_file;
+        switch($file["type"]){
+            case 'image/gif':
+                $ext = 'gif';
+                break;
+            case 'image/png':
+                $ext = 'png';
+                break;
+            case 'image/jpeg':
+            case 'image/pjpeg':
+            default:
+                $ext = 'jpg';
+                break;
+
+        }
+        $this->file_ext = $ext;
+    }
+
     protected function setFileName(){
         $temp_name = date('YmdHis', $this->timestamp);
         $this->filename = $this->filename_prefix.$temp_name.'.'.$this->file_ext;
@@ -114,7 +133,6 @@ class MY_upload {
             return FALSE;
         }
 
-        $this->file_ext = substr(strrchr($this->original_file['name'], '.'), 1);
         $this->tmp_name = $this->original_file['tmp_name'];
         return TRUE;
     }
@@ -139,6 +157,7 @@ class MY_upload {
         if($this->isAbleAndPrepare() === FALSE){
             return FALSE;
         }
+        $this->setFileExtension();
         $this->setUploadPath();
         $this->setFileName();
         $result = $this->moveUploadFile();

@@ -3,8 +3,8 @@ class Document_model extends CI_Model{
 	public function __construct(){
 		parent:: __construct();
 	}
-    public function insert_record($post_id, $timestamp, $filename, $extension){
-        if(empty($name) || empty($ext)){
+    public function insert_record($post_id, $timestamp, $filename, $extension, $path){
+        if(empty($filename) || empty($extension)){
             return 0;
         }
 
@@ -14,6 +14,7 @@ class Document_model extends CI_Model{
             'document_timestamp' => $timestamp,
             'document_name' => $filename,
             'document_extension' => $extension,
+            'document_path' => $path,
             'document_datetime' => $current_time
         );
 

@@ -22,7 +22,7 @@ class Upload extends MY_Controller{
             $result = array('message'=>'success', 'path'=>$path);
             $extension = $this->upload->getFileExtension();
             $filename = $this->upload->getFileName();
-            $this->Document_model->insert_record($post_id, $timestamp, $filename, $extension);
+            $this->Document_model->insert_record($post_id, $timestamp, $filename, $extension, $path);
         }else{
             $result = array('message'=>'fail', 'error_msg'=>$this->upload->getErrorMsg());
         }
