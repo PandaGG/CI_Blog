@@ -63,7 +63,7 @@
 			<tbody>
 				<?php foreach($posts as $post): ?>
 				<tr>
-					<td><input type="checkbox" class="post-check" name="ids[]" value="<?php echo $post['post_id']; ?>" onclick="toggleEachCheckbox(this);"></td>
+					<td><input type="checkbox" class="item-check" name="ids[]" value="<?php echo $post['post_id']; ?>" onclick="toggleEachCheckbox(this);"></td>
 					<td><?php echo $post['post_id']; ?></td>
 					<td><?php echo $post['post_title']; ?></td>
 					<td><?php echo $post['post_slug']; ?></td>

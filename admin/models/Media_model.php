@@ -3,6 +3,21 @@ class Media_model extends CI_Model{
 	public function __construct(){
 		parent:: __construct();
 	}
+    public function get_medias($offset = NULL, $num = NULL){
+        $sql = "SELECT media_id, media_post, IFNULL(post_title, '未关联') AS post_name , IF(media_timestamp = 0, '使用中', '未使用') AS media_status, media_name, media_extension, media_path, media_datetime FROM medias m LEFT JOIN posts p on m.media_post = p.post_id ORDER BY media_id DESC";
+        if($offset !== NULL AND $num !== NULL){
+            $sql .= " LIMIT ".$this->db->escape($offset).", ".$this->db->escape($num);
+        }
+        $query = $this->db->query($sql);
+        return $query->result_array();
+    }
+
+    public function get_medias_count(){
+        $sql = "SELECT media_id, media_post, media_timestamp, media_name, media_extension, media_path, media_datetime FROM medias ORDER BY media_id DESC";
+        $query = $this->db->query($sql);
+        return $query->num_rows();
+    }
+
     public function insert_record($post_id, $timestamp, $filename, $extension, $path){
         if(empty($filename)){
             return 0;
