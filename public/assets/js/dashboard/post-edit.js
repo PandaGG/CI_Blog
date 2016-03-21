@@ -16,7 +16,7 @@ function initTimestamp(){
 
 function initSummernote() {
 	$('#editor').summernote({
-		height: 300,
+		height: 600,
 		minHeight: null,
 		maxHeight: null,
 		lang: 'zh-CN',

@@ -27,4 +27,35 @@ class Media extends MY_Controller{
         $this->load->view('media/media_list', $data);
     }
 
+    //清除没有使用的media
+    public function clear(){
+        $current = time();
+        $before_timestamp = $current-3600*24;
+        error_log(date('Y-m-d H:i:s', $before_timestamp));
+        $unrelated_medias = $this->Media_model->get_unrelated_media($before_timestamp);
+        error_log(print_r($unrelated_medias,true));
+
+        $this->load->library('Media_uti');
+        if(empty($unrelated_medias)){
+            $result = 0;
+        }else{
+            $delete_media_ids = array();
+            foreach($unrelated_medias as $unrelated_media){
+                $filepath = PUBLICPATH.substr($unrelated_media['media_path'],1);
+                $thumbpath = PUBLICPATH.substr($unrelated_media['media_thumb'],1);
+                error_log($filepath);
+
+                if( $this->media_uti->delete_media_files($filepath, $thumbpath) ){
+                    $delete_media_ids[] = $unrelated_media['media_id'];
+                }
+            }
+            $result = $this->media_uti->delete_media_records($delete_media_ids);
+        }
+        if($result){
+            $this->pageTips('清除冗余图片完成','media', 2);
+        }else{
+            $this->pageTips('未发现可清除的图片','media', 2);
+        }
+    }
+
 }

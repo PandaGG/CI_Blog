@@ -52,7 +52,7 @@ class Media_uti {
         $this->delete_unused_by_post_id($pid);
     }
 
-    function delete_unused_by_post_id($pid){
+    public function delete_unused_by_post_id($pid){
         $unused_medias = $this->CI->Media_model->get_unused_medias_by_post_id($pid);
         if(empty($unused_medias)){
             return;
@@ -60,25 +60,43 @@ class Media_uti {
         $delete_media_ids = array();
         foreach($unused_medias as $unused_media){
             $filepath = PUBLICPATH.substr($unused_media['media_path'],1);
+            $thumbpath = PUBLICPATH.substr($unused_media['media_thumb'],1);
             error_log($filepath);
-            if( file_exists($filepath) ){
-                $result = unlink($filepath);
-                if($result == TRUE){
-                    $delete_media_ids[] = $unused_media['media_id'];
-                    error_log('删除'.$filepath.'成功');
-                }else{
-                    error_log('删除'.$filepath.'失败');
-                }
-            }else{
+
+            if( $this->delete_media_files($filepath, $thumbpath) ){
                 $delete_media_ids[] = $unused_media['media_id'];
             }
         }
-        $delete_result = $this->CI->Media_model->delete_unused_medias($delete_media_ids);
-        if($delete_result){
-            error_log('数据库删除共'.$delete_result);
+
+        $result = $this->delete_media_records($delete_media_ids);
+
+    }
+
+    public function delete_media_files($filepath = NULL, $thumbpath = NULL){
+        if( !empty($filepath) AND is_file($filepath) AND file_exists($filepath) ){
+            $file_result = unlink($filepath);
+            if($file_result == TRUE){
+                if( !empty($thumbpath) AND is_file($thumbpath) AND file_exists($thumbpath) ){
+                    $thum_result = unlink($thumbpath);
+                }
+                error_log('删除'.$filepath.'成功');
+                return TRUE; //删除文件
+            }else{
+                error_log('删除'.$filepath.'失败');
+                return FALSE;
+            }
         }else{
-            error_log('数据库无删除');
+            return TRUE; //未找到文件，相当于删除了
         }
+
+    }
+
+    public function delete_media_records( $media_ids = array()){
+        if(empty($media_ids)){
+            return;
+        }
+        $delete_result = $this->CI->Media_model->delete_medias($media_ids);
+        return $delete_result;
     }
 
 }

@@ -64,7 +64,7 @@
             <div class="dashboard-row">
                 <div class="row-label">内容:</div>
                 <div class="row-item">
-                    <div class="editor-container w800">
+                    <div class="editor-container">
                         <div id="editor"></div>
                         <textarea name="context" style="display: none;"></textarea>
                         <input type="text" name="timestamp" value="<?php echo time(); ?>" style="display:none;">

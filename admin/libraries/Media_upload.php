@@ -21,6 +21,12 @@ class Media_upload {
     protected $tmp_name = '';
     protected $file_ext = '';
     protected $error_msg = '';
+    protected $thumb_folder = 'thumb';
+    protected $thumb_path = '';
+    protected $thumb_filename = '';
+    protected $thumb_prefix = 'thumb_';
+    protected $thumb_width = 200;
+    protected $thumb_height = 200;
 
     public function __construct($config = array())
     {
@@ -61,8 +67,8 @@ class Media_upload {
             if (!is_dir($upload_path)){
                 mkdir($upload_path, 0777);
             }
-            $this->upload_path = $upload_path;
         }
+        $this->upload_path = $upload_path;
     }
 
     protected  function setFileExtension(){
@@ -87,6 +93,7 @@ class Media_upload {
     protected function setFileName(){
         $temp_name = date('YmdHis', $this->timestamp);
         $this->filename = $this->filename_prefix.$temp_name.'.'.$this->file_ext;
+        $this->thumb_filename = $this->thumb_prefix.$temp_name.'.'.$this->file_ext;
     }
 
     protected function moveUploadFile(){
@@ -137,6 +144,7 @@ class Media_upload {
         return TRUE;
     }
 
+
     public function getFileName(){
         return $this->filename;
     }
@@ -163,14 +171,80 @@ class Media_upload {
         $result = $this->moveUploadFile();
         if($result){
             $this->error_msg = '';
+
+            $this->setThumbPath();
+            $this->generateThumb();
+
             return $this->getRelativeUploadFilePath();
         }
         return FALSE;
     }
 
+    //生成缩略图
+    protected function setThumbPath(){
+        $thumb_folder_path = rtrim($this->thumb_folder, '/').'/';
+        $thumb_path = $this->upload_path.rtrim($this->thumb_folder, '/').'/';
+        if (!is_dir($thumb_path)){
+            mkdir($thumb_path, 0777);
+        }
+        $this->thumb_path = $thumb_path;
+    }
 
+    protected function getThumbFilePath(){
+        return $this->thumb_path.$this->thumb_filename;
+    }
 
+    public function getRelativeThumbFilePath(){
+        return str_replace(PUBLICPATH,"/",$this->getThumbFilePath());
+    }
 
+    protected function generateThumb(){
+        $upload_file_path = $this->getUploadFilePath();
+        $thumb_file_path = $this->getThumbFilePath();
+        $thumb_width = $this->thumb_width;
+        $thumb_height = $this->thumb_height;
+        $this->resizeImage($upload_file_path, $thumb_file_path, $thumb_width, $thumb_height);
+    }
 
+    protected function resizeImage($from_img_path, $to_img_path, $to_width, $to_height){
+        $type_arr = array(1=>'gif', 2=>'jpeg', 3=>'png');
+
+        list($from_width, $from_height, $type_index) = getimagesize($from_img_path);
+
+        if(!$type_arr[$type_index]){
+            return false;
+        }
+        $type = $type_arr[$type_index];
+
+        // 使缩略后的图片不变形，并且限制在 缩略图宽高范围内
+        if($from_width/$to_width > $from_height/$to_height){
+            $to_height = $to_width*($from_height/$from_width);
+        }else{
+            $to_width = $to_height*($from_width/$from_height);
+        }
+
+        $createfunction = "imagecreatefrom".$type; // imagecreatefromgif, imagecreatefromjpeg, imagecreatefrompng
+        $outputfunction = "image".$type; // imagegif, imagejpeg, imagepng
+
+        $from_img = $createfunction($from_img_path);
+
+        $to_img = imagecreatetruecolor($to_width, $to_height);
+
+        if($type=='png'){
+            //上色
+            $color=imagecolorallocate($to_img,255,255,255);
+            //设置透明
+            imagecolortransparent($to_img,$color);
+            imagefill($to_img,0,0,$color);
+        }
+        imagecopyresampled($to_img, $from_img, 0, 0, 0, 0, $to_width, $to_height, $from_width, $from_height);
+        if($outputfunction($to_img, $to_img_path)){
+            error_log($to_img_path.'生成成功');
+            return true;
+        }else{
+            error_log($to_img_path.'生成失败');
+            return false;
+        }
+    }
 
 }

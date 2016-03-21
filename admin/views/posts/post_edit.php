@@ -1,6 +1,6 @@
 <?php $this->load->view('header');?>
 <!-- main Begin -->
-<div class="main">
+<div class="main" xmlns:width="http://www.w3.org/1999/xhtml">
 	<div class="dashboard-title">
 		<span>编辑文章</span>
 	</div>
@@ -75,7 +75,7 @@
             <div class="dashboard-row">
                 <div class="row-label">内容:</div>
                 <div class="row-item">
-                    <div class="editor-container w800">
+                    <div class="editor-container">
                         <div id="editor"></div>
                         <textarea name="context" style="display: none;"><?php echo $post['post_content']; ?></textarea>
                         <input type="text" name="timestamp" value="<?php echo time(); ?>" style="display:none;">

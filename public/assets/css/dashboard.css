@@ -303,6 +303,8 @@ table.dashboard-table > thead > tr > th,  table.dashboard-table > tbody > tr > t
 /*post*/
 .editor-container{
     position: relative;
+    min-width: 800px;
+    width: 90%;
 }
 
 .editor-container .editor-cover{

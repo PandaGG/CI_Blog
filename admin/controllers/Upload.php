@@ -22,7 +22,8 @@ class Upload extends MY_Controller{
             $result = array('message'=>'success', 'path'=>$path);
             $extension = $this->media_upload->getFileExtension();
             $filename = $this->media_upload->getFileName();
-            $this->Media_model->insert_record($post_id, $timestamp, $filename, $extension, $path);
+            $thumb_path = $this->media_upload->getRelativeThumbFilePath();
+            $this->Media_model->insert_record($post_id, $timestamp, $filename, $extension, $path, $thumb_path);
         }else{
             $result = array('message'=>'fail', 'error_msg'=>$this->media_upload->getErrorMsg());
         }
