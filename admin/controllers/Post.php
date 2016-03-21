@@ -150,8 +150,8 @@ class Post extends MY_Controller{
         $result = $this->Post_model->insert_post($cid, $title, $slug, $excerpt, $context, $status);
         $pid = $result;
         //执行添加post操作后，匹配上传的和当前使用的图片
-        $this->load->library('Document_uti');
-        $this->document_uti->match_image($timestamp, $pid);
+        $this->load->library('Media_uti');
+        $this->media_uti->match_image($timestamp, $pid);
 
         if($result){
             $this->pageTips('添加文章成功','post', 2);
@@ -176,8 +176,8 @@ class Post extends MY_Controller{
         $timestamp = $this->input->post('timestamp');
         $result = $this->Post_model->update_post($pid, $cid, $title, $slug, $excerpt, $context, $status);
         //执行修改post操作后，匹配上传的和当前使用的图片
-        $this->load->library('Document_uti');
-        $this->document_uti->match_image($timestamp, $pid);
+        $this->load->library('Media_uti');
+        $this->media_uti->match_image($timestamp, $pid);
         if($result){
             $this->pageTips('更新文章成功','post', 2);
         }else{

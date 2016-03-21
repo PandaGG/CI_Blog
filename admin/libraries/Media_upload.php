@@ -1,5 +1,5 @@
 <?php
-class Document_upload {
+class Media_upload {
     /*
      * 必须传入的参数
      * */
