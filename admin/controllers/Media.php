@@ -16,12 +16,29 @@ class Media extends MY_Controller{
         );
         /*分页 开始*/
         $this->load->library('pagination');
-        $pagination_base_url = site_url('media').'?paged=';
 
+        $query_string = $_SERVER["QUERY_STRING"];
+        if($query_string){
+            $query_parm = explode('&', $query_string);
+            for($i=0; $i<count($query_parm); $i++){
+                if(strpos($query_parm[$i], 'paged') !== FALSE){
+                    unset($query_parm[$i]);
+                    break;
+                }
+            }
+            $query_string = implode('&', $query_parm);
+        }
+
+        $pagination_base_url = site_url('media');
+        if($query_string){
+            $pagination_base_url .= '?'.$query_string.'&paged=';
+        }else{
+            $pagination_base_url .= '?paged=';
+        }
         $per_page = 10;
         $config = array(
             'base_url' => $pagination_base_url,
-            'total_rows' => $this->Media_model->get_medias_count(),
+            'total_rows' => $data['status_count'][$status],
             'per_page' => $per_page,
             'num_links' => 3,
             'cur_page' => $paged
