@@ -45,7 +45,7 @@
     <?php endif; ?>
 
 	<div class="dashboard-section">
-        <?php echo form_open('post/group_operation'); ?>
+        <?php echo form_open('post/group_operation', array('id' => 'mainform')); ?>
 		<table class="table table-hover dashboard-table">
 			<thead>
 				<tr>
@@ -99,7 +99,7 @@
 						<span>|</span>
 
                         <?php if($post['post_status'] == 'trash'): ?>
-                            <a href="<?php echo site_url('post/delete/'.$post['post_id']); ?>" title="永久删除"><i class="fa fa-times"></i></a>
+                            <a href="javascript:void(0);" title="永久删除"  data-url="<?php echo site_url('post/delete/'.$post['post_id']); ?>" data-name="<?php echo $post['post_title'] ?>" onclick="confirmDelete(this);"><i class="fa fa-times"></i></a>
                         <?php else: ?>
                             <a href="<?php echo site_url('post/trash/'.$post['post_id']); ?>" title="垃圾箱"><i class="fa fa-trash"></i></a>
                         <?php endif; ?>
@@ -121,7 +121,8 @@
                             <button class="btn btn-default group-operation-btn" type="submit" name="group-move" value="group-move" disabled="disabled">批量移动</button>
                         <?php else: ?>
                             <?php if($info['status'] == 'trash'): ?>
-                                <button class="btn btn-default group-operation-btn" type="submit" name="group-delete" value="group-delete" disabled="disabled">批量永久删除</button>
+                                <button class="btn btn-danger group-operation-btn" type="button" disabled="disabled" onclick="confirmGroupDelete();">批量永久删除</button><!-- 显示、触发确认框 -->
+                                <button type="submit" name="group-delete" value="group-delete" style="display: none;">批量永久删除</button><!-- 确定确认框后，触发此按钮的submit -->
                                 <button class="btn btn-default group-operation-btn" type="submit" name="group-draft" value="group-draft" disabled="disabled">批量移出垃圾箱</button>
                             <?php else: ?>
                                 <button class="btn btn-default group-operation-btn" type="submit" name="group-trash" value="group-trash" disabled="disabled" style="margin-right:20px;">批量垃圾箱</button>
@@ -154,6 +155,23 @@
 
         function submitNavForm(){
             $('#navForm').submit();
+        }
+
+        function confirmDelete(obj){
+            var $obj = $(obj);
+            var name = $obj.attr('data-name');
+            var url = $obj.attr('data-url');
+            var result = confirm('确定永久删除文章"'+name+'"?');
+            if(result){
+                window.location.href = url;
+            }
+        }
+
+        function confirmGroupDelete(){
+            var result = confirm('确定批量永久删除文章?');
+            if(result){
+                $('button[name="group-delete"]').click();
+            }
         }
 
         function toggleAllChecbox(){

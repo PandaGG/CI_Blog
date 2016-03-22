@@ -3,8 +3,21 @@ class Media_model extends CI_Model{
 	public function __construct(){
 		parent:: __construct();
 	}
-    public function get_medias($offset = NULL, $num = NULL){
-        $sql = "SELECT media_id, media_post, IFNULL(post_title, '未关联') AS post_name , IF(media_timestamp = 0, '使用中', '未使用') AS media_status, media_name, media_extension, media_path, media_datetime, media_thumb FROM medias m LEFT JOIN posts p on m.media_post = p.post_id ORDER BY media_id DESC";
+
+    /**
+     * 取出所有的图片记录
+     * @param null $offset
+     * @param null $num
+     * @return mixed
+     */
+    public function get_medias($status = 'all', $offset = NULL, $num = NULL){
+        $sql = "SELECT media_id, media_post, post_id, IFNULL(post_title, '未关联') AS post_name , media_name, media_extension, media_path, media_datetime, media_thumb FROM media_detail ";
+        if($status == 'unrelated'){
+            $sql .= " WHERE ISNULL(post_id)";
+        }else if($status == 'related'){
+            $sql .= " WHERE post_id IS NOT NULL";
+        }
+        $sql .= " ORDER BY media_id DESC";
         if($offset !== NULL AND $num !== NULL){
             $sql .= " LIMIT ".$this->db->escape($offset).", ".$this->db->escape($num);
         }
@@ -12,12 +25,31 @@ class Media_model extends CI_Model{
         return $query->result_array();
     }
 
-    public function get_medias_count(){
-        $sql = "SELECT media_id FROM medias m LEFT JOIN posts p on m.media_post = p.post_id";
+    /**
+     * 计算所有图片记录总数
+     * @return mixed
+     */
+    public function get_medias_count($status = 'all'){
+        $sql = "SELECT media_id FROM media_detail";
+        if($status == 'unrelated'){
+            $sql .= " WHERE ISNULL(post_id)";
+        }else if($status == 'related'){
+            $sql .= " WHERE post_id IS NOT NULL";
+        }
         $query = $this->db->query($sql);
         return $query->num_rows();
     }
 
+    /**
+     * 插入一条图片记录
+     * @param $post_id
+     * @param $timestamp
+     * @param $filename
+     * @param $extension
+     * @param $path
+     * @param $thumb_path
+     * @return int
+     */
     public function insert_record($post_id, $timestamp, $filename, $extension, $path, $thumb_path){
         if(empty($filename)){
             return 0;
@@ -39,16 +71,49 @@ class Media_model extends CI_Model{
         return $this->db->affected_rows();
     }
 
+    public function get_media_record_by_id($media_id = NULL){
+        if($media_id === NULL){
+            return 0;
+        }
+        $sql = 'SELECT media_id, media_post, media_timestamp, media_path, media_thumb FROM medias WHERE media_id = '.$this->db->escape($media_id);
+        $query = $this->db->query($sql);
+        error_log($this->db->last_query());
+        return $query->row_array();
+    }
+
+    public function get_media_record_by_ids($media_ids = array()){
+        if(count($media_ids) == 0){
+            return 0;
+        }
+        error_log(print_r($media_ids,true));
+        $this->db->where_in('media_id',$media_ids);
+        $query = $this->db->get('medias');
+        error_log($this->db->last_query());
+        return $query->result_array();
+    }
+
+    /**
+     * 根据时间戳和post id来获取上传的图片
+     * @param $timestamp
+     * @param $post_id
+     * @return mixed
+     */
     public function get_related_medias($timestamp, $post_id){
         $sql = "SELECT media_id, media_post, media_timestamp, media_name FROM medias WHERE media_timestamp = ".$timestamp;
         if($post_id != -1){
             $sql .= " OR media_post = ".$post_id;
         }
         $query = $this->db->query($sql);
-        error_log($this->db->last_query());
         return $query->result_array();
     }
 
+    /**
+     * 批量更新图片的post id与timestamp信息 （重新关联图片与文章）
+     * @param $media_ids
+     * @param $post_id_arr
+     * @param $timestamp_arr
+     * @return mixed
+     */
     public function update_related_medias($media_ids, $post_id_arr, $timestamp_arr){
         $sql = "UPDATE medias SET media_post = CASE media_id ";
         foreach ($post_id_arr as $media_id => $post_id) {
@@ -61,24 +126,36 @@ class Media_model extends CI_Model{
         $sql .= "END WHERE media_id IN ($media_ids)";
 
         $this->db->query($sql);
-        error_log($this->db->last_query());
         return $this->db->affected_rows();
     }
 
+    /**
+     * 根据post id取出为使用的图片记录
+     * @param $post_id
+     * @return mixed
+     */
     public function get_unused_medias_by_post_id($post_id){
         $sql = "SELECT media_id, media_post, media_timestamp, media_path, media_thumb FROM medias WHERE media_post = ".$post_id." AND media_timestamp != 0";
         $query = $this->db->query($sql);
-        error_log($this->db->last_query());
         return $query->result_array();
     }
 
+    /**
+     * 取出一个时间之前的还未关联文章的图片
+     * @param null $timestamp
+     * @return mixed
+     */
     public function get_unrelated_media($timestamp = NULL){
-        $sql = "SELECT media_id, media_post, media_timestamp, media_path, media_thumb FROM medias WHERE media_post = -1 AND media_timestamp <=". $timestamp;
+        $sql = "SELECT media_id, media_post, media_timestamp, media_path, media_thumb FROM media_detail WHERE ISNULL(post_id) AND media_timestamp <=". $timestamp;
         $query = $this->db->query($sql);
-        error_log($this->db->last_query());
         return $query->result_array();
     }
 
+    /**
+     * 根据图片的id批量删除图片
+     * @param array $media_ids
+     * @return int
+     */
     public function delete_medias($media_ids = array()){
         if(count($media_ids) == 0){
             return 0;

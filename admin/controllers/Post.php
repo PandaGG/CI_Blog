@@ -179,9 +179,9 @@ class Post extends MY_Controller{
         $this->load->library('Media_uti');
         $this->media_uti->match_image($timestamp, $pid);
         if($result){
-            $this->pageTips('更新文章成功','post', 2);
+            $this->pageTips('更新文章成功',$this->session->lastUri, 2);
         }else{
-            $this->pageTips('更新文章失败','post', 2, 'fail');
+            $this->pageTips('更新文章失败',$this->session->lastUri, 2, 'fail');
         }
     }
 
@@ -274,7 +274,6 @@ class Post extends MY_Controller{
             }else{
                 $this->pageTips('批量永久删除失败',$this->session->lastUri, 2, 'fail');
             }
-            return;
             return;
         }
 

@@ -29,7 +29,7 @@
 						<?php if($category['post_num']): ?>
 							<span class="disabled" title="无法删除有文章的栏目"><i class="fa fa-times"></i></span>
 						<?php else: ?>
-							<a href="javascript:void(0);" title="删除" data-url="<?php echo site_url('category/delete/'.$category['category_id']); ?>" data-cname="<?php echo $category['category_name'] ?>" onclick="confirmDelete(this);"><i class="fa fa-times"></i></a>
+							<a href="javascript:void(0);" title="删除" data-url="<?php echo site_url('category/delete/'.$category['category_id']); ?>" data-name="<?php echo $category['category_name'] ?>" onclick="confirmDelete(this);"><i class="fa fa-times"></i></a>
 						<?php endif; ?>
 					</td>
 				</tr>
@@ -43,9 +43,9 @@
     <script type="text/javascript">
         function confirmDelete(obj){
             var $obj = $(obj);
-            var cname = $obj.attr('data-cname');
+            var name = $obj.attr('data-name');
             var url = $obj.attr('data-url');
-            var result = confirm('是否删除类别"'+cname+'"?');
+            var result = confirm('确定永久删除类别"'+name+'"?');
             if(result){
                 window.location.href = url;
             }
