@@ -4,14 +4,14 @@ class MY_Controller extends CI_Controller {
     {
         parent::__construct();
 	 	if(!$this->checkSession()){
-	 		echo '还未登录!<br/>';
+	 		echo '您还未登录或者无访问权限<br/>';
 	 		echo '请返回<a href="'.site_url('login').'">登录</a>页面';
 			exit();
-		};
+		}
     }
 	
 	protected function checkSession(){
-		if($this->session->uid)
+		if( !empty($_SESSION['username']) AND $_SESSION['user_type'] == 99)
 		{
 			//已登入
 			return true;

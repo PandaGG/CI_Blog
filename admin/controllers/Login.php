@@ -6,7 +6,7 @@ class Login extends CI_Controller{
 	}
 	
 	public function index(){
-		if(!empty($_SESSION['username'])){
+		if(!empty($_SESSION['username'] AND $_SESSION['user_type'] == 99)){
 			redirect('home');
 		}
 		$this->load->view('login');
@@ -19,6 +19,8 @@ class Login extends CI_Controller{
 		if($query){
 			$_SESSION['uid'] = $query['uid'];
 			$_SESSION['username'] = $query['user_name'];
+			$_SESSION['user_type'] = $query['user_type'];
+            error_log(print_r($_SESSION, true));
 			redirect('home');
 		}else{
 			redirect('login');
