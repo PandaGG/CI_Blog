@@ -30,6 +30,7 @@ Class MY_Controller extends CI_Controller {
 
 	protected function show_full_main_template($title = '', $main_html = '')
 	{
+
 		$this->check_session_site_info();
 		$site_name = $_SESSION['site_info']['site_name'];
 		if($title == ''){
@@ -62,5 +63,10 @@ Class MY_Controller extends CI_Controller {
 		if( ! isset($_SESSION['site_info'])){
 			$this->set_session_site_info();
 		}
+	}
+
+	protected function redis_test(){
+		$this->load->driver('rediscli');
+		$this->rediscli->phpredis->redis->set('foo', 'bar');
 	}
 }
