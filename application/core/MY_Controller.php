@@ -14,6 +14,7 @@ Class MY_Controller extends CI_Controller {
 	protected function show_default_template($title = '', $main_html = '')
 	{
 		$this->load->library('sidebar');
+		$this->count_online_users();
 		$this->check_session_site_info();
 		$site_name = $_SESSION['site_info']['site_name'];
 		if($title == ''){
@@ -31,6 +32,7 @@ Class MY_Controller extends CI_Controller {
 	protected function show_full_main_template($title = '', $main_html = '')
 	{
 
+		$this->count_online_users();
 		$this->check_session_site_info();
 		$site_name = $_SESSION['site_info']['site_name'];
 		if($title == ''){
@@ -65,8 +67,12 @@ Class MY_Controller extends CI_Controller {
 		}
 	}
 
-	protected function redis_test(){
-		$this->load->driver('rediscli');
-		$this->rediscli->phpredis->redis->set('foo', 'bar');
+	protected function count_online_users(){
+		$remote_ip=$_SERVER["REMOTE_ADDR"];
+		$this->load->library('Redis_lib/Online_manage');
+		$this->online_manage->setOnline($remote_ip);
+		$online_users = $this->online_manage->getAllOnline();
+		$online_users_num = count($online_users);
+		$_SESSION['online_num'] = $online_users_num;
 	}
 }
