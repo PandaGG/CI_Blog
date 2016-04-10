@@ -1,15 +1,12 @@
 <?php
 class Online_manage {
-
     protected $CI;
-    protected $redis;
     protected $online_minutes = 3;
 
     public function __construct()
     {
         $this->CI =& get_instance();
-        $this->CI->load->driver('rediscli');
-        $this->redis = $this->CI->rediscli->phpredis->redis;
+        $this->CI->load->model('Redis/Online_manage_model');
     }
 
     public function setOnline($id){
@@ -18,26 +15,25 @@ class Online_manage {
         $expire_timestamp = $now + $this->online_minutes * 60 + 10;
         $min_users_key = 'online-users-minute:'.$now_min;
         $user_key = 'user-activity:'.$id;
-        $pipe = $this->redis->multi(Redis::PIPELINE);
-        $pipe->sadd($min_users_key, $id);
-        $pipe->set($user_key, $now);
-        $pipe->expireat($min_users_key, $expire_timestamp);
-        $pipe->expireat($user_key, $expire_timestamp);
-        $replies = $pipe->exec();
-    }
+        if( ! $this->CI->Online_manage_model->getLastActTime($id) ){
+            $this->CI->Online_manage_model->addAccessRecord($id);
 
-    public function getLastActTime($id){
+            $limit_len = 500;
+            $max_len = 600;
+            $this->CI->Online_manage_model->trimAccessHistory($limit_len, $max_len);
+        }
 
+        $this->CI->Online_manage_model->setOnline($id, $min_users_key, $user_key, $now, $expire_timestamp);
     }
 
     public function getAllOnline(){
         $now = time();
         $now_min = floor($now/60);
-        $set_keys_arr = array();
+        $minute_keys_arr = array();
         for ($i = 0; $i <= $this->online_minutes; $i++){
-            $set_keys_arr[] = 'online-users-minute:'.($now_min-$i);
+            $minute_keys_arr[] = 'online-users-minute:'.($now_min-$i);
         }
-        $result = $this->redis->sunion($set_keys_arr);
+        $result = $this->CI->Online_manage_model->getUnionOnlineMinSet($minute_keys_arr);
         return $result;
     }
 
