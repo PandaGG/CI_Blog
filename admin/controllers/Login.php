@@ -20,7 +20,6 @@ class Login extends CI_Controller{
 			$_SESSION['uid'] = $query['uid'];
 			$_SESSION['username'] = $query['user_name'];
 			$_SESSION['user_type'] = $query['user_type'];
-            error_log(print_r($_SESSION, true));
 			redirect('home');
 		}else{
 			redirect('login');

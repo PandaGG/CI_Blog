@@ -25,7 +25,10 @@ class Online_manage_redis_model extends CI_Model{
         $this->redis->lpush('access-history',$id.','.date('Y-m-d H:i:s'));
     }
 
-    public function trimAccessHistory($limit_len, $max_len){
+    public function trimAccessHistory($limit_len = NULL, $max_len = NULL){
+        if($limit_len === NULL || $max_len === NULL){
+            return FALSE;
+        }
         $hisstory_len = $this->redis->llen('access-history');
         if($hisstory_len AND $hisstory_len >= $max_len){
             $this->redis->ltrim('access-history', 0, $limit_len-1);

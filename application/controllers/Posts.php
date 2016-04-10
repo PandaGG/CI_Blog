@@ -44,6 +44,15 @@ class Posts extends MY_Controller{
 		$this->post_model->add_hit($id);
 		$title = $post_result['post_title'];
 		$post_date = $post_result['post_date'];
+
+
+		$this->load->model('redis/post_redis_model');
+		if($this->post_redis_model->checkPost($id) || $this->post_redis_model->cachePost($id, $slug, $title) ){
+			$this->post_redis_model->markRecentPost($id);
+			$this->post_redis_model->markRecentPost($id);
+			$this->post_redis_model->trimRecentPosts(10, 15);
+		}
+
 		$data['post_prev'] = $this->post_model->get_prev_post($post_date);
 		$data['post_next'] = $this->post_model->get_next_post($post_date);
 		$data['post'] = $post_result;

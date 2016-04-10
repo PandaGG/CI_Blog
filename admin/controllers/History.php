@@ -2,7 +2,7 @@
 class History extends MY_Controller{
 	public function __construct(){
 		parent:: __construct();
-		$this->load->model('Redis/Access_history_redis_model');
+		$this->load->model('redis/access_history_redis_model');
 	}
 	
 	public function index(){
@@ -31,7 +31,7 @@ class History extends MY_Controller{
 		$per_page = 30;
 		$config = array(
 			'base_url' => $pagination_base_url,
-			'total_rows' => $this->Access_history_redis_model->count_records(),
+			'total_rows' => $this->access_history_redis_model->count_records(),
 			'per_page' => $per_page,
 			'num_links' => 3,
 			'cur_page' => $paged
@@ -43,7 +43,7 @@ class History extends MY_Controller{
 		$offset = (int)($per_page*($paged-1));
         $end = $offset + $per_page - 1;
 
-        $origin_records = $this->Access_history_redis_model->get_records($offset, $end);
+        $origin_records = $this->access_history_redis_model->get_records($offset, $end);
         $records = array();
         if($origin_records){
             foreach($origin_records as $origin_record){
