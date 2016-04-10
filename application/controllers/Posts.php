@@ -46,7 +46,7 @@ class Posts extends MY_Controller{
 		$post_date = $post_result['post_date'];
 
 
-		$this->load->model('redis/post_redis_model');
+		$this->load->model('Redis/post_redis_model');
 		if($this->post_redis_model->checkPost($id) || $this->post_redis_model->cachePost($id, $slug, $title) ){
 			$this->post_redis_model->markRecentPost($id);
 			$this->post_redis_model->markRecentPost($id);
