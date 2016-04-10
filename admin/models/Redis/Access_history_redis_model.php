@@ -1,5 +1,5 @@
 <?php
-class Access_history_model extends CI_Model{
+class Access_history_redis_model extends CI_Model{
     protected $redis;
 	public function __construct(){
 		parent:: __construct();

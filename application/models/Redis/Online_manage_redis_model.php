@@ -1,5 +1,5 @@
 <?php
-class Online_manage_model extends CI_Model{
+class Online_manage_redis_model extends CI_Model{
     protected $redis;
 	public function __construct(){
 		parent:: __construct();
