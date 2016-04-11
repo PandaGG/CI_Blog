@@ -26,6 +26,11 @@
         <div class="article-content">
             <?php echo $post['post_content']; ?>
         </div>
+
+        <!-- 阅读历史记录 -->
+        <?php echo $recent_view_posts; ?>
+        <!-- 阅读历史记录 -->
+
         <div class="article-control">
             <div class="article-prev">
                 上一篇:

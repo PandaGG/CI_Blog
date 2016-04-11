@@ -7,7 +7,7 @@ class Access_history_redis_model extends CI_Model{
         $this->redis = $this->rediscli->phpredis->redis;
         $this->redis->select(1);
 	}
-    public function get_records($start, $end){
+    public function get_records($start = 0, $end = -1){
         return $this->redis->lrange('access-history', $start, $end);
     }
 

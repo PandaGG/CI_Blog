@@ -51,4 +51,25 @@ class Post_redis_model extends CI_Model{
 		}
 	}
 
+	public function getRecentPosts($start = 0, $end = -1){
+		return $this->redis->lrange('recent-posts', $start, $end);
+	}
+
+	public function getCachePostInfo($id = NULL){
+		if($id === NULL){
+			return array();
+		}
+		$key = 'post:'.$id;
+		if( $this->redis->exists($key) ){
+			if( $this->redis->exists($key) ){
+				$slug = $this->redis->hget($key, 'slug');
+				$title = $this->redis->hget($key, 'title');
+				if($slug AND $title){
+					return array('post_id' => $id, 'post_slug' => $slug, 'post_title' => $title);
+				}
+			}
+		}
+		return array();
+	}
+
 }

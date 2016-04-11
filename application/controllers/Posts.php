@@ -46,19 +46,47 @@ class Posts extends MY_Controller{
 		$post_date = $post_result['post_date'];
 
 
+		$this->manage_recent_view($id, $slug, $title);
+
+		$data['post_prev'] = $this->post_model->get_prev_post($post_date);
+		$data['post_next'] = $this->post_model->get_next_post($post_date);
+		$data['post'] = $post_result;
+		$data['recent_view_posts'] = $this->recent_view();
+		/*暂存页面输出结果*/
+		$main_html = $this->load->view('posts/view', $data, true);
+		/*把页面输出的HTML内容放入模版中*/
+		$this->show_default_template($title, $main_html);
+	}
+
+	protected function recent_view(){
+		$this->load->model('Redis/post_redis_model');
+		$rv_posts = array();
+		$post_ids = $this->post_redis_model->getRecentPosts(0, 4);
+		if($post_ids){
+			foreach($post_ids as $post_id){
+				$post = $this->post_redis_model->getCachePostInfo($post_id);
+				if($post){
+					$rv_posts[] = $post;
+				}
+			}
+		}
+		if($rv_posts){
+			return $this->load->view('posts/recent_view', array('rv_posts'=>$rv_posts), true);
+		}else{
+			return '';
+		}
+
+	}
+
+	protected function manage_recent_view($id = NULL, $slug = NULL, $title = NULL){
+		if($id === NULL || $slug === NULL || $title === NULL){
+			return FALSE;
+		}
 		$this->load->model('Redis/post_redis_model');
 		if($this->post_redis_model->checkPost($id) || $this->post_redis_model->cachePost($id, $slug, $title) ){
 			$this->post_redis_model->markRecentPost($id);
 			$this->post_redis_model->markRecentPost($id);
 			$this->post_redis_model->trimRecentPosts(10, 15);
 		}
-
-		$data['post_prev'] = $this->post_model->get_prev_post($post_date);
-		$data['post_next'] = $this->post_model->get_next_post($post_date);
-		$data['post'] = $post_result;
-		/*暂存页面输出结果*/
-		$main_html = $this->load->view('posts/view', $data, true);
-		/*把页面输出的HTML内容放入模版中*/
-		$this->show_default_template($title, $main_html);
 	}
 }
