@@ -46,6 +46,16 @@ Class MY_Controller extends CI_Controller {
 		$this->load->view('templates/footer');
 	}
 
+	protected function show_404(){
+		$this->count_online_users();
+		$this->check_session_site_info();
+		$site_name = $_SESSION['site_info']['site_name'];
+		$page_title = '404页面 | '.$site_name;
+		$this->load->view('templates/header',array('page_title'=>$page_title));
+		$this->load->view('templates/error_404');
+		$this->load->view('templates/footer');
+	}
+
 	protected function set_session_site_info(){
 		$this->load->model('Site_model');
 		$site_info = $this->Site_model->get_site_info();

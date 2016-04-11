@@ -24,12 +24,15 @@ class Posts extends MY_Controller{
 		$offset = (int)($per_page*($cur_page-1));
 		$posts = $this->post_model->get_posts($offset, $per_page);
 		if(empty($posts)){
-			show_404();
+			$data['posts'] = array();
+			$data['pagination_link'] = '';
+		}else{
+			foreach($posts as $post){
+				$post['post_date'] = formatElapseTime($post['post_date']);
+				$data['posts'][] = $post;
+			}
 		}
-		foreach($posts as $post){
-			$post['post_date'] = formatElapseTime($post['post_date']);
-			$data['posts'][] = $post;
-		}
+
 		/*暂存页面输出结果*/
 		$main_html = $this->load->view('posts/index', $data, true);
 		/*把页面输出的HTML内容放入模版中*/
@@ -38,7 +41,8 @@ class Posts extends MY_Controller{
 	public function view($slug = NULL){
 		$post_result = $this->post_model->get_post_by_slug($slug);
 		if(empty($post_result)){
-			show_404();
+			$this->show_404();
+			return FALSE;
 		}
 		$id = $post_result['post_id'];
 		$this->post_model->add_hit($id);

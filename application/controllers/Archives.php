@@ -8,7 +8,8 @@ class Archives extends MY_Controller{
 	public function index(){
 		$posts = $this->post_model->get_posts();
 		if(empty($posts)){
-			show_404();
+			$this->show_404();
+			return FALSE;
 		}
 
         $year = 0;
@@ -54,7 +55,8 @@ class Archives extends MY_Controller{
 		$offset = (int)($per_page*($cur_page-1));
 		$posts = $this->post_model->get_specify_month_posts($browse_month,$offset, $per_page);
 		if(empty($posts)){
-			show_404();
+			$this->show_404();
+			return FALSE;
 		}
 		foreach($posts as $post){
 			$post['post_date'] = formatElapseTime($post['post_date']);

@@ -16,7 +16,8 @@ class Categories extends MY_Controller{
 	}
 	public function view($slug = NULL, $cur_page = 1){
 		if($slug === NULL){
-			show_404();
+			$this->show_404();
+			return FALSE;
 		}
 		$category_info = $this->category_model->get_category_by_slug($slug);
 		if(empty($category_info)){
@@ -43,12 +44,15 @@ class Categories extends MY_Controller{
 
 		$posts = $this->post_model->get_category_posts($slug, $offset, $per_page);
         if(empty($posts)){
-            show_404();
-        }
-		foreach($posts as $post){
-			$post['post_date'] = formatElapseTime($post['post_date']);
-			$data['posts'][] = $post;
+			$data['posts'] = array();
+			$data['pagination_link'] = '';
+        }else{
+			foreach($posts as $post){
+				$post['post_date'] = formatElapseTime($post['post_date']);
+				$data['posts'][] = $post;
+			}
 		}
+
 		$data['page_title'] = '文章类别: '.$title;
 		/*暂存页面输出结果*/
 		$main_html = $this->load->view('posts/index', $data, true);
