@@ -79,7 +79,7 @@ Class MY_Controller extends CI_Controller {
 
 	protected function count_online_users(){
 		$remote_ip=$_SERVER["REMOTE_ADDR"];
-		$this->load->library('Redis_lib/Online_manage');
+		$this->load->library('redis_lib/Online_manage');
 		$this->online_manage->setOnline($remote_ip);
 		$online_users = $this->online_manage->getAllOnline();
 		$online_users_num = count($online_users);

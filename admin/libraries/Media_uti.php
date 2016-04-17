@@ -15,7 +15,6 @@ class Media_uti {
         $post_info = $this->CI->Post_model->get_post_info($pid);
         $post_content = $post_info['post_content'];
         preg_match_all('/<\s*img\s+[^>]*?src\s*=\s*(\'|\")(\/.*?)\\1[^>]*?\/?\s*>/i',$post_content,$match);
-        error_log(print_r($match[2],true));
 
         $media_names = array();
         for($i=0; $i<count($match[2]); $i++){
@@ -24,10 +23,8 @@ class Media_uti {
                 $media_names[] = substr(strrchr($match[2][$i], '/'), 1);
             }
         }
-        error_log(print_r($media_names,true));
 
         $related_medias = $this->CI->Media_model->get_related_medias($timestamp, $pid);
-        error_log(print_r($related_medias,true));
         if(empty($related_medias)){
             return;
         }
@@ -61,7 +58,6 @@ class Media_uti {
         foreach($unused_medias as $unused_media){
             $filepath = PUBLICPATH.substr($unused_media['media_path'],1);
             $thumbpath = PUBLICPATH.substr($unused_media['media_thumb'],1);
-            error_log($filepath);
 
             if( $this->delete_media_files($filepath, $thumbpath) ){
                 $delete_media_ids[] = $unused_media['media_id'];
@@ -79,10 +75,8 @@ class Media_uti {
                 if( !empty($thumbpath) AND is_file($thumbpath) AND file_exists($thumbpath) ){
                     $thum_result = unlink($thumbpath);
                 }
-                error_log('删除'.$filepath.'成功');
                 return TRUE; //删除文件
             }else{
-                error_log('删除'.$filepath.'失败');
                 return FALSE;
             }
         }else{

@@ -239,10 +239,8 @@ class Media_upload {
         }
         imagecopyresampled($to_img, $from_img, 0, 0, 0, 0, $to_width, $to_height, $from_width, $from_height);
         if($outputfunction($to_img, $to_img_path)){
-            error_log($to_img_path.'生成成功');
             return true;
         }else{
-            error_log($to_img_path.'生成失败');
             return false;
         }
     }

@@ -86,7 +86,7 @@
 	</div>
     <script type="text/javascript" src="<?php echo site_url();?>../assets/js/dashboard/post-edit.js"></script>
     <script type="text/javascript">
-        var upload_url = "<?php echo site_url('upload/post_image'); ?>";
+        var upload_url = "<?php echo site_url('api/upload/post_image'); ?>";
         $(function(){
             initPostId();
             initTimestamp();

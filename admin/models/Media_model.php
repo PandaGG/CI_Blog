@@ -77,7 +77,6 @@ class Media_model extends CI_Model{
         }
         $sql = 'SELECT media_id, media_post, media_timestamp, media_path, media_thumb FROM medias WHERE media_id = '.$this->db->escape($media_id);
         $query = $this->db->query($sql);
-        error_log($this->db->last_query());
         return $query->row_array();
     }
 
@@ -85,10 +84,8 @@ class Media_model extends CI_Model{
         if(count($media_ids) == 0){
             return 0;
         }
-        error_log(print_r($media_ids,true));
         $this->db->where_in('media_id',$media_ids);
         $query = $this->db->get('medias');
-        error_log($this->db->last_query());
         return $query->result_array();
     }
 
@@ -162,7 +159,6 @@ class Media_model extends CI_Model{
         }
         $this->db->where_in('media_id',$media_ids);
         $this->db->delete('medias');
-        error_log($this->db->last_query());
         return $this->db->affected_rows();
     }
 

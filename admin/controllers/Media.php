@@ -92,7 +92,6 @@ class Media extends MY_Controller{
                 $delete_media_ids = array();
                 $filepath = PUBLICPATH.substr($media['media_path'],1);
                 $thumbpath = PUBLICPATH.substr($media['media_thumb'],1);
-                error_log($filepath);
                 if( $this->media_uti->delete_media_files($filepath, $thumbpath) ){
                     $delete_media_ids[] = $media['media_id'];
                 }
@@ -121,7 +120,6 @@ class Media extends MY_Controller{
                 foreach($medias as $media){
                     $filepath = PUBLICPATH.substr($media['media_path'],1);
                     $thumbpath = PUBLICPATH.substr($media['media_thumb'],1);
-                    error_log($filepath);
 
                     if( $this->media_uti->delete_media_files($filepath, $thumbpath) ){
                         $delete_media_ids[] = $media['media_id'];

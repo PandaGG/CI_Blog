@@ -63,7 +63,7 @@ class Posts extends MY_Controller{
 	}
 
 	protected function recent_view(){
-		$this->load->model('Redis/post_redis_model');
+		$this->load->model('redis/post_redis_model');
 		$rv_posts = array();
 		$post_ids = $this->post_redis_model->getRecentPosts(0, 4);
 		if($post_ids){
@@ -86,7 +86,7 @@ class Posts extends MY_Controller{
 		if($id === NULL || $slug === NULL || $title === NULL){
 			return FALSE;
 		}
-		$this->load->model('Redis/post_redis_model');
+		$this->load->model('redis/post_redis_model');
 		if($this->post_redis_model->checkPost($id) || $this->post_redis_model->cachePost($id, $slug, $title) ){
 			$this->post_redis_model->markRecentPost($id);
 			$this->post_redis_model->markRecentPost($id);

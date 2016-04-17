@@ -6,7 +6,7 @@ class Online_manage {
     public function __construct()
     {
         $this->CI =& get_instance();
-        $this->CI->load->model('Redis/online_manage_redis_model');
+        $this->CI->load->model('redis/online_manage_redis_model');
     }
 
     public function setOnline($id){

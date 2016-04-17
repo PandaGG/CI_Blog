@@ -2,7 +2,7 @@
 class History extends MY_Controller{
 	public function __construct(){
 		parent:: __construct();
-		$this->load->model('Redis/access_history_redis_model');
+		$this->load->model('redis/access_history_redis_model');
 	}
 	
 	public function index(){
