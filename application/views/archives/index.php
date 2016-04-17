@@ -3,13 +3,13 @@
 	<div class="vertical-timeline">
 		<ul>
         <?php foreach($archives as $year => $month_posts): ?>
-            <li class="vt-year">
+            <li class="vt-year" data-value="<?php echo $year; ?>">
                 <div class="vt-label"><?php echo $year; ?></div>
                 <div class="vt-circle"></div>
                 <div class="clearfix"></div>
             </li>
             <?php foreach($month_posts as $month => $date_posts): ?>
-                <li class="vt-month">
+                <li class="vt-month" data-value="<?php echo $year.'-'.$month; ?>">
                     <div class="vt-label"><?php echo $month; ?>月</div>
                     <div class="vt-circle"></div>
                     <div class="clearfix"></div>
@@ -32,5 +32,7 @@
         <?php endforeach; ?>
 		</ul>
 	</div>
+    <div class="timeline-loading-msg">数据加载中……</div>
+    <script src="<?php echo site_url();?>assets/js/archives.js"></script>
     <?php endif; ?>
 </div>

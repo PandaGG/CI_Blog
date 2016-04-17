@@ -282,6 +282,10 @@ ul.categories_list li{
     background-color: #16a085;
 }
 
+.timeline-loading-msg{
+    text-align: center;
+    display: none;
+}
 
 /* ! sidebar */
 .sidebar_package{

@@ -6,7 +6,9 @@ class Archives extends MY_Controller{
 		$this->load->model('post_model');
 	}
 	public function index(){
-		$posts = $this->post_model->get_posts();
+		$offset = 0;
+		$num = 10;
+		$posts = $this->post_model->get_posts($offset, $num);
 		if(empty($posts)){
 			$this->show_404();
 			return FALSE;
