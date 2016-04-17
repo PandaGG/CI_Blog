@@ -52,7 +52,6 @@ class Archives extends CI_Controller{
 				'data' => $archives
 			);
 		}
-		error_log(print_r(json_encode($response),true));
 		echo json_encode($response);
 	}
 }
