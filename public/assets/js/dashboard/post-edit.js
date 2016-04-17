@@ -14,6 +14,29 @@ function initTimestamp(){
     }
 }
 
+function bindCheckSlug(){
+	$('input[name="slug"]').on('blur', function(){
+		if($(this).val().trim().length > 0){
+			$.ajax({
+				type: "POST",
+				dataType: 'json',
+				url: post_api_url+"/is_slug_available/"+$(this).val().trim()+"/"+post_id,
+				cache: false,
+				success: function(res) {
+					console.log(res);
+					if(res.message == 'yes'){
+						$('#slug-error').hide();
+						$('#postForm').removeClass('error');
+					}else{
+						$('#slug-error').show();
+						$('#postForm').addClass('error');
+					}
+				}
+			});
+		}
+	});
+}
+
 function initSummernote() {
 	$('#editor').summernote({
 		height: 600,
@@ -68,6 +91,9 @@ function uploadImage(file){
 }
 
 function submitPost(){
+	if($('#postForm').hasClass('error')){
+		return;
+	}
 	var sHTML = $('#editor').summernote('code');
 	$('textarea[name="context"]').val(sHTML);
 	$('#postForm').submit();

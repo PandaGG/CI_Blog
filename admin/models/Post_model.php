@@ -154,4 +154,20 @@ class Post_model extends CI_Model{
         return $this->db->affected_rows();
     }
 
+    public function isExistSlug($slug = NULL, $pid = -1){
+        if($slug === NULL){
+            return 1;
+        }
+
+        $sql = "SELECT post_id FROM post_detail";
+
+        if($pid == -1){
+            $sql .= " WHERE post_slug = ".$this->db->escape($slug);
+        }else{
+            $sql .= " WHERE post_slug = ".$this->db->escape($slug)." AND post_id <> ".$this->db->escape($pid);
+        }
+
+        $query = $this->db->query($sql);
+        return $query->num_rows();
+    }
 }

@@ -287,6 +287,16 @@ table.dashboard-table > thead > tr > th,  table.dashboard-table > tbody > tr > t
     float: left;
 }
 
+.row-item:after{
+    clear: both;
+}
+
+.row-error_msg{
+    color: red;
+    margin-left: 10px;
+    line-height: 34px;
+    display: none;
+}
 
 /* Home */
 

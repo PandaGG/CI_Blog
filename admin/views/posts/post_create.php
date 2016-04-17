@@ -41,9 +41,10 @@
             <div class="dashboard-row">
                 <div class="row-label">Slug:</div>
                 <div class="row-item">
-                    <div class="input-group w400">
+                    <div class="input-group w400 float-left">
                         <input type="text" class="form-control" name="slug" placeholder="Slug" value="" required="required">
                     </div>
+                    <div id="slug-error" class="row-error_msg float-left">该Slug不可用</div>
                 </div>
             </div>
 
@@ -79,18 +80,20 @@
             <div class="dashboard-row">
                 <div class="row-label"></div>
                 <div class="row-item">
-                    <button class="btn btn-default" onclick="submitPost();">添加</button>
+                    <button class="btn btn-default" type="button" onclick="submitPost();">添加</button>
                 </div>
             </div>
         <?php echo form_close(); ?>
 	</div>
     <script type="text/javascript" src="<?php echo site_url();?>../assets/js/dashboard/post-edit.js"></script>
     <script type="text/javascript">
+        var post_api_url = "<?php echo site_url('api/post'); ?>";
         var upload_url = "<?php echo site_url('api/upload/post_image'); ?>";
         $(function(){
             initPostId();
             initTimestamp();
             initSummernote();
+            bindCheckSlug();
         });
     </script>
 </div>
