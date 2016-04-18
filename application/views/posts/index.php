@@ -19,10 +19,6 @@
             <i class="fa fa-eye"></i>
             <?php echo $post['post_hit']?> &#8451;
         </span>
-        <span>
-            <i class="fa fa-comments"></i>
-            0
-        </span>
 	</div>
 	<br>
 	<p class="excrept"><?php echo $post['post_excerpt']; ?></p>

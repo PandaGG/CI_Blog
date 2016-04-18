@@ -161,14 +161,19 @@ ul.categories_list li{
 }
 
 .article-content{
-    padding-bottom: 20px;
     margin-bottom: 20px;
-    border-bottom: 1px solid #dcdcdc;
 }
 
 .article-content img{
     max-width: 100%;
     max-height: 100%;
+}
+
+.article-eof{
+    border-bottom: 1px solid #dcdcdc;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
 /* ! Vertical Timeline */

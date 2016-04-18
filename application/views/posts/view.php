@@ -14,10 +14,6 @@
                 <i class="fa fa-eye"></i>
                 <?php echo $post['post_hit']?> &#8451;
             </span>
-            <span>
-                <i class="fa fa-comments"></i>
-                0
-            </span>
         </div>
         <div class="article-excerpt">
             <b>摘要:</b>
@@ -26,7 +22,7 @@
         <div class="article-content">
             <?php echo $post['post_content']; ?>
         </div>
-
+        <div class="article-eof">---EOF---</div>
         <!-- 阅读历史记录 -->
         <?php echo $recent_view_posts; ?>
         <!-- 阅读历史记录 -->
