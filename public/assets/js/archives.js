@@ -27,7 +27,7 @@ function loadArchivesPosts(){
 		async : false,
 		success: function(res) {
 			if(res.code == 200){
-				var data =  res.data;
+				var data =  res.response;
 				addPostLists(data);
 				offset = temp_offset;
 				loadTrigger = true;

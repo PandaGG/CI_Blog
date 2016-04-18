@@ -44,12 +44,12 @@ class Archives extends CI_Controller{
 		if($archives){
 			$response = array(
 				'code' => 200,
-				'data' => $archives
+				'response' => $archives
 			);
 		}else{
 			$response = array(
 				'code' => 400,
-				'data' => $archives
+				'response' => $archives
 			);
 		}
 		echo json_encode($response);

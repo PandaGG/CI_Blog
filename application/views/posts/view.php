@@ -1,4 +1,4 @@
-<div class="main_wrapper">
+<div class="main-wrapper">
     <article id="article-<?php echo $post['post_id'] ?>">
         <h3 class="article-title"><?php echo $post['post_title'] ?></h3>
         <div class="article-info">
@@ -51,4 +51,12 @@
         </div>
 
     </article>
+    <?php if(ENVIRONMENT === 'production'): ?>
+        <div class="comment-wrapper">
+            <!-- 多说评论框 start -->
+            <div class="ds-thread" data-thread-key="<?php echo $post['post_id'] ?>" data-title="<?php echo $post['post_title'] ?>" data-url="<?php echo site_url('posts/'.$post['post_slug']); ?>"></div>
+            <!-- 多说评论框 end -->
+            <script src="<?php echo site_url();?>assets/js/duoshuo-public.js"></script>
+        </div>
+    <?php endif; ?>
 </div>
