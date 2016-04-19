@@ -72,4 +72,18 @@ class Post_redis_model extends CI_Model{
 		return array();
 	}
 
+	public function markUserViewPost($id = NULL){
+		if($id === NULL){
+			return 0;
+		}
+		$remote_ip=$_SERVER["REMOTE_ADDR"];
+		$key = 'post-user-visit:'.$id.':'.$remote_ip;
+		$result =  $this->redis->SETNX($key, time());
+		if($result){
+			$this->redis->EXPIRE($key, 60*10);
+		}
+		return $result;
+	}
+
+
 }

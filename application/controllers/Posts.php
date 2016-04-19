@@ -45,10 +45,14 @@ class Posts extends MY_Controller{
 			return FALSE;
 		}
 		$id = $post_result['post_id'];
-		$this->post_model->add_hit($id);
+
+		$this->load->model('redis/post_redis_model');
+		$mark_result = $this->post_redis_model->markUserViewPost($id);
+		if($mark_result){
+			$this->post_model->add_hit($id);
+		}
 		$title = $post_result['post_title'];
 		$post_date = $post_result['post_date'];
-
 
 		$this->manage_recent_view($id, $slug, $title);
 
