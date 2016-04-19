@@ -80,7 +80,7 @@ class Post_redis_model extends CI_Model{
 		$key = 'post-user-visit:'.$id.':'.$remote_ip;
 		$result =  $this->redis->SETNX($key, time());
 		if($result){
-			$this->redis->EXPIRE($key, 60*10);
+			$this->redis->EXPIRE($key, 60*60*24);
 		}
 		return $result;
 	}
