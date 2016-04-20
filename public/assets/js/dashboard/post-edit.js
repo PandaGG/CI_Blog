@@ -23,7 +23,6 @@ function bindCheckSlug(){
 				url: post_api_url+"/is_slug_available/"+$(this).val().trim()+"/"+post_id,
 				cache: false,
 				success: function(res) {
-					console.log(res);
 					if(res.message == 'yes'){
 						$('#slug-error').hide();
 						$('#postForm').removeClass('error');
@@ -43,6 +42,17 @@ function initSummernote() {
 		minHeight: null,
 		maxHeight: null,
 		lang: 'zh-CN',
+		toolbar: [
+			// [groupName, [list of button]]
+			['style', ['style']],
+			['fontstyle', ['bold', 'italic', 'underline', 'clear']],
+			['color', ['color']],
+			['font', ['strikethrough', 'superscript', 'subscript']],
+			['para', ['ul', 'ol', 'paragraph']],
+			['table', ['table']],
+			['insert', ['link','picture', 'video']],
+			['view', ['fullscreen', 'codeview']]
+		],
 		callbacks: {
 			onImageUpload: function (files) {
 				// upload image to server and create imgNode...
@@ -52,14 +62,6 @@ function initSummernote() {
 			}
 		}
 	});
-	/*
-	if($('textarea[name="context"]').val() != ''){
-		//edit页面赋现有内容为值给编辑器
-		var sHTML = $('textarea[name="context"]').val();
-		$('#editor').summernote('code', sHTML);
-	}
-	*/
-
 }
 
 function uploadImage(file){
