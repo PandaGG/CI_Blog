@@ -22,7 +22,12 @@
         <div class="article-content">
             <?php echo $post['post_content']; ?>
         </div>
-        <div class="article-eof">---EOF---</div>
+        <div class="article-footer">
+            <div class="article-eof">---EOF---</div>
+            <?php if($post['post_date'] != $post['post_modified']): ?>
+            <div class="article-modified">最后于 <?php echo $post['post_modified']; ?> 修改</div>
+            <?php endif; ?>
+        </div>
         <!-- 阅读历史记录 -->
         <?php echo $recent_view_posts; ?>
         <!-- 阅读历史记录 -->

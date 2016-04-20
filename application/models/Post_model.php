@@ -48,7 +48,7 @@ class Post_model extends CI_Model{
 		if($post_slug === NULL){
 			return array();
 		}else{
-			$sql = "SELECT post_id, post_slug, post_title, post_excerpt, post_content, post_date, post_hit, category_name, category_slug
+			$sql = "SELECT post_id, post_slug, post_title, post_excerpt, post_content, post_date, post_modified, post_hit, category_name, category_slug
 				FROM post_detail
 				WHERE post_status = 'publish' AND post_slug = ".$this->db->escape($post_slug);
 			$query = $this->db->query($sql);

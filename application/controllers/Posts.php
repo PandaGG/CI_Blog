@@ -53,6 +53,7 @@ class Posts extends MY_Controller{
 		}
 		$title = $post_result['post_title'];
 		$post_date = $post_result['post_date'];
+		$post_modified = $post_result['post_modified'];
 
 		$this->manage_recent_view($id, $slug, $title);
 
