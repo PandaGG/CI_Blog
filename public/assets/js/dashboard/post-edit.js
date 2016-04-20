@@ -52,11 +52,13 @@ function initSummernote() {
 			}
 		}
 	});
+	/*
 	if($('textarea[name="context"]').val() != ''){
 		//edit页面赋现有内容为值给编辑器
 		var sHTML = $('textarea[name="context"]').val();
 		$('#editor').summernote('code', sHTML);
 	}
+	*/
 
 }
 

@@ -77,8 +77,8 @@
                 <div class="row-label">内容:</div>
                 <div class="row-item">
                     <div class="editor-container">
-                        <div id="editor"></div>
-                        <textarea name="context" style="display: none;"><?php echo $post['post_content']; ?></textarea>
+                        <div id="editor"><?php echo $post['post_content']; ?></div>
+                        <textarea name="context" style="display: none;"></textarea>
                         <input type="text" name="timestamp" value="<?php echo time(); ?>" style="display:none;">
                         <div class="editor-cover">
                             <div class="editor-cover-bg"></div>
