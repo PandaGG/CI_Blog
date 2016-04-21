@@ -179,6 +179,11 @@ class Post extends MY_Controller{
         $this->load->library('Media_uti');
         $this->media_uti->match_image($timestamp, $pid);
         if($result){
+            if($status != 'publish'){
+                $this->load->model('redis/post_redis_model');
+                $this->post_redis_model->removeFromRecentPost($pid);
+                $this->post_redis_model->removeFromCachePost($pid);
+            }
             $this->pageTips('更新文章成功',$this->session->lastUri, 2);
         }else{
             $this->pageTips('更新文章失败',$this->session->lastUri, 2, 'fail');
@@ -219,6 +224,9 @@ class Post extends MY_Controller{
         }else{
             $result = $this->Post_model->updateStatus(array($pid), 'trash');
             if($result){
+                $this->load->model('redis/post_redis_model');
+                $this->post_redis_model->removeFromRecentPost($pid);
+                $this->post_redis_model->removeFromCachePost($pid);
                 $this->pageTips('移动至垃圾箱成功',$this->session->lastUri, 2);
             }else{
                 $this->pageTips('移动至垃圾箱失败',$this->session->lastUri, 2, 'fail');
@@ -259,6 +267,11 @@ class Post extends MY_Controller{
 		if($this->input->post('group-trash')){
             $result = $this->Post_model->updateStatus($ids, 'trash');
             if($result){
+                $this->load->model('redis/post_redis_model');
+                foreach($ids as $id){
+                    $this->post_redis_model->removeFromRecentPost($id);
+                    $this->post_redis_model->removeFromCachePost($id);
+                }
                 $this->pageTips('批量移动至垃圾箱成功',$this->session->lastUri, 2);
             }else{
                 $this->pageTips('批量移动至垃圾箱失败',$this->session->lastUri, 2, 'fail');
