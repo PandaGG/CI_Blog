@@ -10,21 +10,28 @@
 		<link rel="bookmark" href="<?php echo site_url();?>favicon.ico"/>
 		<title><?php echo $page_title; ?></title>
 
-		<link rel="stylesheet" href="<?php echo site_url();?>assets/css/bootstrap.css" />
-        <link rel="stylesheet" href="<?php echo site_url();?>assets/css/font-awesome.css">
+		<?php if(ENVIRONMENT === 'production'): ?>
+			<!-- CDN加速 Style-->
+			<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+			<link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+		<?php else: ?>
+			<!-- 本地获取 Style-->
+			<link rel="stylesheet" href="<?php echo site_url();?>assets/css/bootstrap.css" />
+			<link rel="stylesheet" href="<?php echo site_url();?>assets/css/font-awesome.css">
+		<?php endif; ?>
 
-		<!--
-		<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
-		-->
 		<link rel="stylesheet" href="<?php echo site_url();?>assets/css/main.css" />
 
-		<script src="<?php echo site_url();?>assets/js/jquery.min.js"></script>
-	    <script src="<?php echo site_url();?>assets/js/bootstrap.min.js"></script>
-		<!--
-		<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-	    <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-		-->
+		<?php if(ENVIRONMENT === 'production'): ?>
+		<!-- CDN加速 Script-->
+			<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+			<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		<?php else: ?>
+			<!-- 本地获取 Script-->
+			<script src="<?php echo site_url();?>assets/js/jquery.min.js"></script>
+			<script src="<?php echo site_url();?>assets/js/bootstrap.min.js"></script>
+		<?php endif; ?>
+
 		<script>
 			var site_url = '<?php echo site_url();?>';
 		</script>
